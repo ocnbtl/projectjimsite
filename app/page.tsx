@@ -2,6 +2,8 @@ import Link from "next/link";
 import { EstimateForm } from "@/components/estimate-form";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
 import { MaterialStudy } from "@/components/material-study";
+import { ProjectPair } from "@/components/project-pair";
+import { educationProject, featuredProject } from "@/content/projects";
 import { business, feedbackPlaceholders, processSteps, services } from "@/content/site";
 import styles from "./home.module.css";
 
@@ -26,7 +28,13 @@ export default function HomePage() {
             </a>
           </div>
         </div>
-        <MaterialStudy />
+        <div className={styles.heroVisual}>
+          <ProjectPair {...featuredProject} variant="hero" priority />
+          <p className={styles.heroProjectLabel}>
+            <span>Featured transformation</span>
+            Addition color integration
+          </p>
+        </div>
       </section>
 
       <section className="services-section shell" aria-labelledby="services-title">
@@ -55,8 +63,12 @@ export default function HomePage() {
       </section>
 
       <section className="education-section shell" aria-labelledby="education-title">
-        <div className="education-media">
-          <MaterialStudy />
+        <div className={`education-media ${styles.educationProject}`}>
+          <ProjectPair {...educationProject} variant="compact" />
+          <p className={styles.projectCaption}>
+            <span>Selective correction</span>
+            A visible repair brought into relationship with the original brick.
+          </p>
         </div>
         <div className="education-copy">
           <h2 id="education-title">Change the color without hiding the masonry.</h2>
@@ -77,6 +89,9 @@ export default function HomePage() {
           </div>
           <Link className="text-link" href="/services">
             Understand the options <span aria-hidden="true">→</span>
+          </Link>
+          <Link className={`text-link ${styles.galleryLink}`} href="/gallery">
+            See five before-and-after projects <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>

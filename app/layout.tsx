@@ -15,6 +15,14 @@ export const metadata: Metadata = {
     title: "Masonry Color Corrections LLC",
     description:
       "Color staining and matching for brick repairs, additions, and mismatched masonry in the Cincinnati area.",
+    images: [
+      {
+        url: "/images/projects/addition-after.jpeg",
+        width: 1242,
+        height: 929,
+        alt: "Completed brick addition color integration by Masonry Color Corrections LLC",
+      },
+    ],
     type: "website",
   },
 };

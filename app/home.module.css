@@ -1,3 +1,63 @@
+.heroVisual {
+  min-height: 100%;
+  position: relative;
+}
+
+.heroProjectLabel {
+  background: rgba(34, 35, 33, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  bottom: 28px;
+  color: #f8f5ef;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  margin: 0;
+  padding: 14px 17px;
+  position: absolute;
+  right: 28px;
+  z-index: 3;
+}
+
+.heroProjectLabel span,
+.projectCaption span {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.educationProject {
+  display: flex;
+  flex-direction: column;
+}
+
+.educationProject > figure {
+  border-radius: var(--radius-small);
+  flex: 1;
+}
+
+.projectCaption {
+  align-items: center;
+  color: var(--smoke);
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  line-height: 1.5;
+  margin: 18px 2px 2px;
+}
+
+.projectCaption span {
+  color: var(--clay);
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.galleryLink {
+  margin-top: 18px;
+}
+
 .feedbackSection {
   padding-bottom: clamp(96px, 11vw, 170px);
 }
@@ -54,6 +114,16 @@
 }
 
 @media (max-width: 860px) {
+  .heroVisual {
+    min-height: 620px;
+  }
+
+  .projectCaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
   .feedbackHeading,
   .feedbackList {
     grid-template-columns: 1fr;
@@ -76,5 +146,16 @@
 
   .feedbackList h3 {
     margin-top: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heroVisual {
+    min-height: 480px;
+  }
+
+  .heroProjectLabel {
+    bottom: 16px;
+    right: 16px;
   }
 }

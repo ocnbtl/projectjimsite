@@ -835,35 +835,33 @@ textarea {
   padding-bottom: 120px;
 }
 
-.preview-note {
-  background: var(--mortar);
-  border: 1px solid var(--joint);
-  border-radius: 10px;
-  color: var(--smoke);
-  margin: 0;
-  padding: 14px 18px;
-}
-
 .gallery-item {
-  align-items: end;
+  align-items: center;
+  border-bottom: 1px solid var(--joint);
   display: grid;
-  gap: 40px;
+  gap: clamp(40px, 6vw, 96px);
   grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+  padding-bottom: 56px;
 }
 
-.gallery-item:nth-child(odd) .material-study {
+.gallery-item:nth-child(even) .gallery-media {
   grid-column: 2;
 }
 
-.gallery-item:nth-child(odd) > div {
+.gallery-item:nth-child(even) {
+  grid-template-columns: minmax(280px, 0.55fr) minmax(0, 1.45fr);
+}
+
+.gallery-item:nth-child(even) .gallery-copy {
   grid-column: 1;
   grid-row: 1;
 }
 
-.gallery-item .material-study {
+.gallery-media {
+  background: var(--sample);
   border: 1px solid var(--joint);
   border-radius: var(--radius-main);
-  min-height: 570px;
+  overflow: hidden;
 }
 
 .gallery-item h2 {
@@ -877,6 +875,25 @@ textarea {
   color: var(--smoke);
   font-size: 1.05rem;
   line-height: 1.65;
+}
+
+.gallery-number,
+.gallery-category {
+  color: var(--clay) !important;
+  font-size: 0.72rem !important;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.gallery-number {
+  margin: 0 0 28px;
+}
+
+.gallery-category {
+  border-bottom: 1px solid var(--joint);
+  margin: 0 0 20px;
+  padding-bottom: 20px;
 }
 
 .about-grid,
@@ -1296,6 +1313,10 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .gallery-item:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+
   .contact-material {
     border-bottom: 1px solid var(--joint);
     border-right: 0;
@@ -1308,8 +1329,8 @@ textarea {
 
   .service-detail:nth-child(even) .service-detail-copy,
   .service-detail:nth-child(even) .material-study,
-  .gallery-item:nth-child(odd) .material-study,
-  .gallery-item:nth-child(odd) > div {
+  .gallery-item:nth-child(even) .gallery-media,
+  .gallery-item:nth-child(even) .gallery-copy {
     grid-column: 1;
     grid-row: auto;
   }
@@ -1330,7 +1351,6 @@ textarea {
     gap: 28px;
   }
 
-  .gallery-item .material-study,
   .about-grid > .material-study {
     min-height: 500px;
   }
@@ -1363,7 +1383,6 @@ textarea {
 
   .hero > .material-study,
   .education-media .material-study,
-  .gallery-item .material-study,
   .about-grid > .material-study {
     min-height: 390px;
   }

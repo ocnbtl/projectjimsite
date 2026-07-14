@@ -6,7 +6,7 @@ Internal working project for the Masonry Color Corrections LLC website. “Proje
 
 Phase 1 research and strategy is complete. The responsive Next.js website is now scaffolded with production routes for Home, Services, Gallery, About, Contact, and Privacy. The July 14, 2026 build includes the approved minimal editorial direction, confirmed business details, local-search foundations, and a photo-enabled consultation form interface.
 
-The current gallery uses clearly labeled design placeholders. Five original MCC before-and-after project sets have been approved for use and are the next asset integration checkpoint.
+Five original MCC before-and-after project sets are now integrated across the homepage, gallery, and social-sharing metadata. The repository preserves the supplied JPEGs byte-for-byte; responsive framing is handled by the website without editorial retouching.
 
 ## Project documents
 
@@ -33,8 +33,7 @@ npm run build
 
 ## Delivery path
 
-1. Integrate the approved original before-and-after photography.
-2. Complete responsive visual QA and accessibility testing with the real assets.
-3. Replace the placeholder email and testimonial content when the client approves them.
-4. Connect secure form delivery with image attachments to the future Google Workspace inbox.
-5. Connect the domain, deploy, submit search properties, and complete launch QA.
+1. Replace the placeholder email and testimonial content when the client approves them.
+2. Connect secure form delivery with image attachments to the future Google Workspace inbox.
+3. Complete final accessibility, device, and content approval QA.
+4. Connect the domain, deploy, submit search properties, and complete launch QA.
