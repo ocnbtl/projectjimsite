@@ -1,0 +1,81 @@
+.placeholder {
+  background: #d8cfc2;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  position: relative;
+}
+
+.frame {
+  background-image: url("/images/masonry-project-placeholders.png");
+  background-repeat: no-repeat;
+  background-size: 300% 200%;
+  min-height: 570px;
+  position: relative;
+}
+
+.frame span {
+  background: rgba(248, 245, 239, 0.92);
+  border: 1px solid rgba(63, 54, 45, 0.17);
+  border-radius: 999px;
+  color: #222321;
+  font-size: 0.72rem;
+  font-weight: 700;
+  left: 18px;
+  letter-spacing: 0.08em;
+  padding: 7px 11px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 18px;
+}
+
+.project1 .frame {
+  background-position-x: 0;
+}
+
+.project2 .frame {
+  background-position-x: 50%;
+}
+
+.project3 .frame {
+  background-position-x: 100%;
+}
+
+.before {
+  background-position-y: 0;
+}
+
+.after {
+  background-position-y: 100%;
+}
+
+.notice {
+  background: rgba(34, 35, 33, 0.86);
+  bottom: 14px;
+  color: #f8f5ef;
+  font-size: 0.7rem;
+  left: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 9px 12px;
+  position: absolute;
+  right: 14px;
+}
+
+@media (max-width: 860px) {
+  .frame {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 560px) {
+  .frame {
+    min-height: 390px;
+  }
+
+  .frame span {
+    left: 10px;
+    top: 10px;
+  }
+}
