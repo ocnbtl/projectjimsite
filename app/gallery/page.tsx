@@ -16,9 +16,8 @@ export default function GalleryPage() {
     <>
       <PageIntro title="The result should read as part of the original work.">
         <p>
-          These authentic MCC project photographs show broad color shifts and localized repairs
-          brought back into relationship with the masonry around them. Every pair is presented
-          without retouching.
+          Browse completed MCC projects across broad color shifts, localized repair blending,
+          exterior walls, and interior finish details.
         </p>
       </PageIntro>
 

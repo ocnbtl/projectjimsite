@@ -1,7 +1,7 @@
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
-  grid-template-rows: minmax(590px, auto) auto;
+  grid-template-columns: minmax(0, 0.52fr) minmax(0, 0.48fr);
+  grid-template-rows: clamp(590px, 45vw, 680px) auto;
   overflow: hidden;
 }
 
@@ -10,7 +10,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(52px, 6vw, 96px);
+  padding: clamp(52px, 4.6vw, 94px);
+  position: relative;
+  z-index: 2;
+}
+
+.heroCopy h1 {
+  max-width: 580px;
+}
+
+.heroCopy > p:not(.heroUtility) {
+  max-width: 440px;
 }
 
 .heroCopy h1 span {
@@ -30,35 +40,36 @@
 }
 
 .heroVisual {
-  background: var(--mortar-deep);
+  background: var(--sample);
   border-left: 1px solid var(--joint);
   grid-column: 2;
   grid-row: 1;
   margin: 0;
-  min-height: 590px;
-  overflow: hidden;
+  min-height: 0;
+  overflow: visible;
   position: relative;
 }
 
 .heroAfter,
 .heroBefore {
   background: #d5cdc0;
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.74);
   border-radius: var(--radius-media);
   overflow: hidden;
   position: absolute;
 }
 
 .heroAfter {
-  inset: 26px 26px 26px 72px;
+  inset: clamp(20px, 1.7vw, 28px);
 }
 
 .heroBefore {
-  aspect-ratio: 4 / 3;
-  bottom: 26px;
-  left: 26px;
-  width: min(31%, 260px);
-  z-index: 2;
+  --before-width: clamp(220px, 15.25vw, 360px);
+
+  aspect-ratio: 4 / 5;
+  bottom: clamp(20px, 1.7vw, 28px);
+  left: calc(0px - var(--before-width) - 14px);
+  width: var(--before-width);
 }
 
 .heroAfter img,
@@ -74,7 +85,7 @@
   border-radius: 7px;
   color: var(--soot);
   font-size: 0.68rem;
-  font-weight: 750;
+  font-weight: 800;
   left: 14px;
   letter-spacing: 0.1em;
   padding: 7px 10px;
@@ -91,34 +102,54 @@
 }
 
 .heroServices {
-  background: var(--joint-strong);
+  background: var(--sample);
+  border-block: 5px solid var(--buff);
   display: grid;
-  gap: 1px;
   grid-column: 1 / -1;
   grid-row: 2;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   position: relative;
 }
 
-.heroServices::before {
-  background: var(--buff);
-  content: "";
-  height: 5px;
-  inset: 0 0 auto;
-  position: absolute;
-  z-index: 2;
-}
-
 .heroServices a {
-  align-content: center;
+  align-items: center;
   background: var(--sample);
   color: var(--soot);
   display: grid;
-  gap: 7px 16px;
-  grid-template-columns: 42px minmax(0, 1fr) 24px;
-  min-height: 154px;
-  padding: 32px clamp(24px, 3vw, 48px) 26px;
+  gap: 18px;
+  grid-template-columns: 56px minmax(0, 1fr) 28px;
+  min-height: 174px;
+  padding: 32px clamp(28px, 3vw, 56px);
+  position: relative;
   transition: background 180ms ease, color 180ms ease;
+}
+
+.heroServices a + a {
+  padding-left: clamp(50px, 4vw, 78px);
+}
+
+.heroServices a:not(:last-child)::before,
+.heroServices a:not(:last-child)::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+}
+
+.heroServices a:not(:last-child)::before {
+  border-right: 5px solid var(--buff);
+  bottom: 62px;
+  right: -2px;
+  top: 0;
+}
+
+.heroServices a:not(:last-child)::after {
+  border-right: 5px solid var(--buff);
+  border-top: 5px solid var(--buff);
+  bottom: -5px;
+  height: 67px;
+  right: -42px;
+  width: 42px;
 }
 
 .heroServices a:hover {
@@ -126,27 +157,49 @@
   color: var(--sample);
 }
 
-.serviceNumber {
-  color: var(--clay);
-  font-size: 0.76rem;
-  font-weight: 800;
-  grid-row: 1 / 3;
-  letter-spacing: 0.08em;
-  padding-top: 4px;
+.heroServices a:focus-visible {
+  outline-offset: -6px;
+  z-index: 6;
+}
+
+.serviceIcon {
+  align-items: center;
+  background: var(--clay);
+  border-radius: 9px;
+  color: white;
+  display: flex;
+  height: 56px;
+  justify-content: center;
+  width: 56px;
+}
+
+.serviceIcon svg {
+  fill: none;
+  height: 31px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 31px;
+}
+
+.serviceContent {
+  display: grid;
+  gap: 6px;
 }
 
 .serviceTitle {
-  font-size: clamp(1.02rem, 1.3vw, 1.28rem);
-  font-weight: 730;
+  font-size: clamp(1.04rem, 1.15vw, 1.26rem);
+  font-weight: 740;
   letter-spacing: -0.035em;
   line-height: 1.12;
 }
 
 .serviceCopy {
   color: var(--smoke);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  max-width: 330px;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  max-width: 350px;
 }
 
 .heroServices a:hover .serviceCopy {
@@ -154,12 +207,19 @@
 }
 
 .serviceArrow {
-  align-self: center;
   color: var(--clay);
-  font-size: 1.55rem;
-  grid-column: 3;
-  grid-row: 1 / 3;
+  display: flex;
   transition: transform 180ms ease;
+}
+
+.serviceArrow svg {
+  fill: none;
+  height: 28px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 28px;
 }
 
 .heroServices a:hover .serviceArrow {
@@ -171,8 +231,8 @@
   border: 1px solid var(--joint);
   border-radius: var(--radius-main);
   display: grid;
-  grid-template-columns: minmax(0, 1.28fr) minmax(380px, 0.72fr);
-  margin-top: clamp(80px, 9vw, 132px);
+  grid-template-columns: minmax(0, 1.18fr) minmax(390px, 0.82fr);
+  margin-top: clamp(76px, 7vw, 112px);
   overflow: hidden;
 }
 
@@ -180,55 +240,129 @@
   background: var(--mortar-deep);
   border-right: 1px solid var(--joint);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   min-width: 0;
-  padding: 18px;
+  padding: clamp(22px, 3vw, 48px);
 }
 
-.educationMedia > figure {
-  border-radius: var(--radius-media);
-  flex: 0 0 auto;
+.materialVisual {
+  background: #2a2926;
+  border: 1px solid rgba(248, 245, 239, 0.42);
+  border-radius: var(--radius-main);
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  min-height: clamp(460px, 35vw, 640px);
+  overflow: hidden;
+  width: 100%;
+}
+
+.materialPanel {
+  background: #f1ece3;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+}
+
+.brickField {
+  align-content: center;
+  display: grid;
+  gap: clamp(3px, 0.45vw, 7px);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(34px, 1fr));
   min-height: 0;
+  overflow: hidden;
+  padding: clamp(18px, 3.2vw, 52px);
 }
 
-.projectMeta {
-  align-items: center;
-  display: flex;
-  gap: 22px;
-  justify-content: space-between;
-  padding: 18px 4px 0;
+.brickField span {
+  background-image: linear-gradient(115deg, rgba(255, 255, 255, 0.12), transparent 44%, rgba(38, 25, 20, 0.1));
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(45, 32, 26, 0.08);
+  min-width: 0;
 }
 
-.projectMeta span {
-  color: var(--clay);
-  font-size: 0.68rem;
+.brickField span:nth-child(12n + 7),
+.brickField span:nth-child(12n + 8),
+.brickField span:nth-child(12n + 9),
+.brickField span:nth-child(12n + 10),
+.brickField span:nth-child(12n + 11),
+.brickField span:nth-child(12n + 12) {
+  transform: translateX(8%);
+}
+
+.paintField {
+  background: #9b3b2b;
+  gap: 2px;
+}
+
+.paintField span {
+  background-color: #a94330;
+  box-shadow: inset 0 0 0 1px rgba(91, 26, 18, 0.13);
+}
+
+.correctionField {
+  background: #d0c2af;
+}
+
+.brickClay {
+  background-color: #a8422d !important;
+}
+
+.brickUmber {
+  background-color: #6d4738 !important;
+}
+
+.brickSoft {
+  background-color: #b96849 !important;
+}
+
+.brickDeep {
+  background-color: #793226 !important;
+}
+
+.brickWarm {
+  background-color: #c2825c !important;
+}
+
+.materialLabel {
+  border-top: 1px solid var(--joint);
+  padding: clamp(18px, 2vw, 30px);
+}
+
+.materialLabel span {
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
-.projectMeta p {
-  font-size: 0.9rem;
-  font-weight: 650;
-  margin: 0;
+.materialLabel p {
+  color: var(--smoke);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  margin: 7px 0 0;
 }
 
 .educationCopy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(48px, 5vw, 78px);
+  padding: clamp(48px, 5vw, 84px);
 }
 
 .educationCopy h2,
 .workHeading h2,
 .closingLead h2 {
-  font-size: clamp(2.5rem, 4.3vw, 4.8rem);
+  font-size: clamp(2.5rem, 4.1vw, 4.85rem);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
   margin: 0;
+}
+
+.educationCopy h2 {
+  max-width: 680px;
 }
 
 .educationCopy > p {
@@ -236,6 +370,7 @@
   font-size: 1.02rem;
   line-height: 1.7;
   margin: 32px 0;
+  max-width: 640px;
 }
 
 .comparison {
@@ -269,49 +404,50 @@
 .work {
   align-items: end;
   display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.22fr) minmax(260px, 0.68fr);
-  margin-top: clamp(80px, 9vw, 132px);
+  gap: 18px;
+  grid-template-columns: minmax(270px, 0.7fr) minmax(500px, 1.35fr) minmax(270px, 0.72fr);
+  margin-top: clamp(76px, 7vw, 112px);
 }
 
 .workHeading {
   align-self: center;
-  padding-right: clamp(16px, 3vw, 44px);
+  padding-right: clamp(18px, 3vw, 54px);
 }
 
 .workHeading h2 {
-  font-size: clamp(2.4rem, 4vw, 4.35rem);
+  font-size: clamp(2.5rem, 3.8vw, 4.5rem);
+  max-width: 560px;
 }
 
 .workHeading > p {
   color: var(--smoke);
-  line-height: 1.65;
-  margin: 26px 0 30px;
-  max-width: 390px;
+  line-height: 1.68;
+  margin: 28px 0 30px;
+  max-width: 440px;
+}
+
+.workComparison {
+  min-width: 0;
 }
 
 .workCard {
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius-main);
-  min-height: 520px;
   overflow: hidden;
   position: relative;
 }
 
 .workCard::after {
-  background: linear-gradient(to top, rgba(22, 21, 19, 0.82), transparent 44%);
+  background: linear-gradient(to top, rgba(22, 21, 19, 0.84), transparent 48%);
   content: "";
   inset: 0;
   position: absolute;
 }
 
-.workCardTall {
-  min-height: 610px;
-}
-
 .workCard > span {
   bottom: 28px;
   color: white;
-  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.15rem, 1.45vw, 1.5rem);
   font-weight: 720;
   left: 28px;
   letter-spacing: -0.035em;
@@ -335,11 +471,11 @@
   border-radius: var(--radius-main);
   color: var(--sample);
   display: grid;
-  gap: 40px clamp(50px, 7vw, 120px);
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
-  margin-block: clamp(80px, 9vw, 132px) 72px;
+  gap: clamp(52px, 7vw, 140px);
+  grid-template-columns: minmax(0, 0.86fr) minmax(440px, 1.14fr);
+  margin-block: clamp(76px, 7vw, 112px) 72px;
   overflow: hidden;
-  padding: clamp(48px, 6vw, 88px);
+  padding: clamp(48px, 5.5vw, 90px);
   position: relative;
 }
 
@@ -354,15 +490,23 @@
   width: 360px;
 }
 
-.closingLead h2 {
-  max-width: 620px;
+.closingLead {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  position: relative;
+  z-index: 2;
 }
 
-.closingLead > p {
+.closingLead h2 {
+  max-width: 650px;
+}
+
+.closingLead > p:not(.closingArea) {
   color: #bbb4aa;
-  line-height: 1.65;
+  line-height: 1.68;
   margin: 30px 0;
-  max-width: 500px;
+  max-width: 560px;
 }
 
 .closingActions {
@@ -371,19 +515,54 @@
   gap: 12px;
 }
 
+.closingArea {
+  color: #8f8980;
+  font-size: 0.74rem;
+  letter-spacing: 0.035em;
+  margin: auto 0 0;
+  padding-top: 46px;
+}
+
+.closingArea span {
+  color: var(--clay-light);
+  margin-inline: 8px;
+}
+
+.closingProcess {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.closingProcessLabel {
+  color: #938d84;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
 .closingSteps {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  flex: 1;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .closingSteps li {
+  align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   display: grid;
-  gap: 24px;
-  grid-template-columns: 34px 1fr;
-  padding: 22px 0;
+  gap: 26px;
+  grid-template-columns: 42px 1fr;
+  min-height: 132px;
+  padding: 24px 0;
 }
 
 .closingSteps li > span {
@@ -394,53 +573,77 @@
 }
 
 .closingSteps h3 {
-  font-size: 1.12rem;
+  font-size: 1.14rem;
   letter-spacing: -0.025em;
-  margin: 0 0 5px;
+  margin: 0 0 6px;
 }
 
 .closingSteps p {
   color: #aaa49b;
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
+  line-height: 1.55;
   margin: 0;
+  max-width: 680px;
 }
 
-.closingArea {
-  color: #8f8980;
-  font-size: 0.74rem;
-  grid-column: 1 / -1;
-  letter-spacing: 0.035em;
-  margin: 0;
-  position: relative;
-  z-index: 2;
+@media (max-width: 1500px) {
+  .heroServices a {
+    grid-template-columns: 52px minmax(0, 1fr) 24px;
+    padding-inline: 30px;
+  }
+
+  .heroServices a + a {
+    padding-left: 58px;
+  }
 }
 
-.closingArea span {
-  color: var(--clay-light);
-  margin-inline: 8px;
-}
-
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .hero {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    grid-template-columns: minmax(390px, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .heroVisual {
+    display: grid;
+    gap: clamp(14px, 1.6vw, 22px);
+    grid-template-columns: minmax(150px, 0.36fr) minmax(0, 1fr);
+    padding: clamp(18px, 2vw, 24px);
+  }
+
+  .heroAfter,
+  .heroBefore {
+    inset: auto;
+    position: relative;
+    width: auto;
   }
 
   .heroAfter {
-    left: 56px;
+    height: 100%;
   }
 
-  .heroServices a {
-    grid-template-columns: 32px 1fr 20px;
-    padding-inline: 24px;
+  .heroBefore {
+    align-self: end;
+  }
+
+  .serviceCopy {
+    font-size: 0.79rem;
   }
 
   .education {
-    grid-template-columns: 1.08fr 0.92fr;
+    grid-template-columns: minmax(0, 1.06fr) minmax(370px, 0.94fr);
   }
 
   .work {
-    grid-template-columns: 0.78fr 1fr 0.72fr;
+    align-items: start;
+    grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  }
+
+  .workHeading {
+    grid-column: 1 / -1;
+    padding: 0 0 24px;
+  }
+
+  .workHeading > p {
+    max-width: 680px;
   }
 }
 
@@ -482,39 +685,42 @@
   }
 
   .heroVisual {
+    background: var(--soot);
     border-left: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     grid-column: 1;
     grid-row: 2;
-    min-height: 420px;
-  }
-
-  .heroAfter,
-  .heroBefore {
-    bottom: 22px;
-    top: 22px;
-    width: calc(50% - 29px);
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    min-height: 430px;
+    padding: 22px;
   }
 
   .heroBefore {
-    aspect-ratio: auto;
-    left: 22px;
-  }
-
-  .heroAfter {
-    left: auto;
-    right: 22px;
+    align-self: end;
   }
 
   .heroServices {
+    border-block-width: 4px;
     grid-column: 1;
     grid-row: 3;
     grid-template-columns: 1fr;
   }
 
-  .heroServices a {
-    min-height: 112px;
+  .heroServices a,
+  .heroServices a + a {
+    border-bottom: 1px solid var(--joint);
+    grid-template-columns: 52px minmax(0, 1fr) 28px;
+    min-height: 124px;
     padding: 24px;
+  }
+
+  .heroServices a:last-child {
+    border-bottom: 0;
+  }
+
+  .heroServices a:not(:last-child)::before,
+  .heroServices a:not(:last-child)::after {
+    display: none;
   }
 
   .education {
@@ -526,43 +732,36 @@
     border-right: 0;
   }
 
-  .educationMedia > figure {
-    min-height: 0;
+  .materialVisual {
+    min-height: 470px;
   }
 
   .educationCopy {
-    padding: 46px 28px 52px;
+    padding: 48px 30px 54px;
   }
 
   .work {
-    align-items: stretch;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr);
   }
 
   .workHeading {
     grid-column: 1 / -1;
-    padding: 0 0 24px;
-  }
-
-  .workHeading > p {
-    max-width: 560px;
-  }
-
-  .workCard,
-  .workCardTall {
-    min-height: 500px;
   }
 
   .closing {
     grid-template-columns: 1fr;
   }
 
+  .closingLead {
+    min-height: 0;
+  }
+
   .closingArea {
-    grid-column: 1;
+    margin-top: 46px;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .heroCopy {
     padding-inline: 22px;
   }
@@ -582,24 +781,34 @@
   }
 
   .heroVisual {
+    gap: 12px;
     min-height: 350px;
+    padding: 14px;
   }
 
-  .heroAfter,
-  .heroBefore {
-    width: calc(50% - 25px);
+  .heroAfter span,
+  .heroBefore span {
+    font-size: 0.58rem;
+    left: 9px;
+    padding: 5px 7px;
+    top: 9px;
   }
 
-  .heroBefore {
-    left: 18px;
+  .heroServices a,
+  .heroServices a + a {
+    grid-template-columns: 46px minmax(0, 1fr) 24px;
+    min-height: 112px;
+    padding: 20px;
   }
 
-  .heroAfter {
-    right: 18px;
+  .serviceIcon {
+    height: 46px;
+    width: 46px;
   }
 
-  .heroServices a {
-    grid-template-columns: 30px 1fr 20px;
+  .serviceIcon svg {
+    height: 26px;
+    width: 26px;
   }
 
   .serviceCopy {
@@ -611,14 +820,16 @@
   }
 
   .educationMedia {
-    padding: 10px;
+    padding: 12px;
   }
 
-  .projectMeta {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 5px;
-    padding: 14px 4px 4px;
+  .materialVisual {
+    grid-template-columns: 1fr;
+    min-height: 720px;
+  }
+
+  .brickField {
+    min-height: 260px;
   }
 
   .educationCopy h2,
@@ -647,22 +858,33 @@
     grid-column: 1;
   }
 
-  .workCard,
-  .workCardTall {
-    min-height: 420px;
-  }
-
-  .workCardTall {
-    min-height: 520px;
+  .workCard {
+    aspect-ratio: 4 / 5;
   }
 
   .closing {
-    gap: 38px;
+    gap: 46px;
     margin-block: 72px 32px;
     padding: 42px 24px;
   }
 
   .closingActions .button {
     width: 100%;
+  }
+
+  .closingArea {
+    line-height: 1.7;
+  }
+
+  .closingSteps li {
+    grid-template-columns: 34px 1fr;
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroServices a,
+  .serviceArrow {
+    transition: none;
   }
 }

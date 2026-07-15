@@ -42,17 +42,17 @@ export const projects: Project[] = [
   },
   {
     number: "03",
-    slug: "fireplace-stone-refinement",
-    title: "Fireplace stone refinement",
-    category: "Interior stone · color refinement",
+    slug: "fireplace-wood-tone-matching",
+    title: "Fireplace wood-tone matching",
+    category: "Interior finish · wood-tone correction",
     summary:
-      "This interior fireplace called for a more considered relationship among the gray fieldstone and warmer accent pieces. The finished view retains the stone’s individual texture and variation.",
+      "The stone was left unchanged. MCC adjusted the lighter mantel tone to relate more closely to the existing darker wood trim.",
     before: "/images/projects/fireplace-before.jpeg",
     after: "/images/projects/fireplace-after.jpeg",
     beforeAlt:
-      "Before color refinement, a tall gray stone fireplace surrounds a television and wood mantel.",
+      "Before color correction, the fireplace mantel appears lighter than the existing darker wood trim.",
     afterAlt:
-      "After color refinement, the stone fireplace retains varied gray and warm natural-looking tones around the television.",
+      "After color correction, the fireplace mantel has a deeper brown tone that coordinates with the existing wood trim while the stone remains unchanged.",
     orientation: "portrait",
   },
   {

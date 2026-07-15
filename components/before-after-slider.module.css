@@ -1,0 +1,167 @@
+.comparison {
+  margin: 0;
+  min-width: 0;
+}
+
+.viewport {
+  aspect-ratio: 4 / 3;
+  background: var(--mortar-deep);
+  border: 1px solid rgba(248, 245, 239, 0.8);
+  border-radius: var(--radius-main);
+  box-shadow: 0 24px 60px rgba(38, 35, 31, 0.12);
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.beforeLayer {
+  inset: 0;
+  position: absolute;
+  will-change: clip-path;
+}
+
+.badge {
+  backdrop-filter: blur(8px);
+  background: rgba(248, 245, 239, 0.92);
+  border: 1px solid rgba(38, 35, 31, 0.15);
+  border-radius: 7px;
+  color: var(--soot);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 7px 10px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 16px;
+  z-index: 3;
+}
+
+.beforeBadge {
+  left: 16px;
+}
+
+.afterBadge {
+  right: 16px;
+}
+
+.range {
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+  height: 100%;
+  inset: 0;
+  margin: 0;
+  outline: 0;
+  position: absolute;
+  touch-action: pan-y;
+  width: 100%;
+  z-index: 5;
+}
+
+.range::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 100%;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  height: 48px;
+  width: 48px;
+}
+
+.range::-moz-range-track {
+  background: transparent;
+  border: 0;
+  height: 100%;
+}
+
+.range::-moz-range-thumb {
+  background: transparent;
+  border: 0;
+  height: 48px;
+  width: 48px;
+}
+
+.divider {
+  background: rgba(248, 245, 239, 0.95);
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-1px);
+  width: 2px;
+  z-index: 4;
+}
+
+.handle {
+  align-items: center;
+  background: var(--sample);
+  border: 1px solid rgba(38, 35, 31, 0.22);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(38, 35, 31, 0.24);
+  color: var(--clay);
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+}
+
+.handle svg {
+  fill: none;
+  height: 22px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 22px;
+}
+
+.range:focus-visible + .divider .handle {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.instruction {
+  color: var(--ash);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  margin: 12px 4px 0;
+}
+
+@media (max-width: 560px) {
+  .viewport {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-media);
+  }
+
+  .badge {
+    font-size: 0.58rem;
+    top: 10px;
+  }
+
+  .beforeBadge {
+    left: 10px;
+  }
+
+  .afterBadge {
+    right: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beforeLayer,
+  .divider,
+  .handle {
+    transition: none;
+  }
+}

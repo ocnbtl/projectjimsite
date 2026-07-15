@@ -26,7 +26,7 @@ export function SiteHeader() {
   }, [isOpen]);
 
   return (
-    <header className="site-header">
+    <header className={pathname === "/" ? "site-header site-header-home" : "site-header"}>
       <div className="header-inner">
         <Brand onClick={() => setIsOpen(false)} />
         <button

@@ -19,6 +19,7 @@
   --radius-media: 16px;
   --radius-control: 9px;
   --shell: min(1480px, calc(100% - 40px));
+  --home-shell: min(2400px, calc(100% - clamp(28px, 2.8vw, 64px)));
 }
 
 * {
@@ -100,6 +101,11 @@ img {
   width: var(--shell);
 }
 
+.home-shell {
+  margin-inline: auto;
+  width: var(--home-shell);
+}
+
 .site-header {
   background: var(--sample);
   border: 1px solid var(--joint);
@@ -109,6 +115,10 @@ img {
   position: relative;
   width: var(--shell);
   z-index: 30;
+}
+
+.site-header-home {
+  width: var(--home-shell);
 }
 
 .header-inner {
@@ -277,6 +287,10 @@ img {
   border-top: 0;
   margin-inline: auto;
   width: var(--shell);
+}
+
+.hero.home-shell {
+  width: var(--home-shell);
 }
 
 .hero h1,
@@ -991,6 +1005,7 @@ img {
     --radius-main: 24px;
     --radius-media: 14px;
     --shell: calc(100% - 28px);
+    --home-shell: var(--shell);
   }
 
   .site-header {

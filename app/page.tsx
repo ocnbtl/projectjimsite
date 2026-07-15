@@ -1,44 +1,128 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
-import { ProjectPair } from "@/components/project-pair";
-import { educationProject, featuredProject, projects } from "@/content/projects";
+import { featuredProject, projects } from "@/content/projects";
 import { business, services } from "@/content/site";
 import styles from "./home.module.css";
+
+type ServiceIconName = "matching" | "staining" | "fireplace";
 
 const homeServices = [
   {
     ...services[0],
+    icon: "matching" as ServiceIconName,
     title: "Repair & addition matching",
     short: "Blend replacement brick and new work with the masonry already there.",
   },
   {
     ...services[1],
+    icon: "staining" as ServiceIconName,
     title: "Brick & masonry staining",
     short: "Adjust tone while preserving the texture and variation of the material.",
   },
   {
     ...services[2],
+    icon: "fireplace" as ServiceIconName,
     title: "Fireplace, stone & mortar",
     short: "Refine interior and exterior masonry with a specialist’s eye for color.",
   },
 ];
 
 const closingSteps = [
-  ["01", "Share the view", "Send a wide view, close-ups, and the project location."],
-  ["02", "Study the surface", "MCC reviews the material, surrounding tones, and previous coatings."],
-  ["03", "Refine the match", "The existing masonry guides the color direction and final review."],
+  ["01", "Describe the project", "Share the location and a short note about the mismatch or color change."],
+  ["02", "Include context and detail", "Send one photo from normal viewing distance and a few close-ups of the material."],
+  ["03", "We’ll review the fit", "MCC will look over the surface and follow up with questions and next steps."],
 ] as const;
 
+const materialBrickCount = 30;
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="presentation">
+      <path d="M5 12h14M14 7l5 5-5 5" />
+    </svg>
+  );
+}
+
+function ServiceIcon({ name }: { name: ServiceIconName }) {
+  if (name === "staining") {
+    return (
+      <svg viewBox="0 0 32 32" role="presentation">
+        <path d="M16 4.5c3.4 5.2 7 9.8 7 14a7 7 0 0 1-14 0c0-4.2 3.6-8.8 7-14Z" />
+        <path d="M13 20.5a3.4 3.4 0 0 0 3 1.8" />
+      </svg>
+    );
+  }
+
+  if (name === "fireplace") {
+    return (
+      <svg viewBox="0 0 32 32" role="presentation">
+        <path d="M5 26V7h22v19M3.5 26h25" />
+        <path d="M10 26V15a6 6 0 0 1 12 0v11" />
+        <path d="M16 24c-2.2 0-3.7-1.5-3.7-3.6 0-1.8 1.5-3.8 3.7-6.4 2.2 2.6 3.7 4.6 3.7 6.4 0 2.1-1.5 3.6-3.7 3.6Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 32 32" role="presentation">
+      <path d="M4 8h13v6H4zM19 8h9v6h-9zM9 17h14v6H9zM4 26h13v-6M19 20h9v6h-9" />
+    </svg>
+  );
+}
+
+function MaterialComparisonVisual() {
+  const correctionTones = [
+    styles.brickClay,
+    styles.brickUmber,
+    styles.brickSoft,
+    styles.brickDeep,
+    styles.brickWarm,
+  ];
+
+  return (
+    <figure className={styles.materialVisual}>
+      <div className={styles.materialPanel}>
+        <div className={`${styles.brickField} ${styles.paintField}`} aria-hidden="true">
+          {Array.from({ length: materialBrickCount }, (_, index) => (
+            <span key={`paint-${index}`} />
+          ))}
+        </div>
+        <div className={styles.materialLabel}>
+          <span>Paint cover</span>
+          <p>One uniform surface layer</p>
+        </div>
+      </div>
+
+      <div className={styles.materialPanel}>
+        <div className={`${styles.brickField} ${styles.correctionField}`} aria-hidden="true">
+          {Array.from({ length: materialBrickCount }, (_, index) => (
+            <span className={correctionTones[index % correctionTones.length]} key={`correction-${index}`} />
+          ))}
+        </div>
+        <div className={styles.materialLabel}>
+          <span>Color correction</span>
+          <p>Variation remains visible</p>
+        </div>
+      </div>
+
+      <figcaption className="sr-only">
+        A material study comparing a uniformly coated brick surface with selectively adjusted
+        brick tones that retain visible variation.
+      </figcaption>
+    </figure>
+  );
+}
+
 export default function HomePage() {
-  const wallProject = projects[3];
   const fireplaceProject = projects[2];
 
   return (
     <>
       <LocalBusinessSchema />
 
-      <section className={`hero ${styles.hero}`}>
+      <section className={`hero home-shell ${styles.hero}`}>
         <div className={`hero-copy ${styles.heroCopy}`}>
           <h1>
             Make mismatched
@@ -64,24 +148,26 @@ export default function HomePage() {
         </div>
 
         <figure className={styles.heroVisual}>
-          <div className={styles.heroAfter}>
-            <Image
-              src={featuredProject.after}
-              alt={featuredProject.afterAlt}
-              fill
-              priority
-              sizes="(max-width: 900px) 50vw, 58vw"
-            />
-            <span>After</span>
-          </div>
           <div className={styles.heroBefore}>
             <Image
               src={featuredProject.before}
               alt={featuredProject.beforeAlt}
               fill
-              sizes="(max-width: 900px) 50vw, 18vw"
+              loading="eager"
+              sizes="(max-width: 900px) 38vw, 20vw"
             />
             <span>Before</span>
+          </div>
+          <div className={styles.heroAfter}>
+            <Image
+              src={featuredProject.after}
+              alt={featuredProject.afterAlt}
+              fill
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 900px) 58vw, 48vw"
+            />
+            <span>After</span>
           </div>
           <figcaption className="sr-only">
             Before and after views of a large brick addition color integration project.
@@ -94,24 +180,24 @@ export default function HomePage() {
           </h2>
           {homeServices.map((service) => (
             <Link href="/services" key={service.number}>
-              <span className={styles.serviceNumber}>{service.number}</span>
-              <span className={styles.serviceTitle}>{service.title}</span>
-              <span className={styles.serviceCopy}>{service.short}</span>
+              <span className={styles.serviceIcon} aria-hidden="true">
+                <ServiceIcon name={service.icon} />
+              </span>
+              <span className={styles.serviceContent}>
+                <span className={styles.serviceTitle}>{service.title}</span>
+                <span className={styles.serviceCopy}>{service.short}</span>
+              </span>
               <span className={styles.serviceArrow} aria-hidden="true">
-                →
+                <ArrowIcon />
               </span>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className={`${styles.education} shell`} aria-labelledby="education-title">
+      <section className={`${styles.education} home-shell`} aria-labelledby="education-title">
         <div className={styles.educationMedia}>
-          <ProjectPair {...educationProject} variant="compact" />
-          <div className={styles.projectMeta}>
-            <span>Selective correction</span>
-            <p>{educationProject.title}</p>
-          </div>
+          <MaterialComparisonVisual />
         </div>
         <div className={styles.educationCopy}>
           <h2 id="education-title">Change the color without hiding the masonry.</h2>
@@ -135,31 +221,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className={`${styles.work} shell`} aria-labelledby="work-title">
+      <section className={`${styles.work} home-shell`} aria-labelledby="work-title">
         <div className={styles.workHeading}>
-          <h2 id="work-title">Real work. Original photographs.</h2>
+          <h2 id="work-title">See the match come together.</h2>
           <p>
-            Every image in the gallery comes from MCC project work and is shown without
-            retouching.
+            Drag across this addition to compare the masonry before and after color integration,
+            then explore more exterior, repair, and interior finish work.
           </p>
           <Link className="text-link" href="/gallery">
-            View all five projects <span aria-hidden="true">→</span>
+            View the full project gallery <span aria-hidden="true">→</span>
           </Link>
         </div>
-        <Link className={`${styles.workCard} ${styles.workCardWide}`} href={`/gallery#${wallProject.slug}`}>
-          <Image
-            src={wallProject.after}
-            alt={wallProject.afterAlt}
-            fill
-            sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 48vw"
-          />
-          <span>
-            <small>Exterior brick</small>
-            {wallProject.title}
-          </span>
-        </Link>
+        <div className={styles.workComparison}>
+          <BeforeAfterSlider {...featuredProject} />
+        </div>
         <Link
-          className={`${styles.workCard} ${styles.workCardTall}`}
+          className={styles.workCard}
           href={`/gallery#${fireplaceProject.slug}`}
         >
           <Image
@@ -169,18 +246,18 @@ export default function HomePage() {
             sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 28vw"
           />
           <span>
-            <small>Interior stone</small>
+            <small>Interior finish</small>
             {fireplaceProject.title}
           </span>
         </Link>
       </section>
 
-      <section className={`${styles.closing} shell`} aria-labelledby="closing-title">
+      <section className={`${styles.closing} home-shell`} aria-labelledby="closing-title">
         <div className={styles.closingLead}>
-          <h2 id="closing-title">Show us what does not match.</h2>
+          <h2 id="closing-title">Start with a few clear photos.</h2>
           <p>
-            Send the location, a short description, and photos from close up and normal viewing
-            distance.
+            Tell us where the project is and what you’d like to blend or change. One wide view and
+            a few close-ups give us the context to understand the surface.
           </p>
           <div className={styles.closingActions}>
             <Link className="button" href="/contact">
@@ -190,22 +267,27 @@ export default function HomePage() {
               Call {business.phoneDisplay}
             </a>
           </div>
+          <p className={styles.closingArea}>
+            Greater Cincinnati <span aria-hidden="true">·</span> Northern Kentucky{" "}
+            <span aria-hidden="true">·</span> Southeast Indiana
+          </p>
         </div>
-        <ol className={styles.closingSteps}>
-          {closingSteps.map(([number, title, text]) => (
-            <li key={number}>
-              <span>{number}</span>
-              <div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-        <p className={styles.closingArea}>
-          Greater Cincinnati <span aria-hidden="true">·</span> Northern Kentucky{" "}
-          <span aria-hidden="true">·</span> Southeast Indiana
-        </p>
+        <div className={styles.closingProcess}>
+          <p className={styles.closingProcessLabel} id="closing-process-title">
+            What helps us get started
+          </p>
+          <ol className={styles.closingSteps} aria-labelledby="closing-process-title">
+            {closingSteps.map(([number, title, text]) => (
+              <li key={number}>
+                <span>{number}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
     </>
   );
