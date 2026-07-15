@@ -4,14 +4,14 @@ import styles from "./project-pair.module.css";
 
 type ProjectPairProps = Pick<
   Project,
-  "before" | "after" | "beforeAlt" | "afterAlt" | "orientation"
+  "title" | "before" | "after" | "beforeAlt" | "afterAlt" | "orientation"
 > & {
-  variant?: "gallery" | "compact" | "hero";
+  variant?: "gallery" | "compact";
   priority?: boolean;
-  className?: string;
 };
 
 export function ProjectPair({
+  title,
   before,
   after,
   beforeAlt,
@@ -19,16 +19,8 @@ export function ProjectPair({
   orientation = "landscape",
   variant = "gallery",
   priority = false,
-  className,
 }: ProjectPairProps) {
-  const rootClassName = [
-    styles.pair,
-    styles[variant],
-    styles[orientation],
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const rootClassName = [styles.pair, styles[variant], styles[orientation]].join(" ");
 
   return (
     <figure className={rootClassName}>
@@ -40,11 +32,7 @@ export function ProjectPair({
           fill
           priority={priority}
           loading={priority ? "eager" : undefined}
-          sizes={
-            variant === "hero"
-              ? "(max-width: 860px) 82vw, 38vw"
-              : "(max-width: 860px) 100vw, 36vw"
-          }
+          sizes="(max-width: 900px) 50vw, 36vw"
         />
         <span className={styles.label}>Before</span>
       </div>
@@ -56,15 +44,11 @@ export function ProjectPair({
           fill
           priority={priority}
           loading={priority ? "eager" : undefined}
-          sizes={
-            variant === "hero"
-              ? "(max-width: 860px) 82vw, 38vw"
-              : "(max-width: 860px) 100vw, 36vw"
-          }
+          sizes="(max-width: 900px) 50vw, 36vw"
         />
         <span className={styles.label}>After</span>
       </div>
-      <figcaption className="sr-only">Before and after views of an MCC masonry project.</figcaption>
+      <figcaption className="sr-only">Before and after views of {title} by MCC.</figcaption>
     </figure>
   );
 }

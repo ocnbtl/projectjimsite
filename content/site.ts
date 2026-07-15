@@ -1,6 +1,5 @@
 export const business = {
   name: "Masonry Color Corrections LLC",
-  shortName: "MCC",
   phoneDisplay: "(513) 612-8421",
   phoneHref: "tel:+15136128421",
   email: "contact@masonrycolorcorrections.com",
@@ -44,48 +43,5 @@ export const services = [
       "Focused interior and exterior color work for chimneys, fireplaces, cultured stone, mortar, and other confirmed absorbent surfaces.",
     detail:
       "Interior and selective-material projects require a close look at the existing surface and previous coatings. Photos are the best first step for determining whether the project is a fit.",
-  },
-];
-
-export const feedbackPlaceholders = [
-  {
-    title: "Precision of the match",
-    text: "Verified customer feedback about how naturally the corrected area blends with the original masonry will appear here.",
-  },
-  {
-    title: "Care and communication",
-    text: "A client-approved review covering the consultation, color testing, and project experience will appear here.",
-  },
-  {
-    title: "Residential and commercial results",
-    text: "An approved project-specific testimonial will be added after MCC selects representative work for launch.",
-  },
-];
-
-export const processSteps = [
-  {
-    number: "01",
-    title: "Share the problem",
-    text: "Send the location, a short description, and photos from both close up and normal viewing distance.",
-  },
-  {
-    number: "02",
-    title: "Assess the masonry",
-    text: "MCC reviews the material, existing color, previous coatings, and the surrounding work.",
-  },
-  {
-    number: "03",
-    title: "Establish the target",
-    text: "The original masonry and its natural variation guide the direction of the correction.",
-  },
-  {
-    number: "04",
-    title: "Correct and refine",
-    text: "Color is adjusted carefully so the treated area relates naturally to the full surface.",
-  },
-  {
-    number: "05",
-    title: "Review the result",
-    text: "The final work is judged as part of the wall or structure, not only from arm’s length.",
   },
 ];

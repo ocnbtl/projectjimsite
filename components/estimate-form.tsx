@@ -34,7 +34,7 @@ export function EstimateForm() {
       "Please attach the project photos before sending this email.",
     ].join("\n");
     setStatus(
-      "Opening your email application. Until the business inbox is connected, add the selected photos before sending.",
+      "Opening your email application. Add the selected photos before sending your message.",
     );
     window.location.href = `${business.emailHref}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
@@ -88,8 +88,8 @@ export function EstimateForm() {
         </p>
       ) : null}
       <p className="form-help">
-        Preview behavior: your email app opens with the project details. Direct photo delivery will
-        activate when the MCC Google Workspace inbox and secure form endpoint are connected.
+        Your email app will open with these project details. Selected photos are not attached
+        automatically, so add them to the message before sending.
       </p>
       <button className="button" type="submit">
         Request a project consultation

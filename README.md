@@ -4,9 +4,11 @@ Internal working project for the Masonry Color Corrections LLC website. “Proje
 
 ## Current status
 
-Phase 1 research and strategy is complete. The responsive Next.js website is now scaffolded with production routes for Home, Services, Gallery, About, Contact, and Privacy. The July 14, 2026 build includes the approved minimal editorial direction, confirmed business details, local-search foundations, and a photo-enabled consultation form interface.
+Phase 1 research and strategy is complete. The responsive Next.js website now includes production routes for Home, Services, Gallery, About, Contact, and Privacy. The July 14, 2026 redesign establishes the approved masonry-first editorial direction, confirmed business details, local-search foundations, and a photo-enabled consultation form interface.
 
 Five original MCC before-and-after project sets are now integrated across the homepage, gallery, and social-sharing metadata. The repository preserves the supplied JPEGs byte-for-byte; responsive framing is handled by the website without editorial retouching.
+
+The `main` branch deploys to the connected Vercel project. Until the final domain and business inbox are configured, the consultation form opens the visitor's email application and reminds them to attach their selected photographs manually.
 
 ## Project documents
 
@@ -31,9 +33,17 @@ npm run lint
 npm run build
 ```
 
+For a production-domain launch, configure:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://masonrycolorcorrections.com
+```
+
+Preview deployments stay `noindex`; setting the final URL enables the production canonical URLs, sitemap, and indexing rules.
+
 ## Delivery path
 
-1. Replace the placeholder email and testimonial content when the client approves them.
-2. Connect secure form delivery with image attachments to the future Google Workspace inbox.
-3. Complete final accessibility, device, and content approval QA.
-4. Connect the domain, deploy, submit search properties, and complete launch QA.
+1. Confirm the public business email and create the Google Workspace inbox.
+2. Connect secure form delivery with image attachments to that inbox.
+3. Complete the client's final content and project-photo approval.
+4. Connect the custom domain, set `NEXT_PUBLIC_SITE_URL`, and complete launch/search-console QA.

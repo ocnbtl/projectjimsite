@@ -7,7 +7,10 @@ export default function PrivacyPage() {
   return (
     <>
       <PageIntro title="Privacy">
-        <p>This working policy will be finalized with the production form and analytics setup.</p>
+        <p>
+          This page explains how information is handled when you contact Masonry Color Corrections
+          LLC through the current website.
+        </p>
       </PageIntro>
       <article className="legal-copy shell">
         <h2>Information you choose to send</h2>
@@ -18,13 +21,19 @@ export default function PrivacyPage() {
         </p>
         <h2>Email-based estimate requests</h2>
         <p>
-          The current website preview opens your email application rather than storing form data on
-          the website. Your email provider’s privacy practices apply to the message and attachments.
+          The estimate form opens your email application rather than uploading or storing the form
+          entry and photos on this website. Review the message, attach any selected project photos,
+          and send it when you are ready. Your email provider’s privacy practices apply to the
+          message and attachments.
         </p>
-        <h2>Production update</h2>
+        <h2>Changes to this notice</h2>
         <p>
-          Before launch, this policy will be updated to identify the selected form provider,
-          retention practices, analytics tools, and contact method for privacy requests.
+          This notice may be updated if the website later adds a secure form provider, analytics,
+          or other services that change how information is collected or processed.
+        </p>
+        <h2>Questions</h2>
+        <p>
+          Privacy questions can be sent to contact@masonrycolorcorrections.com.
         </p>
       </article>
     </>

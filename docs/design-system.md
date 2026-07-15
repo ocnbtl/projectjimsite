@@ -26,7 +26,7 @@ Source concepts:
 
 **Surfaces:** `limestone` base, `mortar` inset, `sample` raised by tone only, `soot` footer. Inputs sit slightly darker than their surrounding form panel.
 
-**Typography:** Arial/Helvetica fallback during the first build for zero external font dependency, using compact heavy display settings and readable neutral body settings. A final licensed/self-hosted type pairing can replace it after visual QA if needed.
+**Typography:** Manrope is loaded through `next/font` and paired with a conservative system fallback stack. Tight display tracking and sturdy medium-to-bold weights create the precise contemporary tone; body copy remains neutral and readable.
 
 **Spacing:** 8px base unit. Major page gutters and section spacing use multiples of 8. The correction seam may create intentional masonry-derived offsets.
 
@@ -34,36 +34,36 @@ Source concepts:
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--limestone` | `#f2efe8` | Page background |
-| `--mortar` | `#e7e0d4` | Inset fields and bands |
+| `--limestone` | `#ece6dc` | Page background |
+| `--mortar` | `#e3dbcf` | Inset fields and bands |
+| `--mortar-deep` | `#d7cec0` | Comparison and image fields |
 | `--sample` | `#f8f5ef` | Primary framed surfaces |
-| `--soot` | `#222321` | Primary text and footer |
-| `--smoke` | `#5f5c56` | Secondary text |
-| `--ash` | `#817c73` | Metadata and quiet labels |
+| `--soot` | `#1f201e` | Primary text and footer |
+| `--smoke` | `#5c5954` | Secondary text |
+| `--ash` | `#716c64` | Metadata and quiet labels |
 | `--clay` | `#a93622` | Primary action and seam |
 | `--clay-dark` | `#842719` | Hover/active action |
-| `--buff` | `#c7a57c` | Masonry variation |
-| `--umber` | `#745443` | Masonry variation |
-| `--lichen` | `#737565` | Restrained service-area accent |
+| `--buff` | `#b79a77` | Masonry variation and horizontal course line |
+| `--umber` | `#705040` | Masonry variation |
 | `--joint` | `rgba(63, 54, 45, .17)` | Standard border |
 | `--joint-soft` | `rgba(63, 54, 45, .09)` | Quiet separation |
 
 ## Type scale
 
-- Display: `clamp(3.2rem, 7vw, 7.5rem)`, weight 700, line-height .92, tracking -.065em.
-- Section title: `clamp(2.2rem, 4.7vw, 5.2rem)`, weight 700, line-height .96.
-- Card/service title: `clamp(1.45rem, 2.2vw, 2.5rem)`, weight 700, line-height 1.02.
-- Body lead: `clamp(1.1rem, 1.45vw, 1.35rem)`, line-height 1.55.
-- Body: 1rem, line-height 1.65.
-- Navigation/control: .92rem, weight 650.
+- Display: `clamp(3.65rem, 5.6vw, 6rem)`, weight 720, line-height .94, tracking -.07em.
+- Section title: generally `clamp(2.7rem, 4.8vw, 5rem)`, weight 720, line-height .95.
+- Card/service title: 1.02rem to 1.55rem, weight 700–750.
+- Body lead: `clamp(1rem, 1.18vw, 1.18rem)`, line-height 1.65.
+- Body: 1rem, line-height 1.6–1.7.
+- Navigation/control: .88rem, weight 650–750.
 - Utility/metadata: .75rem to .82rem, uppercase only when structural.
 
 ## Geometry
 
-- Page max-width: 1500px.
-- Page gutter: 24px mobile, 40px tablet, 56px desktop.
-- Main radius: 32px desktop, 24px mobile.
-- Secondary radius: 20px desktop, 16px mobile.
+- Page max-width: 1480px.
+- Page gutter: 12px mobile and 20px desktop at the outer canvas.
+- Main radius: 30px desktop, 21–24px mobile.
+- Secondary radius: 16px desktop, 12–14px mobile.
 - Button radius: 8px to 10px, not pill-shaped.
 - Border: 1px using `--joint`.
 - No decorative drop shadows.
@@ -72,36 +72,36 @@ Source concepts:
 
 ### Header
 
-- Text-based MCC mark and full company name.
+- Three-course masonry mark and full company name.
 - Desktop nav: Home, Services, Gallery, About, Contact.
 - Primary estimate button.
-- Mobile menu with the same information order and visible call action.
+- Mobile menu with the same information order, estimate action, Escape dismissal, and focus restoration.
 
 ### Hero
 
 - H1: “Make mismatched masonry belong.”
-- 42/58 copy/material split at large sizes.
-- One dominant abstract masonry color study until real project imagery is supplied.
-- Correction seam divides old/new color fields.
+- 42/58 copy/photo split at large sizes.
+- One dominant authorized MCC “after” photograph with a smaller layered “before” inset.
+- The service pathways form the lower course of the same integrated composition.
 - No eyebrow, badge, rating, or metric.
 
 ### Service bands
 
-- Three differently proportioned horizontal running-course bands.
-- Alternating copy and abstract material fields.
+- Three aligned horizontal running-course pathways.
+- Compact copy, service number, and directional affordance remain within one integrated strip.
 - Titles: Repair and addition color matching; Brick and masonry staining; Fireplace, stone, and mortar correction.
 - The third service remains visibly marked as scope-dependent in internal content, but public preview copy stays conservative.
 
 ### Education split
 
 - Heading: “Change the color without hiding the masonry.”
-- Compare “Paint covers” with “Color correction” using texture-preserving abstract material treatments.
+- Compare “Paint covers” with “Color correction” beside a layered original before-and-after project pair.
 - No unsupported technical claims.
 
 ### Process
 
-- A single mortar-joint line with five steps, not five cards.
-- Collapses to a vertical joint on mobile.
+- The homepage close uses three concise steps inside one soot-colored conversion panel.
+- Services provide additional process and fit guidance without duplicating a long homepage timeline.
 
 ### Contact panel
 
@@ -116,14 +116,14 @@ Source concepts:
 
 ## Responsive behavior
 
-- Mobile navigation collapses at 860px.
-- Hero stacks copy above the material study while preserving CTA order.
-- Service bands become open stacked sections rather than equal cards.
+- Mobile navigation and route compositions collapse at 900px.
+- Hero stacks copy above a side-by-side project comparison while preserving CTA order.
+- Service pathways become open stacked rows rather than equal cards.
 - The education split becomes one narrative column.
 - Process becomes vertical with the joint on the left.
 - Form controls remain at least 44px high.
 - No horizontal overflow at 360px.
 
-## Intentional temporary deviation
+## Project photography policy
 
-Original project photography has not yet been supplied. The first build uses a code-native abstract masonry study instead of generated or stock photography so the preview cannot be mistaken for MCC’s completed work. Replace these studies with authorized original before/after images before production launch.
+The site uses five authorized original MCC before-and-after sets. The repository preserves the supplied JPEGs without editorial retouching; responsive crops and framing are handled in code. No stock photographs, generated project results, or invented testimonials appear on the public site.

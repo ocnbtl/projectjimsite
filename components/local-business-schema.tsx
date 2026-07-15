@@ -1,10 +1,11 @@
 import { business, services } from "@/content/site";
+import { siteUrl } from "@/content/site-url";
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
   name: business.name,
-  url: `https://${business.domain}`,
+  url: siteUrl,
   telephone: "+1-513-612-8421",
   email: business.email,
   description:

@@ -1,155 +1,211 @@
+import Image from "next/image";
 import Link from "next/link";
-import { EstimateForm } from "@/components/estimate-form";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
-import { MaterialStudy } from "@/components/material-study";
 import { ProjectPair } from "@/components/project-pair";
-import { educationProject, featuredProject } from "@/content/projects";
-import { business, feedbackPlaceholders, processSteps, services } from "@/content/site";
+import { educationProject, featuredProject, projects } from "@/content/projects";
+import { business, services } from "@/content/site";
 import styles from "./home.module.css";
 
+const homeServices = [
+  {
+    ...services[0],
+    title: "Repair & addition matching",
+    short: "Blend replacement brick and new work with the masonry already there.",
+  },
+  {
+    ...services[1],
+    title: "Brick & masonry staining",
+    short: "Adjust tone while preserving the texture and variation of the material.",
+  },
+  {
+    ...services[2],
+    title: "Fireplace, stone & mortar",
+    short: "Refine interior and exterior masonry with a specialist’s eye for color.",
+  },
+];
+
+const closingSteps = [
+  ["01", "Share the view", "Send a wide view, close-ups, and the project location."],
+  ["02", "Study the surface", "MCC reviews the material, surrounding tones, and previous coatings."],
+  ["03", "Refine the match", "The existing masonry guides the color direction and final review."],
+] as const;
+
 export default function HomePage() {
+  const wallProject = projects[3];
+  const fireplaceProject = projects[2];
+
   return (
     <>
       <LocalBusinessSchema />
-      <section className="hero shell">
-        <div className="hero-copy">
-          <h1>Make mismatched masonry belong.</h1>
+
+      <section className={`hero ${styles.hero}`}>
+        <div className={`hero-copy ${styles.heroCopy}`}>
+          <h1>
+            Make mismatched
+            <br />
+            {" "}masonry belong<span aria-hidden="true">.</span>
+          </h1>
           <p>
-            Precision color mixing, staining, and matching for brick repairs, additions, chimneys,
-            fireplaces, and masonry that no longer looks like part of the original work. Serving
-            residential and commercial properties across the Cincinnati tri-state area.
+            Precision color mixing, staining, and matching for repairs, additions, fireplaces,
+            and masonry that no longer looks like part of the original work.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">
-              Request a project consultation
+              Request a project consultation <span aria-hidden="true">→</span>
             </Link>
             <a className="button button-secondary" href={business.phoneHref}>
               Call {business.phoneDisplay}
             </a>
           </div>
-        </div>
-        <div className={styles.heroVisual}>
-          <ProjectPair {...featuredProject} variant="hero" priority />
-          <p className={styles.heroProjectLabel}>
-            <span>Featured transformation</span>
-            Addition color integration
+          <p className={styles.heroUtility}>
+            Cincinnati tri-state area <span aria-hidden="true">·</span> Residential &amp;
+            commercial
           </p>
         </div>
-      </section>
 
-      <section className="services-section shell" aria-labelledby="services-title">
-        <div className="section-heading services-heading">
-          <h2 id="services-title">Color solutions for the masonry in front of you.</h2>
-          <p>
-            Different mismatches call for different levels of correction. Start with the area that
-            keeps catching your eye.
-          </p>
-        </div>
-        <div className="service-bands">
-          {services.map((service, index) => (
-            <article className={`service-band service-band-${index + 1}`} key={service.number}>
-              <span className="service-number">{service.number}</span>
-              <h3>{service.title}</h3>
-              <p>{service.short}</p>
-              <div className="service-material" aria-hidden="true">
-                <MaterialStudy compact labels={false} />
-              </div>
-            </article>
+        <figure className={styles.heroVisual}>
+          <div className={styles.heroAfter}>
+            <Image
+              src={featuredProject.after}
+              alt={featuredProject.afterAlt}
+              fill
+              priority
+              sizes="(max-width: 900px) 50vw, 58vw"
+            />
+            <span>After</span>
+          </div>
+          <div className={styles.heroBefore}>
+            <Image
+              src={featuredProject.before}
+              alt={featuredProject.beforeAlt}
+              fill
+              sizes="(max-width: 900px) 50vw, 18vw"
+            />
+            <span>Before</span>
+          </div>
+          <figcaption className="sr-only">
+            Before and after views of a large brick addition color integration project.
+          </figcaption>
+        </figure>
+
+        <div className={styles.heroServices} aria-labelledby="home-services-title">
+          <h2 className="sr-only" id="home-services-title">
+            Masonry color services
+          </h2>
+          {homeServices.map((service) => (
+            <Link href="/services" key={service.number}>
+              <span className={styles.serviceNumber}>{service.number}</span>
+              <span className={styles.serviceTitle}>{service.title}</span>
+              <span className={styles.serviceCopy}>{service.short}</span>
+              <span className={styles.serviceArrow} aria-hidden="true">
+                →
+              </span>
+            </Link>
           ))}
         </div>
-        <Link className="text-link" href="/services">
-          Explore services <span aria-hidden="true">→</span>
-        </Link>
       </section>
 
-      <section className="education-section shell" aria-labelledby="education-title">
-        <div className={`education-media ${styles.educationProject}`}>
+      <section className={`${styles.education} shell`} aria-labelledby="education-title">
+        <div className={styles.educationMedia}>
           <ProjectPair {...educationProject} variant="compact" />
-          <p className={styles.projectCaption}>
+          <div className={styles.projectMeta}>
             <span>Selective correction</span>
-            A visible repair brought into relationship with the original brick.
-          </p>
+            <p>{educationProject.title}</p>
+          </div>
         </div>
-        <div className="education-copy">
+        <div className={styles.educationCopy}>
           <h2 id="education-title">Change the color without hiding the masonry.</h2>
           <p>
-            Paint covers a surface with one continuous layer. Color correction takes a more
-            selective approach, working with the visible texture and variation that give masonry
-            its character.
+            Paint covers a surface with one continuous layer. Color correction works more
+            selectively, preserving the texture and variation that give masonry its character.
           </p>
-          <div className="comparison-row">
+          <div className={styles.comparison}>
             <div>
-              <h3>Paint covers</h3>
-              <p>A surface layer can flatten the individual variation from brick to brick.</p>
+              <span>Paint covers</span>
+              <p>A continuous surface layer can flatten brick-by-brick variation.</p>
             </div>
             <div>
-              <h3>Color correction</h3>
-              <p>Targeted shifts help the adjusted area relate to the masonry around it.</p>
+              <span>Color correction</span>
+              <p>Targeted shifts work with the visible character of the masonry.</p>
             </div>
           </div>
           <Link className="text-link" href="/services">
-            Understand the options <span aria-hidden="true">→</span>
-          </Link>
-          <Link className={`text-link ${styles.galleryLink}`} href="/gallery">
-            See five before-and-after projects <span aria-hidden="true">→</span>
+            See how the process works <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
 
-      <section className="process-section shell" aria-labelledby="process-title">
-        <div className="section-heading process-heading">
-          <h2 id="process-title">A careful match begins with the masonry already there.</h2>
-          <p>Each decision is made in relationship to the existing material and the full surface.</p>
+      <section className={`${styles.work} shell`} aria-labelledby="work-title">
+        <div className={styles.workHeading}>
+          <h2 id="work-title">Real work. Original photographs.</h2>
+          <p>
+            Every image in the gallery comes from MCC project work and is shown without
+            retouching.
+          </p>
+          <Link className="text-link" href="/gallery">
+            View all five projects <span aria-hidden="true">→</span>
+          </Link>
         </div>
-        <ol className="process-list">
-          {processSteps.map((step) => (
-            <li key={step.number}>
-              <span>{step.number}</span>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
+        <Link className={`${styles.workCard} ${styles.workCardWide}`} href={`/gallery#${wallProject.slug}`}>
+          <Image
+            src={wallProject.after}
+            alt={wallProject.afterAlt}
+            fill
+            sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 48vw"
+          />
+          <span>
+            <small>Exterior brick</small>
+            {wallProject.title}
+          </span>
+        </Link>
+        <Link
+          className={`${styles.workCard} ${styles.workCardTall}`}
+          href={`/gallery#${fireplaceProject.slug}`}
+        >
+          <Image
+            src={fireplaceProject.after}
+            alt={fireplaceProject.afterAlt}
+            fill
+            sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 28vw"
+          />
+          <span>
+            <small>Interior stone</small>
+            {fireplaceProject.title}
+          </span>
+        </Link>
+      </section>
+
+      <section className={`${styles.closing} shell`} aria-labelledby="closing-title">
+        <div className={styles.closingLead}>
+          <h2 id="closing-title">Show us what does not match.</h2>
+          <p>
+            Send the location, a short description, and photos from close up and normal viewing
+            distance.
+          </p>
+          <div className={styles.closingActions}>
+            <Link className="button" href="/contact">
+              Request an estimate <span aria-hidden="true">→</span>
+            </Link>
+            <a className="button button-dark-secondary" href={business.phoneHref}>
+              Call {business.phoneDisplay}
+            </a>
+          </div>
+        </div>
+        <ol className={styles.closingSteps}>
+          {closingSteps.map(([number, title, text]) => (
+            <li key={number}>
+              <span>{number}</span>
+              <div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className={`${styles.feedbackSection} shell`} aria-labelledby="feedback-title">
-        <div className={`section-heading ${styles.feedbackHeading}`}>
-          <h2 id="feedback-title">The finished match should speak for itself.</h2>
-          <p>
-            Verified customer feedback and MCC project photography will be added here after client
-            approval.
-          </p>
-        </div>
-        <div className={styles.feedbackList}>
-          {feedbackPlaceholders.map((item, index) => (
-            <article key={item.title}>
-              <span>0{index + 1}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="contact-section shell" aria-labelledby="contact-title">
-        <div className="contact-material">
-          <MaterialStudy labels={false} />
-          <div className="area-note">
-            <span className="area-dot" aria-hidden="true" />
-            <p>
-              Based in Maineville, near Mason.
-              <strong>Cincinnati · Northern Kentucky · Southeast Indiana</strong>
-            </p>
-          </div>
-        </div>
-        <div className="contact-form-panel">
-          <h2 id="contact-title">Show us what does not match.</h2>
-          <p>
-            Tell us where the project is, what changed, and what needs to look more consistent.
-            Residential and commercial inquiries are welcome.
-          </p>
-          <EstimateForm />
-        </div>
+        <p className={styles.closingArea}>
+          Greater Cincinnati <span aria-hidden="true">·</span> Northern Kentucky{" "}
+          <span aria-hidden="true">·</span> Southeast Indiana
+        </p>
       </section>
     </>
   );

@@ -5,9 +5,9 @@
       no-repeat,
     linear-gradient(135deg, #5f5c56 50%, transparent 50%) calc(100% - 13px) calc(50% - 2px) / 5px 5px
       no-repeat,
-    #ece6dc;
+    #eee8df;
   border: 1px solid rgba(63, 54, 45, 0.17);
-  border-radius: 7px;
+  border-radius: 9px;
   display: block;
   font: inherit;
   margin-top: 7px;
@@ -18,13 +18,15 @@
 
 .select:focus {
   border-color: #2d5b8c;
-  outline: 0;
+  box-shadow: 0 0 0 3px rgba(29, 91, 146, 0.14);
+  outline: 2px solid #1d5b92;
+  outline-offset: 1px;
 }
 
 .photoField {
-  background: #ece6dc;
+  background: #eee8df;
   border: 1px dashed rgba(63, 54, 45, 0.32);
-  border-radius: 12px;
+  border-radius: 10px;
   margin-top: 4px;
   padding: 16px;
 }
@@ -40,7 +42,7 @@
 .photoField input[type="file"]::file-selector-button {
   background: #222321;
   border: 0;
-  border-radius: 999px;
+  border-radius: 7px;
   color: #f8f5ef;
   cursor: pointer;
   font: inherit;
@@ -51,7 +53,7 @@
 }
 
 .photoHint {
-  color: #817c73;
+  color: #5f5c56;
   display: block;
   font-size: 0.76rem;
   font-weight: 400;

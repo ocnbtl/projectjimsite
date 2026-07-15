@@ -18,12 +18,11 @@
 
 ## Asset decision
 
-The public Facebook share URL did not expose clean original photo files through standard web access. A generated, clearly labeled before-and-after placeholder contact sheet is in use for design and layout purposes. It must be replaced with authorized original MCC photography before public launch.
+The client supplied five original before-and-after project sets downloaded from the MCC Facebook page. All ten JPEGs are authorized for this website and are stored in `public/images/projects/` without retouching. They now supply the homepage, services, gallery, about, contact, and social-sharing visuals; no stock project photography is in use.
 
 ## Still pending
 
 - Activate Google Workspace and confirm the final mailbox
 - Choose and configure the secure form/email delivery provider
-- Obtain original-resolution Facebook/project photographs directly from the client if Facebook download remains blocked
 - Obtain approved reviews and testimonial wording
 - Confirm whether every proposed surface is appropriate for treatment after MCC evaluates material and existing coatings

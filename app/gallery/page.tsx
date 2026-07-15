@@ -10,35 +10,53 @@ export const metadata: Metadata = {
 };
 
 export default function GalleryPage() {
+  const [featured, ...moreProjects] = projects;
+
   return (
     <>
-      <PageIntro title="Before, after, and the space between.">
+      <PageIntro title="The result should read as part of the original work.">
         <p>
-          Authentic MCC project photography shows how broad color shifts and localized repairs can
-          be brought back into relationship with the masonry around them. Each pair is presented
+          These authentic MCC project photographs show broad color shifts and localized repairs
+          brought back into relationship with the masonry around them. Every pair is presented
           without retouching.
         </p>
       </PageIntro>
+
       <section className="gallery-grid shell" aria-label="MCC before-and-after projects">
-        {projects.map((project) => (
-          <article className="gallery-item" id={project.slug} key={project.slug}>
-            <div className="gallery-media">
-              <ProjectPair {...project} />
-            </div>
-            <div className="gallery-copy">
-              <p className="gallery-number">Project {project.number}</p>
-              <h2>{project.title}</h2>
-              <p className="gallery-category">{project.category}</p>
-              <p>{project.summary}</p>
-            </div>
-          </article>
-        ))}
+        <article className="gallery-feature" id={featured.slug}>
+          <div className="gallery-feature-media">
+            <ProjectPair {...featured} priority />
+          </div>
+          <div className="gallery-feature-copy">
+            <p className="gallery-number">Project {featured.number}</p>
+            <h2>{featured.title}</h2>
+            <p className="gallery-category">{featured.category}</p>
+            <p>{featured.summary}</p>
+          </div>
+        </article>
+
+        <div className="gallery-secondary">
+          {moreProjects.map((project) => (
+            <article className="gallery-card" id={project.slug} key={project.slug}>
+              <div className="gallery-card-media">
+                <ProjectPair {...project} />
+              </div>
+              <div className="gallery-card-copy">
+                <p className="gallery-number">Project {project.number}</p>
+                <h2>{project.title}</h2>
+                <p className="gallery-category">{project.category}</p>
+                <p>{project.summary}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
+
       <section className="plain-cta shell">
         <h2>Have a mismatch like this?</h2>
         <p>Share one wide view and a few close-ups so MCC can understand the full color relationship.</p>
         <Link className="button" href="/contact">
-          Request an estimate
+          Request an estimate <span aria-hidden="true">→</span>
         </Link>
       </section>
     </>

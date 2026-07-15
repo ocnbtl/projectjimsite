@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { MaterialStudy } from "@/components/material-study";
 import { PageIntro } from "@/components/page-intro";
+import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
   title: "About",
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const entryProject = projects[4];
+
   return (
     <>
       <PageIntro title="A specialist’s eye for color, variation, and fit.">
@@ -18,27 +21,42 @@ export default function AboutPage() {
           repair, addition, replacement, or material change is structurally complete.
         </p>
       </PageIntro>
+
       <section className="about-grid shell">
         <div className="about-copy">
-          <h2>Current name. Established history.</h2>
+          <h2>Color is not one flat value.</h2>
           <p>
-            MCC is the current public identity of the business previously listed as Masonry Color
-            Restoration, LLC. Its BBB history dates to 2013 and describes masonry staining and
-            color matching for repairs and additions.
+            Existing masonry carries variation from unit to unit, across mortar joints, and under
+            changing light. MCC studies those relationships, mixes the target tones, and refines
+            the work in context rather than treating the surface as one uniform color.
           </p>
           <p>
-            Today, the work remains centered on helping visibly different masonry relate more
-            naturally to the structure around it. The website will add the owner’s full biography,
-            credentials, and project history after final client approval.
+            Based in Maineville near Mason, MCC serves residential and commercial projects across
+            Greater Cincinnati, Northern Kentucky, and Southeast Indiana.
           </p>
           <Link className="button" href="/contact">
-            Start a conversation
+            Start a conversation <span aria-hidden="true">→</span>
           </Link>
         </div>
-        <MaterialStudy labels={false} />
+        <figure className="about-visual">
+          <Image
+            src={entryProject.after}
+            alt={entryProject.afterAlt}
+            fill
+            sizes="(max-width: 900px) 100vw, 52vw"
+          />
+          <figcaption>
+            <span>Completed MCC project</span>
+            {entryProject.title}
+          </figcaption>
+        </figure>
       </section>
-      <section className="values-section shell">
-        <h2>What the work asks for.</h2>
+
+      <section className="values-section shell" aria-labelledby="values-title">
+        <div className="values-heading">
+          <h2 id="values-title">What the work asks for.</h2>
+          <p>Precision comes from judging the adjusted area as part of the full surface.</p>
+        </div>
         <div className="values-list">
           <article>
             <span>01</span>
