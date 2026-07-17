@@ -1,0 +1,22 @@
+.serviceList.serviceList {
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
+.serviceMedia.serviceMedia {
+  padding: clamp(12px, 1.25vw, 20px);
+}
+
+.ctaLine {
+  display: block;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .serviceList.serviceList {
+    margin-top: 32px;
+  }
+
+  .serviceMedia.serviceMedia {
+    padding: 10px;
+  }
+}

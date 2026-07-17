@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { projects } from "@/content/projects";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "About",
@@ -24,15 +25,19 @@ export default function AboutPage() {
 
       <section className="about-grid shell">
         <div className="about-copy">
-          <h2>Color is not one flat value.</h2>
+          <h2>Color isn’t one flat value.</h2>
           <p>
-            Existing masonry carries variation from unit to unit, across mortar joints, and under
-            changing light. MCC studies those relationships, mixes the target tones, and refines
-            the work in context rather than treating the surface as one uniform color.
+            Existing masonry carries variation from brick to brick, through mortar joints,
+            texture, absorbency, and changing light. MCC compares a repair, addition, or changed
+            area with the surrounding field, then mixes and tests target tones for selective
+            color correction or broader staining on confirmed absorbent masonry. The goal is to
+            bring the distracting difference back into the larger material relationship without
+            flattening the surface into one uniform color.
           </p>
           <p>
-            Based in Maineville near Mason, MCC serves residential and commercial projects across
-            Greater Cincinnati, Northern Kentucky, and Southeast Indiana.
+            For more than 10 years, MCC has served residential and commercial clients across
+            Greater Cincinnati, Northern Kentucky, and Southeast Indiana from its base in
+            Maineville near Mason.
           </p>
           <Link className="button" href="/contact">
             Start a conversation <span aria-hidden="true">→</span>
@@ -43,6 +48,7 @@ export default function AboutPage() {
             src={entryProject.after}
             alt={entryProject.afterAlt}
             fill
+            priority
             sizes="(max-width: 900px) 100vw, 52vw"
           />
           <figcaption>
@@ -52,26 +58,45 @@ export default function AboutPage() {
         </figure>
       </section>
 
-      <section className="values-section shell" aria-labelledby="values-title">
-        <div className="values-heading">
-          <h2 id="values-title">What the work asks for.</h2>
-          <p>Precision comes from judging the adjusted area as part of the full surface.</p>
+      <section className={`${styles.projectReview} shell`} aria-labelledby="project-review-title">
+        <div className={styles.reviewIntro}>
+          <p className={styles.eyebrow}>A useful first look</p>
+          <h2 id="project-review-title">Help us see what changed.</h2>
+          <p>
+            A project review is more useful when the mismatch is shown as part of the wall,
+            fireplace, chimney, or other surface around it.
+          </p>
         </div>
-        <div className="values-list">
+        <div className={styles.reviewList}>
           <article>
             <span>01</span>
-            <h3>Observation</h3>
-            <p>Color is judged in context, under the light and from the distance that matter.</p>
+            <div>
+              <h3>Show the whole surface</h3>
+              <p>
+                A wide photo shows how the problem relates to the surrounding masonry. Close-ups
+                help show the brick face, mortar, texture, and color variation.
+              </p>
+            </div>
           </article>
           <article>
             <span>02</span>
-            <h3>Restraint</h3>
-            <p>The goal is not to cover every difference. It is to correct the difference that distracts.</p>
+            <div>
+              <h3>Tell us what changed</h3>
+              <p>
+                Note whether the area is a repair, an addition, replacement material, a broader
+                color shift, or a surface with a previous coating.
+              </p>
+            </div>
           </article>
           <article>
             <span>03</span>
-            <h3>Fit</h3>
-            <p>The finished area should feel related to the building rather than added on top of it.</p>
+            <div>
+              <h3>Let the material guide the next step</h3>
+              <p>
+                Brick, block, stone, mortar, absorbency, existing coatings, and surface condition
+                all affect which color-correction direction makes sense.
+              </p>
+            </div>
           </article>
         </div>
       </section>

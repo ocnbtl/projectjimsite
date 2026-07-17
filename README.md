@@ -8,7 +8,7 @@ Phase 1 research and strategy is complete. The responsive Next.js website now in
 
 Five original MCC before-and-after project sets are now integrated across the homepage, gallery, and social-sharing metadata. The repository preserves the supplied JPEGs byte-for-byte; responsive framing is handled by the website without editorial retouching.
 
-The `main` branch deploys to the connected Vercel project. Until the final domain and business inbox are configured, the consultation form opens the visitor's email application and reminds them to attach their selected photographs manually.
+The `main` branch deploys to the connected Vercel project. The consultation form now posts directly to a server route and includes up to five project photos. Until the final domain, business inbox, and Resend environment values are configured, the form reports that online delivery is pending and directs the visitor to call; it never reports a false send.
 
 ## Project documents
 
@@ -37,6 +37,9 @@ For a production-domain launch, configure:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=https://masonrycolorcorrections.com
+RESEND_API_KEY=re_replace_with_resend_api_key
+CONTACT_TO_EMAIL=contact@masonrycolorcorrections.com
+CONTACT_FROM_EMAIL=MCC Website <website@masonrycolorcorrections.com>
 ```
 
 Preview deployments stay `noindex`; setting the final URL enables the production canonical URLs, sitemap, and indexing rules.
@@ -44,6 +47,6 @@ Preview deployments stay `noindex`; setting the final URL enables the production
 ## Delivery path
 
 1. Confirm the public business email and create the Google Workspace inbox.
-2. Connect secure form delivery with image attachments to that inbox.
+2. Verify the sending domain in Resend, then add the three server-only form-delivery values shown above in Vercel.
 3. Complete the client's final content and project-photo approval.
 4. Connect the custom domain, set `NEXT_PUBLIC_SITE_URL`, and complete launch/search-console QA.

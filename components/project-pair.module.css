@@ -57,6 +57,10 @@
   object-fit: contain;
 }
 
+.compact .image {
+  object-fit: cover;
+}
+
 .label {
   background: rgba(248, 245, 239, 0.94);
   border: 1px solid rgba(63, 54, 45, 0.17);
@@ -103,5 +107,11 @@
   .compact .before,
   .compact .after {
     inset: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .pair.compact {
+    grid-template-columns: 1fr;
   }
 }

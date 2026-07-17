@@ -35,8 +35,6 @@ const closingSteps = [
   ["03", "We’ll review the fit", "MCC will look over the surface and follow up with questions and next steps."],
 ] as const;
 
-const materialBrickCount = 30;
-
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 24 24" role="presentation">
@@ -73,43 +71,41 @@ function ServiceIcon({ name }: { name: ServiceIconName }) {
 }
 
 function MaterialComparisonVisual() {
-  const correctionTones = [
-    styles.brickClay,
-    styles.brickUmber,
-    styles.brickSoft,
-    styles.brickDeep,
-    styles.brickWarm,
-  ];
-
   return (
     <figure className={styles.materialVisual}>
       <div className={styles.materialPanel}>
-        <div className={`${styles.brickField} ${styles.paintField}`} aria-hidden="true">
-          {Array.from({ length: materialBrickCount }, (_, index) => (
-            <span key={`paint-${index}`} />
-          ))}
+        <div className={styles.materialPhoto}>
+          <Image
+            src="/images/education/paint-covered-masonry.webp"
+            alt="A brick wall covered in one opaque warm-white paint layer across both brick and mortar."
+            fill
+            sizes="(max-width: 900px) 50vw, 30vw"
+          />
         </div>
         <div className={styles.materialLabel}>
-          <span>Paint cover</span>
-          <p>One uniform surface layer</p>
+          <span>Painted brick</span>
+          <p>One opaque surface across brick and mortar</p>
         </div>
       </div>
 
       <div className={styles.materialPanel}>
-        <div className={`${styles.brickField} ${styles.correctionField}`} aria-hidden="true">
-          {Array.from({ length: materialBrickCount }, (_, index) => (
-            <span className={correctionTones[index % correctionTones.length]} key={`correction-${index}`} />
-          ))}
+        <div className={styles.materialPhoto}>
+          <Image
+            src="/images/education/selective-color-correction.webp"
+            alt="A color-corrected brick wall retaining natural red and brown variation, porous texture, and distinct mortar joints."
+            fill
+            sizes="(max-width: 900px) 50vw, 30vw"
+          />
         </div>
         <div className={styles.materialLabel}>
-          <span>Color correction</span>
-          <p>Variation remains visible</p>
+          <span>Color-corrected brick</span>
+          <p>Texture and brick-to-brick variation stay visible</p>
         </div>
       </div>
 
       <figcaption className="sr-only">
-        A material study comparing a uniformly coated brick surface with selectively adjusted
-        brick tones that retain visible variation.
+        Matched masonry photographs comparing an opaque painted surface with selectively adjusted
+        brick tones that retain their visible texture and variation.
       </figcaption>
     </figure>
   );
@@ -117,6 +113,7 @@ function MaterialComparisonVisual() {
 
 export default function HomePage() {
   const fireplaceProject = projects[2];
+  const sliderProject = projects[4];
 
   return (
     <>
@@ -225,15 +222,15 @@ export default function HomePage() {
         <div className={styles.workHeading}>
           <h2 id="work-title">See the match come together.</h2>
           <p>
-            Drag across this addition to compare the masonry before and after color integration,
-            then explore more exterior, repair, and interior finish work.
+            Drag across this repaired entry wall to compare the masonry before and after color
+            matching, then explore more exterior, repair, and interior finish work.
           </p>
           <Link className="text-link" href="/gallery">
             View the full project gallery <span aria-hidden="true">→</span>
           </Link>
         </div>
         <div className={styles.workComparison}>
-          <BeforeAfterSlider {...featuredProject} />
+          <BeforeAfterSlider {...sliderProject} />
         </div>
         <Link
           className={styles.workCard}

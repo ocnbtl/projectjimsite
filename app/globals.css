@@ -252,6 +252,12 @@ img {
   transform: translateY(-1px);
 }
 
+.button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
 .button-small {
   min-height: 46px;
   padding: 11px 17px;
@@ -797,7 +803,16 @@ img {
 
 .contact-direct h2 {
   font-size: clamp(2.1rem, 3.4vw, 3.5rem);
-  margin-bottom: 30px;
+  margin: 42px 0 18px;
+}
+
+.contact-method-label {
+  color: var(--ash) !important;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  margin: 0 0 10px !important;
+  text-transform: uppercase;
 }
 
 .contact-direct a {
@@ -920,8 +935,8 @@ img {
 
 .footer-inner {
   display: grid;
-  gap: 54px;
-  grid-template-columns: 1.3fr 0.75fr 1fr;
+  gap: clamp(64px, 8vw, 140px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-inline: auto;
   max-width: 1480px;
   padding: 76px 24px 34px;

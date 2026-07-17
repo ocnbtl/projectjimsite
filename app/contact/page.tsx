@@ -40,9 +40,10 @@ export default function ContactPage() {
             </p>
           </div>
           <div className="contact-direct-copy">
-            <h2>Prefer to call or email?</h2>
-            <a href={business.phoneHref}>{business.phoneDisplay}</a>
+            <p className="contact-method-label">Email</p>
             <a href={business.emailHref}>{business.email}</a>
+            <h2>Prefer to call?</h2>
+            <a href={business.phoneHref}>{business.phoneDisplay}</a>
             <p>{business.locationContext}</p>
             <p>{business.serviceArea}</p>
           </div>
@@ -51,8 +52,8 @@ export default function ContactPage() {
         <div className="contact-form-panel">
           <h2>Request a project consultation</h2>
           <p>
-            Share the mismatch, project location, and photos. Your email application will open
-            with the details ready to review before you send.
+            Share a short description, project location, and a few useful photos. Submit once and
+            the complete request will be delivered directly to MCC.
           </p>
           <EstimateForm />
         </div>

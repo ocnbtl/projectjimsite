@@ -19,8 +19,8 @@ export const projects: Project[] = [
     category: "Exterior brick · large-scale matching",
     summary:
       "A newly built section read cooler and more uniform than the surrounding home. The finished color relationship brings the addition into the warmer red character of the original elevations.",
-    before: "/images/projects/addition-before.jpeg",
-    after: "/images/projects/addition-after.jpeg",
+    before: "/images/projects/aligned/addition-before.webp",
+    after: "/images/projects/aligned/addition-after.webp",
     beforeAlt:
       "Before color correction, a large brick addition appears cooler and grayer than the adjacent red brick home.",
     afterAlt:
@@ -32,9 +32,9 @@ export const projects: Project[] = [
     title: "Localized repair blending",
     category: "Exterior brick · selective correction",
     summary:
-      "A conspicuous light-orange repair interrupted a dark, varied brick wall. Selective color work reduced the contrast so the repaired area sits more naturally within the existing masonry.",
-    before: "/images/projects/repair-before.jpeg",
-    after: "/images/projects/repair-after.jpeg",
+      "After a car drove through the wall, the rebuilt section left a light-orange repair against the home’s darker, varied brick. MCC matched the repaired masonry so the new work sits naturally within the original wall.",
+    before: "/images/projects/aligned/repair-before.webp",
+    after: "/images/projects/aligned/repair-after.webp",
     beforeAlt:
       "Before color correction, a pale orange rectangular brick repair stands out beside darker existing brick.",
     afterAlt:
@@ -47,8 +47,8 @@ export const projects: Project[] = [
     category: "Interior finish · wood-tone correction",
     summary:
       "The stone was left unchanged. MCC adjusted the lighter mantel tone to relate more closely to the existing darker wood trim.",
-    before: "/images/projects/fireplace-before.jpeg",
-    after: "/images/projects/fireplace-after.jpeg",
+    before: "/images/projects/aligned/fireplace-before.webp",
+    after: "/images/projects/aligned/fireplace-after.webp",
     beforeAlt:
       "Before color correction, the fireplace mantel appears lighter than the existing darker wood trim.",
     afterAlt:
@@ -62,8 +62,8 @@ export const projects: Project[] = [
     category: "Exterior brick · broad-surface correction",
     summary:
       "The long exterior wall needed a more cohesive relationship between its red field brick and dark accents. The completed surface feels brighter and more integrated while preserving brick-by-brick variation.",
-    before: "/images/projects/wall-before.jpeg",
-    after: "/images/projects/wall-after.jpeg",
+    before: "/images/projects/aligned/wall-before.webp",
+    after: "/images/projects/aligned/wall-after.webp",
     beforeAlt:
       "Before broad-surface color correction, a long exterior brick wall has muted red tones and scattered dark bricks.",
     afterAlt:
@@ -76,8 +76,8 @@ export const projects: Project[] = [
     category: "Exterior brick · repair integration",
     summary:
       "A repaired area beside the entry needed to agree with the surrounding facade. The finished wall restores continuity across the brick field while leaving the masonry’s natural tonal movement visible.",
-    before: "/images/projects/entry-before.jpeg",
-    after: "/images/projects/entry-after.jpeg",
+    before: "/images/projects/aligned/entry-before.webp",
+    after: "/images/projects/aligned/entry-after.webp",
     beforeAlt:
       "Before final color matching, equipment and protection are set up in front of a repaired red brick entry wall.",
     afterAlt:

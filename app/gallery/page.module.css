@@ -1,0 +1,41 @@
+.projectMedia {
+  isolation: isolate;
+  position: relative;
+}
+
+.projectMedia::after {
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--joint-soft);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+}
+
+.projectMedia img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.ctaTitle {
+  text-wrap: balance;
+}
+
+.ctaTail {
+  white-space: nowrap;
+}
+
+@media (min-width: 1200px) {
+  .ctaLead,
+  .ctaTail {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .landscapeMedia figure {
+    grid-template-columns: 1fr;
+  }
+}

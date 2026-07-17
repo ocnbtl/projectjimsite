@@ -4,6 +4,7 @@ import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
 import { projects } from "@/content/projects";
 import { services } from "@/content/site";
+import styles from "./services.module.css";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -19,6 +20,9 @@ const serviceSituations = [
   ["Fireplaces and chimneys", "Stone accents", "Mortar color differences"],
 ];
 
+const fireplaceServiceDetail =
+  "These projects often bring several materials into one view, so the correction has to respect the relationship between the masonry, mortar, trim, and nearby finishes. MCC evaluates the surface and its existing coatings, then develops and tests a direction for a more cohesive result.";
+
 const faqs = [
   {
     question: "What should I send with an estimate request?",
@@ -33,7 +37,7 @@ const faqs = [
   {
     question: "Can MCC review interior and commercial projects?",
     answer:
-      "Yes. MCC welcomes residential and commercial inquiries for confirmed interior and exterior masonry color work. Photos are the best first step for determining whether the surface and project are a fit.",
+      "Yes. MCC welcomes residential and commercial inquiries for confirmed interior and exterior masonry color work. Each review considers the material, existing finish, viewing distance, and overall scope.",
   },
   {
     question: "Will every masonry surface accept the same approach?",
@@ -45,24 +49,27 @@ const faqs = [
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro title="Color work built around the mismatch in front of you.">
+      <PageIntro title="Let’s make the mismatch feel like it belongs.">
         <p>
           The right approach depends on the material, the amount of change, previous coatings,
-          and how the new work relates to the original masonry. Photos are the best place to
-          start.
+          and how the new work relates to the original masonry. MCC looks at the whole surface,
+          not only the isolated patch, before recommending a direction.
         </p>
         <Link className="button" href="/contact">
           Request an estimate <span aria-hidden="true">→</span>
         </Link>
       </PageIntro>
 
-      <section className="service-detail-list shell" aria-label="Masonry color services">
+      <section
+        className={`service-detail-list shell ${styles.serviceList}`}
+        aria-label="Masonry color services"
+      >
         {services.map((service, index) => (
           <article className="service-detail" key={service.number}>
             <div className="service-detail-copy">
               <span>{service.number}</span>
               <h2>{service.title}</h2>
-              <p>{service.detail}</p>
+              <p>{index === 2 ? fireplaceServiceDetail : service.detail}</p>
               <ul className="service-situations" aria-label="Common project situations">
                 {serviceSituations[index].map((situation) => (
                   <li key={situation}>{situation}</li>
@@ -72,8 +79,14 @@ export default function ServicesPage() {
                 Ask about this service <span aria-hidden="true">→</span>
               </Link>
             </div>
-            <div className="service-detail-media">
-              <ProjectPair {...serviceProjects[index]} />
+            <div className={`service-detail-media ${styles.serviceMedia}`}>
+              <ProjectPair
+                {...serviceProjects[index]}
+                priority={index === 0}
+                variant={
+                  serviceProjects[index].orientation === "portrait" ? "gallery" : "compact"
+                }
+              />
               <p>
                 <span>Related MCC project</span>
                 {serviceProjects[index].title}
@@ -105,7 +118,11 @@ export default function ServicesPage() {
       </section>
 
       <section className="plain-cta shell">
-        <h2>Not sure which service fits?</h2>
+        <h2>
+          <span className={styles.ctaLine}>Not sure which</span>
+          {" "}
+          <span className={styles.ctaLine}>service fits?</span>
+        </h2>
         <p>Send photos of the full area and the mismatch. MCC can help identify the next step.</p>
         <Link className="button" href="/contact">
           Start with photos <span aria-hidden="true">→</span>

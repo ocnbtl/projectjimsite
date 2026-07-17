@@ -41,7 +41,6 @@
 
 .heroVisual {
   background: var(--sample);
-  border-left: 1px solid var(--joint);
   grid-column: 2;
   grid-row: 1;
   margin: 0;
@@ -64,12 +63,13 @@
 }
 
 .heroBefore {
-  --before-width: clamp(220px, 15.25vw, 360px);
+  --before-width: clamp(300px, 22vw, 520px);
 
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   bottom: clamp(20px, 1.7vw, 28px);
-  left: calc(0px - var(--before-width) - 14px);
+  left: clamp(-310px, -14vw, -180px);
   width: var(--before-width);
+  z-index: 2;
 }
 
 .heroAfter img,
@@ -113,7 +113,7 @@
 
 .heroServices a {
   align-items: center;
-  background: var(--sample);
+  background: transparent;
   color: var(--soot);
   display: grid;
   gap: 18px;
@@ -121,39 +121,66 @@
   min-height: 174px;
   padding: 32px clamp(28px, 3vw, 56px);
   position: relative;
-  transition: background 180ms ease, color 180ms ease;
+  transition: color 180ms ease;
+  z-index: 1;
 }
 
 .heroServices a + a {
   padding-left: clamp(50px, 4vw, 78px);
 }
 
-.heroServices a:not(:last-child)::before,
-.heroServices a:not(:last-child)::after {
+.heroServices a::before {
+  background: var(--sample);
   content: "";
+  inset: 0;
   pointer-events: none;
   position: absolute;
-  z-index: 4;
+  transition: background 180ms ease;
+  z-index: -1;
 }
 
 .heroServices a:not(:last-child)::before {
-  border-right: 5px solid var(--buff);
-  bottom: 62px;
-  right: -2px;
-  top: 0;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 42px) 0,
+    calc(100% - 42px) calc(100% - 62px),
+    100% calc(100% - 62px),
+    100% 100%,
+    0 100%
+  );
+  right: -42px;
 }
 
-.heroServices a:not(:last-child)::after {
-  border-right: 5px solid var(--buff);
-  border-top: 5px solid var(--buff);
-  bottom: -5px;
-  height: 67px;
+.heroServices a:not(:first-of-type)::before {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    42px 100%,
+    42px calc(100% - 62px),
+    0 calc(100% - 62px)
+  );
+}
+
+.heroServices a:not(:first-of-type):not(:last-of-type)::before {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 42px) 0,
+    calc(100% - 42px) calc(100% - 62px),
+    100% calc(100% - 62px),
+    100% 100%,
+    42px 100%,
+    42px calc(100% - 62px),
+    0 calc(100% - 62px)
+  );
   right: -42px;
-  width: 42px;
+}
+
+.heroServices a:hover::before {
+  background: var(--soot);
 }
 
 .heroServices a:hover {
-  background: var(--soot);
   color: var(--sample);
 }
 
@@ -170,7 +197,9 @@
   display: flex;
   height: 56px;
   justify-content: center;
+  position: relative;
   width: 56px;
+  z-index: 2;
 }
 
 .serviceIcon svg {
@@ -186,6 +215,8 @@
 .serviceContent {
   display: grid;
   gap: 6px;
+  position: relative;
+  z-index: 2;
 }
 
 .serviceTitle {
@@ -210,6 +241,31 @@
   color: var(--clay);
   display: flex;
   transition: transform 180ms ease;
+  z-index: 2;
+}
+
+.heroServices a:not(:last-child) .serviceArrow::before,
+.heroServices a:not(:last-child) .serviceArrow::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+}
+
+.heroServices a:not(:last-child) .serviceArrow::before {
+  border-right: 5px solid var(--buff);
+  bottom: 62px;
+  right: -2px;
+  top: 0;
+}
+
+.heroServices a:not(:last-child) .serviceArrow::after {
+  border-right: 5px solid var(--buff);
+  border-top: 5px solid var(--buff);
+  bottom: -5px;
+  height: 67px;
+  right: -42px;
+  width: 42px;
 }
 
 .serviceArrow svg {
@@ -264,65 +320,14 @@
   min-width: 0;
 }
 
-.brickField {
-  align-content: center;
-  display: grid;
-  gap: clamp(3px, 0.45vw, 7px);
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-template-rows: repeat(5, minmax(34px, 1fr));
+.materialPhoto {
   min-height: 0;
   overflow: hidden;
-  padding: clamp(18px, 3.2vw, 52px);
+  position: relative;
 }
 
-.brickField span {
-  background-image: linear-gradient(115deg, rgba(255, 255, 255, 0.12), transparent 44%, rgba(38, 25, 20, 0.1));
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(45, 32, 26, 0.08);
-  min-width: 0;
-}
-
-.brickField span:nth-child(12n + 7),
-.brickField span:nth-child(12n + 8),
-.brickField span:nth-child(12n + 9),
-.brickField span:nth-child(12n + 10),
-.brickField span:nth-child(12n + 11),
-.brickField span:nth-child(12n + 12) {
-  transform: translateX(8%);
-}
-
-.paintField {
-  background: #9b3b2b;
-  gap: 2px;
-}
-
-.paintField span {
-  background-color: #a94330;
-  box-shadow: inset 0 0 0 1px rgba(91, 26, 18, 0.13);
-}
-
-.correctionField {
-  background: #d0c2af;
-}
-
-.brickClay {
-  background-color: #a8422d !important;
-}
-
-.brickUmber {
-  background-color: #6d4738 !important;
-}
-
-.brickSoft {
-  background-color: #b96849 !important;
-}
-
-.brickDeep {
-  background-color: #793226 !important;
-}
-
-.brickWarm {
-  background-color: #c2825c !important;
+.materialPhoto img {
+  object-fit: cover;
 }
 
 .materialLabel {
@@ -402,7 +407,7 @@
 }
 
 .work {
-  align-items: end;
+  align-items: stretch;
   display: grid;
   gap: 18px;
   grid-template-columns: minmax(270px, 0.7fr) minmax(500px, 1.35fr) minmax(270px, 0.72fr);
@@ -431,7 +436,7 @@
 }
 
 .workCard {
-  aspect-ratio: 3 / 4;
+  min-height: 0;
   border-radius: var(--radius-main);
   overflow: hidden;
   position: relative;
@@ -633,7 +638,7 @@
   }
 
   .work {
-    align-items: start;
+    align-items: stretch;
     grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
   }
 
@@ -688,15 +693,27 @@
     background: var(--soot);
     border-left: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: block;
     grid-column: 1;
     grid-row: 2;
-    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
-    min-height: 430px;
+    min-height: clamp(350px, 68vw, 620px);
     padding: 22px;
   }
 
+  .heroAfter {
+    aspect-ratio: 16 / 10;
+    height: auto;
+    inset: 22px;
+    position: absolute;
+    width: auto;
+  }
+
   .heroBefore {
-    align-self: end;
+    aspect-ratio: 4 / 3;
+    bottom: 22px;
+    left: 22px;
+    position: absolute;
+    width: min(58%, 420px);
   }
 
   .heroServices {
@@ -718,8 +735,14 @@
     border-bottom: 0;
   }
 
-  .heroServices a:not(:last-child)::before,
-  .heroServices a:not(:last-child)::after {
+  .heroServices a::before,
+  .heroServices a:not(:last-child)::before {
+    clip-path: none !important;
+    inset: 0;
+  }
+
+  .heroServices a:not(:last-child) .serviceArrow::before,
+  .heroServices a:not(:last-child) .serviceArrow::after {
     display: none;
   }
 
@@ -781,9 +804,17 @@
   }
 
   .heroVisual {
-    gap: 12px;
     min-height: 350px;
     padding: 14px;
+  }
+
+  .heroAfter {
+    inset: 14px;
+  }
+
+  .heroBefore {
+    bottom: 14px;
+    left: 14px;
   }
 
   .heroAfter span,
@@ -828,7 +859,7 @@
     min-height: 720px;
   }
 
-  .brickField {
+  .materialPhoto {
     min-height: 260px;
   }
 

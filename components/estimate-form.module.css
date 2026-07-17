@@ -66,3 +66,34 @@
   font-weight: 700;
   margin: -8px 0 14px;
 }
+
+.honeypot {
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+}
+
+.status {
+  min-height: 24px;
+}
+
+.sending {
+  color: var(--smoke);
+}
+
+.success {
+  color: #29633b;
+  font-weight: 700;
+}
+
+.error {
+  color: #9b2d1b;
+  font-weight: 700;
+}
+
+.idle {
+  color: var(--smoke);
+}
