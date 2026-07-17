@@ -19,6 +19,33 @@
   position: relative;
 }
 
+.pair.service {
+  background: transparent;
+  display: block;
+  min-height: clamp(470px, 35vw, 660px);
+  overflow: visible;
+  position: relative;
+}
+
+.service .frame {
+  border: 1px solid rgba(248, 245, 239, 0.8);
+  border-radius: 18px;
+  box-shadow: 0 24px 54px rgba(34, 35, 33, 0.12);
+  position: absolute;
+}
+
+.service .before {
+  left: 0;
+  top: 0;
+  width: 56%;
+}
+
+.service .after {
+  bottom: 0;
+  right: 0;
+  width: 60%;
+}
+
 .compact .frame {
   border: 1px solid rgba(248, 245, 239, 0.78);
   border-radius: 18px;
@@ -45,6 +72,7 @@
 
 .gallery.landscape .frame,
 .compact.landscape .frame,
+.service.landscape .frame,
 .compact .frame {
   aspect-ratio: 4 / 3;
 }
@@ -58,6 +86,10 @@
 }
 
 .compact .image {
+  object-fit: cover;
+}
+
+.service .image {
   object-fit: cover;
 }
 
@@ -87,7 +119,8 @@
 }
 
 @media (max-width: 900px) {
-  .pair.compact {
+  .pair.compact,
+  .pair.service {
     background: rgba(63, 54, 45, 0.22);
     display: grid;
     gap: 1px;
@@ -96,7 +129,8 @@
     overflow: hidden;
   }
 
-  .compact .frame {
+  .compact .frame,
+  .service .frame {
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -105,13 +139,16 @@
   }
 
   .compact .before,
-  .compact .after {
+  .compact .after,
+  .service .before,
+  .service .after {
     inset: auto;
   }
 }
 
 @media (max-width: 600px) {
-  .pair.compact {
+  .pair.compact,
+  .pair.service {
     grid-template-columns: 1fr;
   }
 }

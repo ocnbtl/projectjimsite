@@ -27,7 +27,7 @@ const faqs = [
   {
     question: "What should I send with an estimate request?",
     answer:
-      "Send the project location, one or two wide views, close-ups of the mismatch, and a short description of what changed. Photos from normal viewing distance help show how the area relates to the whole surface.",
+      "You do not need a complete photo set. If you have them, one or two wide views and a few close-ups are helpful, along with the project location and a short description of what changed.",
   },
   {
     question: "Is color correction the same as painting masonry?",
@@ -49,7 +49,7 @@ const faqs = [
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro title="Let’s make the mismatch feel like it belongs.">
+      <PageIntro title="Match the new work to what’s already there.">
         <p>
           The right approach depends on the material, the amount of change, previous coatings,
           and how the new work relates to the original masonry. MCC looks at the whole surface,
@@ -84,13 +84,9 @@ export default function ServicesPage() {
                 {...serviceProjects[index]}
                 priority={index === 0}
                 variant={
-                  serviceProjects[index].orientation === "portrait" ? "gallery" : "compact"
+                  serviceProjects[index].orientation === "portrait" ? "gallery" : "service"
                 }
               />
-              <p>
-                <span>Related MCC project</span>
-                {serviceProjects[index].title}
-              </p>
             </div>
           </article>
         ))}
@@ -101,7 +97,7 @@ export default function ServicesPage() {
           <h2 id="faq-title">A few useful things to know before you send photos.</h2>
           <p>
             Color work begins with context: the full surface, the material, and the difference
-            that keeps drawing attention.
+            drawing the attention.
           </p>
         </div>
         <div className="faq-list">

@@ -6,7 +6,7 @@ type ProjectPairProps = Pick<
   Project,
   "title" | "before" | "after" | "beforeAlt" | "afterAlt" | "orientation"
 > & {
-  variant?: "gallery" | "compact";
+  variant?: "gallery" | "compact" | "service";
   priority?: boolean;
 };
 

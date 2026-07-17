@@ -180,7 +180,7 @@ export function EstimateForm() {
           onChange={handlePhotos}
         />
         <span className={styles.photoHint}>
-          Add up to five JPG, PNG, or WebP images. Large photos are resized for reliable delivery.
+          Add up to five JPG, PNG, or WebP images.
         </span>
       </label>
       {selectedPhotos.length > 0 ? (
@@ -188,12 +188,8 @@ export function EstimateForm() {
           {selectedPhotos.length} {selectedPhotos.length === 1 ? "photo" : "photos"} ready
         </p>
       ) : null}
-      <p className="form-help">
-        One wider view and a few close-ups help show how the area relates to the surrounding
-        masonry.
-      </p>
       <button className="button" type="submit" disabled={status.kind === "sending"}>
-        {status.kind === "sending" ? "Sending request…" : "Request a project consultation"}
+        {status.kind === "sending" ? "Sending request…" : "Request Your Estimate"}
         <span aria-hidden="true">→</span>
       </button>
       <p

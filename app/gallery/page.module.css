@@ -18,6 +18,16 @@
   object-position: center;
 }
 
+.feature {
+  border-block: 0;
+  padding-block: 0;
+}
+
+.secondary {
+  gap: clamp(42px, 4.5vw, 76px) 22px;
+  margin-top: clamp(54px, 6vw, 88px);
+}
+
 .ctaTitle {
   text-wrap: balance;
 }

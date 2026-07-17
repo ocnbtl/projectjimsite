@@ -18,7 +18,7 @@
   --radius-main: 30px;
   --radius-media: 16px;
   --radius-control: 9px;
-  --shell: min(1480px, calc(100% - 40px));
+  --shell: min(1760px, calc(100% - 40px));
   --home-shell: min(2400px, calc(100% - clamp(28px, 2.8vw, 64px)));
 }
 
@@ -938,7 +938,7 @@ img {
   gap: clamp(64px, 8vw, 140px);
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-inline: auto;
-  max-width: 1480px;
+  max-width: 1760px;
   padding: 76px 24px 34px;
 }
 

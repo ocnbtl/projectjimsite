@@ -59,15 +59,21 @@
 }
 
 .heroAfter {
-  inset: clamp(20px, 1.7vw, 28px);
+  aspect-ratio: 4 / 3;
+  height: calc(100% - 56px);
+  right: 28px;
+  top: 28px;
+  transform: rotate(0.7deg);
+  transform-origin: center;
+  width: auto;
 }
 
 .heroBefore {
-  --before-width: clamp(300px, 22vw, 520px);
+  --before-width: clamp(340px, 24vw, 560px);
 
   aspect-ratio: 4 / 3;
   bottom: clamp(20px, 1.7vw, 28px);
-  left: clamp(-310px, -14vw, -180px);
+  left: clamp(-360px, -15vw, -220px);
   width: var(--before-width);
   z-index: 2;
 }
@@ -436,8 +442,9 @@
 }
 
 .workCard {
-  min-height: 0;
   border-radius: var(--radius-main);
+  margin-bottom: 31px;
+  min-height: 0;
   overflow: hidden;
   position: relative;
 }
@@ -616,8 +623,10 @@
 
   .heroAfter,
   .heroBefore {
+    aspect-ratio: auto;
     inset: auto;
     position: relative;
+    transform: none;
     width: auto;
   }
 
@@ -891,6 +900,7 @@
 
   .workCard {
     aspect-ratio: 4 / 5;
+    margin-bottom: 0;
   }
 
   .closing {

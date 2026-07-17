@@ -30,9 +30,9 @@ export default function AboutPage() {
             Existing masonry carries variation from brick to brick, through mortar joints,
             texture, absorbency, and changing light. MCC compares a repair, addition, or changed
             area with the surrounding field, then mixes and tests target tones for selective
-            color correction or broader staining on confirmed absorbent masonry. The goal is to
-            bring the distracting difference back into the larger material relationship without
-            flattening the surface into one uniform color.
+            color correction or broader staining when the masonry can accept the treatment. The
+            goal is to bring the distracting difference back into the larger material relationship
+            without flattening the surface into one uniform color.
           </p>
           <p>
             For more than 10 years, MCC has served residential and commercial clients across
@@ -91,7 +91,7 @@ export default function AboutPage() {
           <article>
             <span>03</span>
             <div>
-              <h3>Let the material guide the next step</h3>
+              <h3>Choose the right approach for the surface</h3>
               <p>
                 Brick, block, stone, mortar, absorbency, existing coatings, and surface condition
                 all affect which color-correction direction makes sense.

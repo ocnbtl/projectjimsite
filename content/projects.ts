@@ -18,7 +18,7 @@ export const projects: Project[] = [
     title: "Addition color integration",
     category: "Exterior brick · large-scale matching",
     summary:
-      "A newly built section read cooler and more uniform than the surrounding home. The finished color relationship brings the addition into the warmer red character of the original elevations.",
+      "A newer brick section looked noticeably grayer and more uniform beside the home’s original red masonry. The finished color relationship brings the addition into the warmer character of the surrounding elevations.",
     before: "/images/projects/aligned/addition-before.webp",
     after: "/images/projects/aligned/addition-after.webp",
     beforeAlt:
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     title: "Fireplace wood-tone matching",
     category: "Interior finish · wood-tone correction",
     summary:
-      "The stone was left unchanged. MCC adjusted the lighter mantel tone to relate more closely to the existing darker wood trim.",
+      "The newly installed mantel was noticeably lighter than the darker wood trim already running through the room. MCC adjusted the wood tone so those finishes felt connected, while leaving the fireplace stone unchanged.",
     before: "/images/projects/aligned/fireplace-before.webp",
     after: "/images/projects/aligned/fireplace-after.webp",
     beforeAlt:
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     title: "Entry-wall repair matching",
     category: "Exterior brick · repair integration",
     summary:
-      "A repaired area beside the entry needed to agree with the surrounding facade. The finished wall restores continuity across the brick field while leaving the masonry’s natural tonal movement visible.",
+      "A repaired section beside the entry stood out from the brick around it. MCC adjusted the repaired area until it blended with the rest of the wall while keeping the natural variation between individual bricks.",
     before: "/images/projects/aligned/entry-before.webp",
     after: "/images/projects/aligned/entry-after.webp",
     beforeAlt:

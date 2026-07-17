@@ -62,7 +62,7 @@ export function SiteHeader() {
             );
           })}
           <Link className="button button-small nav-estimate" href="/contact">
-            Request an estimate
+            Request a Free Estimate
           </Link>
         </nav>
       </div>

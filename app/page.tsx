@@ -77,7 +77,7 @@ function MaterialComparisonVisual() {
         <div className={styles.materialPhoto}>
           <Image
             src="/images/education/paint-covered-masonry.webp"
-            alt="A brick wall covered in one opaque warm-white paint layer across both brick and mortar."
+            alt="A brick wall covered in one opaque warm red-brown paint layer across both brick and mortar."
             fill
             sizes="(max-width: 900px) 50vw, 30vw"
           />
@@ -132,7 +132,7 @@ export default function HomePage() {
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">
-              Request a project consultation <span aria-hidden="true">→</span>
+              Request a Free Estimate <span aria-hidden="true">→</span>
             </Link>
             <a className="button button-secondary" href={business.phoneHref}>
               Call {business.phoneDisplay}

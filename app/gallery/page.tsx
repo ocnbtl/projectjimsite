@@ -28,7 +28,7 @@ export default function GalleryPage() {
       </PageIntro>
 
       <section className="gallery-grid shell" aria-label="MCC before-and-after projects">
-        <article className="gallery-feature" id={featured.slug}>
+        <article className={`gallery-feature ${styles.feature}`} id={featured.slug}>
           <div
             className={`gallery-feature-media ${styles.projectMedia} ${styles.landscapeMedia}`}
           >
@@ -42,9 +42,13 @@ export default function GalleryPage() {
           </div>
         </article>
 
-        <div className="gallery-secondary">
+        <div className={`gallery-secondary ${styles.secondary}`}>
           {moreProjects.map((project) => (
-            <article className="gallery-card" id={project.slug} key={project.slug}>
+            <article
+              className="gallery-card"
+              id={project.slug}
+              key={project.slug}
+            >
               <div
                 className={`gallery-card-media ${styles.projectMedia} ${
                   project.orientation === "portrait" ? "" : styles.landscapeMedia

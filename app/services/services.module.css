@@ -3,7 +3,12 @@
 }
 
 .serviceMedia.serviceMedia {
+  overflow: visible;
   padding: clamp(12px, 1.25vw, 20px);
+}
+
+.serviceMedia.serviceMedia > figure {
+  width: 100%;
 }
 
 .ctaLine {

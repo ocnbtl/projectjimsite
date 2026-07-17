@@ -52,8 +52,8 @@ export default function ContactPage() {
         <div className="contact-form-panel">
           <h2>Request a project consultation</h2>
           <p>
-            Share a short description, project location, and a few useful photos. Submit once and
-            the complete request will be delivered directly to MCC.
+            Share a short description, project location, and a few useful photos. That context
+            helps MCC respond quickly with a free estimate, usually within two business days.
           </p>
           <EstimateForm />
         </div>
