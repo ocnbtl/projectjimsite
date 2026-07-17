@@ -1,7 +1,7 @@
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 0.52fr) minmax(0, 0.48fr);
-  grid-template-rows: clamp(590px, 45vw, 680px) auto;
+  grid-template-rows: clamp(520px, 45vw, 680px) auto;
   overflow: hidden;
 }
 
@@ -66,18 +66,18 @@
 
 .heroAfter {
   aspect-ratio: 4 / 3;
-  right: clamp(20px, 1.6vw, 32px);
+  right: clamp(14px, 1vw, 20px);
   top: 50%;
   transform: translateY(-50%) rotate(0.7deg);
   transform-origin: center;
-  width: min(75%, 880px);
+  width: min(68%, 820px);
 }
 
 .heroBefore {
   aspect-ratio: 4 / 3;
   bottom: clamp(22px, 2vw, 34px);
-  left: clamp(20px, 1.6vw, 32px);
-  width: min(45%, 520px);
+  left: clamp(10px, 0.8vw, 16px);
+  width: min(38%, 460px);
   z-index: 2;
 }
 
@@ -148,41 +148,41 @@
   z-index: -1;
 }
 
-.heroServices a:not(:last-child)::before {
+.heroServices a:first-of-type::before {
   clip-path: polygon(
     0 0,
-    89.5% 0,
-    89.5% calc(100% - 62px),
+    calc(100% - 42px) 0,
+    calc(100% - 42px) calc(100% - 62px),
     100% calc(100% - 62px),
     100% 100%,
     0 100%
   );
-  right: -10.5%;
+  right: -42px;
 }
 
-.heroServices a:not(:first-of-type)::before {
+.heroServices a:last-of-type::before {
   clip-path: polygon(
     0 0,
     100% 0,
     100% 100%,
-    10.5% 100%,
-    10.5% calc(100% - 62px),
+    42px 100%,
+    42px calc(100% - 62px),
     0 calc(100% - 62px)
   );
 }
 
-.heroServices a:not(:first-of-type):not(:last-of-type)::before {
+.heroServices a:nth-of-type(2)::before {
   clip-path: polygon(
     0 0,
-    89.5% 0,
-    89.5% calc(100% - 62px),
+    calc(100% - 42px) 0,
+    calc(100% - 42px) calc(100% - 62px),
     100% calc(100% - 62px),
     100% 100%,
-    10.5% 100%,
-    10.5% calc(100% - 62px),
+    42px 100%,
+    42px calc(100% - 62px),
     0 calc(100% - 62px)
   );
-  right: -10.5%;
+  right: -42px;
 }
 
 .heroServices a:hover::before {
@@ -191,6 +191,7 @@
 
 .heroServices a:hover {
   color: var(--sample);
+  z-index: 4;
 }
 
 .heroServices a:focus-visible {
@@ -253,18 +254,45 @@
   z-index: 2;
 }
 
-.serviceSeams {
+.serviceSeam {
+  bottom: 0;
   display: block;
-  fill: none;
-  height: 100%;
-  inset: 0;
   pointer-events: none;
   position: absolute;
-  stroke: var(--buff);
-  stroke-width: 5;
-  vector-effect: non-scaling-stroke;
-  width: 100%;
-  z-index: 5;
+  top: 0;
+  width: 42px;
+  z-index: 8;
+}
+
+.serviceSeam::before,
+.serviceSeam::after {
+  box-sizing: border-box;
+  content: "";
+  position: absolute;
+}
+
+.serviceSeam::before {
+  border-left: 5px solid var(--buff);
+  bottom: 62px;
+  left: 0;
+  top: 0;
+}
+
+.serviceSeam::after {
+  border-right: 5px solid var(--buff);
+  border-top: 5px solid var(--buff);
+  bottom: 0;
+  height: 62px;
+  left: 0;
+  width: 42px;
+}
+
+.serviceSeamOne {
+  left: calc(33.333333% - 2.5px);
+}
+
+.serviceSeamTwo {
+  left: calc(66.666667% - 2.5px);
 }
 
 .serviceArrow svg {
@@ -731,7 +759,7 @@
     inset: 0;
   }
 
-  .serviceSeams {
+  .serviceSeam {
     display: none;
   }
 

@@ -153,7 +153,7 @@ export default function HomePage() {
               alt={featuredProject.beforeAlt}
               fill
               loading="eager"
-              sizes="(max-width: 900px) 38vw, 20vw"
+              sizes="(max-width: 900px) 38vw, 19vw"
             />
             <span>Before</span>
           </div>
@@ -164,7 +164,7 @@ export default function HomePage() {
               fill
               loading="eager"
               fetchPriority="high"
-              sizes="(max-width: 900px) 58vw, 48vw"
+              sizes="(max-width: 900px) 58vw, 34vw"
             />
             <span>After</span>
           </div>
@@ -191,16 +191,16 @@ export default function HomePage() {
               </span>
             </Link>
           ))}
-          <svg
-            className={styles.serviceSeams}
-            viewBox="0 0 1200 174"
-            preserveAspectRatio="none"
+          <span
+            className={`${styles.serviceSeam} ${styles.serviceSeamOne}`}
+            data-service-seam="one"
             aria-hidden="true"
-            focusable="false"
-          >
-            <path d="M400 0v112h42v62" />
-            <path d="M800 0v112h42v62" />
-          </svg>
+          />
+          <span
+            className={`${styles.serviceSeam} ${styles.serviceSeamTwo}`}
+            data-service-seam="two"
+            aria-hidden="true"
+          />
         </div>
       </section>
 
