@@ -3,6 +3,23 @@
   position: relative;
 }
 
+.introCue {
+  align-items: center;
+  display: inline-flex;
+  gap: 12px;
+}
+
+.introCue svg {
+  fill: none;
+  flex: 0 0 auto;
+  height: 22px;
+  stroke: var(--clay);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 22px;
+}
+
 .projectMedia::after {
   border-radius: inherit;
   box-shadow: inset 0 0 0 1px var(--joint-soft);
@@ -26,6 +43,12 @@
 .secondary {
   gap: clamp(42px, 4.5vw, 76px) 22px;
   margin-top: clamp(54px, 6vw, 88px);
+}
+
+@media (min-width: 601px) {
+  .secondary :global(.gallery-card:nth-child(3)) {
+    margin-top: clamp(-260px, -14vw, -125px);
+  }
 }
 
 .ctaTitle {

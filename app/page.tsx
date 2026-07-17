@@ -65,7 +65,8 @@ function ServiceIcon({ name }: { name: ServiceIconName }) {
 
   return (
     <svg viewBox="0 0 32 32" role="presentation">
-      <path d="M4 8h13v6H4zM19 8h9v6h-9zM9 17h14v6H9zM4 26h13v-6M19 20h9v6h-9" />
+      <path d="M4.5 7.5h23v17h-23zM4.5 13h23M4.5 19h23M11.5 7.5V13M20.5 7.5V13M9 19v5.5M23 19v5.5" />
+      <path d="M11.5 13h9v6h-9M7 16h3.2M8.5 14.5 10.2 16 8.5 17.5M25 16h-3.2M23.5 14.5 21.8 16l1.7 1.5" />
     </svg>
   );
 }
@@ -122,9 +123,10 @@ export default function HomePage() {
       <section className={`hero home-shell ${styles.hero}`}>
         <div className={`hero-copy ${styles.heroCopy}`}>
           <h1>
-            Make mismatched
-            <br />
-            {" "}masonry belong<span aria-hidden="true">.</span>
+            <span className={styles.heroHeadlineLine}>Make mismatched</span>
+            <span className={styles.heroHeadlineLine}>
+              masonry belong<span className={styles.heroDot}>.</span>
+            </span>
           </h1>
           <p>
             Precision color mixing, staining, and matching for repairs, additions, fireplaces,
@@ -189,6 +191,16 @@ export default function HomePage() {
               </span>
             </Link>
           ))}
+          <svg
+            className={styles.serviceSeams}
+            viewBox="0 0 1200 174"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M400 0v112h42v62" />
+            <path d="M800 0v112h42v62" />
+          </svg>
         </div>
       </section>
 

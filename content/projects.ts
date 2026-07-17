@@ -18,7 +18,7 @@ export const projects: Project[] = [
     title: "Addition color integration",
     category: "Exterior brick · large-scale matching",
     summary:
-      "A newer brick section looked noticeably grayer and more uniform beside the home’s original red masonry. The finished color relationship brings the addition into the warmer character of the surrounding elevations.",
+      "A newer brick section looked noticeably grayer beside the home’s original red masonry. MCC warmed and varied the newer brick so it fits more naturally with the rest of the facade.",
     before: "/images/projects/aligned/addition-before.webp",
     after: "/images/projects/aligned/addition-after.webp",
     beforeAlt:

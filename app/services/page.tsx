@@ -27,7 +27,7 @@ const faqs = [
   {
     question: "What should I send with an estimate request?",
     answer:
-      "You do not need a complete photo set. If you have them, one or two wide views and a few close-ups are helpful, along with the project location and a short description of what changed.",
+      "Helpful photos make it easier to understand the project before we follow up. If you have them, include one or two wide views, a few close-ups, the project location, and a short description of what changed.",
   },
   {
     question: "Is color correction the same as painting masonry?",

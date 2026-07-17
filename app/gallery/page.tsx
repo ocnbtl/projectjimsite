@@ -21,9 +21,11 @@ export default function GalleryPage() {
   return (
     <>
       <PageIntro title="The result should read as part of the original work.">
-        <p>
-          Browse completed MCC projects across broad color shifts, localized repair blending,
-          exterior walls, and interior finish details.
+        <p className={styles.introCue}>
+          Browse completed MCC projects
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M7 14l5 5 5-5" />
+          </svg>
         </p>
       </PageIntro>
 

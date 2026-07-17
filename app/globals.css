@@ -934,12 +934,21 @@ img {
 }
 
 .footer-inner {
+  column-gap: clamp(80px, 7vw, 120px);
   display: grid;
-  gap: clamp(64px, 8vw, 140px);
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-inline: auto;
-  max-width: 1760px;
-  padding: 76px 24px 34px;
+  padding-block: 76px 34px;
+  row-gap: 64px;
+  width: min(1760px, calc(100% - 40px));
+}
+
+.footer-brand,
+.footer-inner > div:not(.footer-legal),
+.footer-nav,
+.footer-contact {
+  min-width: 0;
+  width: 100%;
 }
 
 .site-footer .brand-name {
@@ -1172,6 +1181,7 @@ img {
   }
 
   .footer-inner {
+    column-gap: clamp(48px, 7vw, 72px);
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1313,8 +1323,9 @@ img {
   }
 
   .footer-inner {
+    gap: 48px;
     grid-template-columns: 1fr;
-    padding-inline: 20px;
+    width: calc(100% - 40px);
   }
 
   .footer-brand,
