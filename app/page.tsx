@@ -6,14 +6,14 @@ import { featuredProject, projects } from "@/content/projects";
 import { business, services } from "@/content/site";
 import styles from "./home.module.css";
 
-type ServiceIconName = "matching" | "staining" | "fireplace";
+type ServiceIconName = "matching" | "staining" | "materials";
 
 const homeServices = [
   {
     ...services[0],
     icon: "matching" as ServiceIconName,
     title: "Repair & addition matching",
-    short: "Blend replacement brick and new work with the masonry already there.",
+    short: "Match the color after the mason or builder completes the new work.",
   },
   {
     ...services[1],
@@ -23,9 +23,9 @@ const homeServices = [
   },
   {
     ...services[2],
-    icon: "fireplace" as ServiceIconName,
-    title: "Fireplace, stone & mortar",
-    short: "Refine interior and exterior masonry with a specialist’s eye for color.",
+    icon: "materials" as ServiceIconName,
+    title: "Specialty material matching",
+    short: "Coordinate mortar, ceramic accents, and compatible installed surfaces.",
   },
 ];
 
@@ -53,12 +53,11 @@ function ServiceIcon({ name }: { name: ServiceIconName }) {
     );
   }
 
-  if (name === "fireplace") {
+  if (name === "materials") {
     return (
       <svg viewBox="0 0 32 32" role="presentation">
-        <path d="M5 26V7h22v19M3.5 26h25" />
-        <path d="M10 26V15a6 6 0 0 1 12 0v11" />
-        <path d="M16 24c-2.2 0-3.7-1.5-3.7-3.6 0-1.8 1.5-3.8 3.7-6.4 2.2 2.6 3.7 4.6 3.7 6.4 0 2.1-1.5 3.6-3.7 3.6Z" />
+        <path d="M5 7h10v8H5zM17 7h10v8H17zM5 17h10v8H5zM17 17h10v8H17z" />
+        <path d="M8 11h4M20 11h4M8 21h4M20 21h4" />
       </svg>
     );
   }
@@ -113,7 +112,7 @@ function MaterialComparisonVisual() {
 }
 
 export default function HomePage() {
-  const fireplaceProject = projects[2];
+  const materialProject = projects[2];
   const sliderProject = projects[4];
 
   return (
@@ -129,8 +128,9 @@ export default function HomePage() {
             </span>
           </h1>
           <p>
-            Precision color mixing, staining, and matching for repairs, additions, fireplaces,
-            and masonry that no longer looks like part of the original work.
+            After the mason or builder finishes, MCC custom-mixes and applies color so repairs,
+            additions, brick, mortar, and select installed materials belong with what is already
+            there.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">
@@ -224,8 +224,8 @@ export default function HomePage() {
               <p>Targeted shifts work with the visible character of the masonry.</p>
             </div>
           </div>
-          <Link className="text-link" href="/services">
-            See how the process works <span aria-hidden="true">→</span>
+          <Link className="text-link" href="/masonry-staining">
+            Understand masonry staining <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
@@ -235,7 +235,7 @@ export default function HomePage() {
           <h2 id="work-title">See the match come together.</h2>
           <p>
             Drag across this repaired entry wall to compare the masonry before and after color
-            matching, then explore more exterior, repair, and interior finish work.
+            matching, then explore more exterior, post-repair, and specialty material work.
           </p>
           <Link className="text-link" href="/gallery">
             View the full project gallery <span aria-hidden="true">→</span>
@@ -246,17 +246,17 @@ export default function HomePage() {
         </div>
         <Link
           className={styles.workCard}
-          href={`/gallery#${fireplaceProject.slug}`}
+          href={`/gallery#${materialProject.slug}`}
         >
           <Image
-            src={fireplaceProject.after}
-            alt={fireplaceProject.afterAlt}
+            src={materialProject.after}
+            alt={materialProject.afterAlt}
             fill
             sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 28vw"
           />
           <span>
-            <small>Interior finish</small>
-            {fireplaceProject.title}
+            <small>Multi-material match</small>
+            {materialProject.title}
           </span>
         </Link>
       </section>

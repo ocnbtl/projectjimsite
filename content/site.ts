@@ -24,24 +24,24 @@ export const services = [
     number: "01",
     title: "Repair and addition color matching",
     short:
-      "Selective color correction for replacement brick, patched openings, additions, and new work that does not visually agree with the original masonry.",
+      "Post-construction color matching for replacement brick, patched openings, additions, and other new work that does not visually agree with the original masonry.",
     detail:
-      "The closest available brick can still be noticeably lighter, darker, redder, or more uniform than the surrounding wall. MCC studies the original material, mixes the target tones, and refines the color relationship so the new work sits more naturally beside what is already there.",
+      "A mason or builder completes the structural work first. If the closest available brick still looks lighter, darker, redder, or more uniform than the surrounding wall, MCC studies the original material, mixes the target tones, and handles the color-matching stage afterward.",
   },
   {
     number: "02",
     title: "Brick and masonry staining",
     short:
-      "Precision color adjustment for brick, block, stone, and other absorbent masonry when the existing tone is inconsistent, faded, or no longer fits the intended appearance.",
+      "Custom-mixed color adjustment for brick, mortar, and suitable masonry when the installed material is sound but the color is wrong.",
     detail:
-      "Staining is considered in relation to the material, existing coatings, absorbency, texture, and the amount of change the project needs. Colors are mixed and tested against the original surface before MCC recommends a direction.",
+      "MCC does not lay the wall or replace the masonry. The staining work begins with the installed surface: its material, existing coatings, absorbency, texture, and the amount of color change needed. Colors are mixed and tested against the project before the application direction is finalized.",
   },
   {
     number: "03",
-    title: "Fireplace, stone, and mortar correction",
+    title: "Specialty material color matching",
     short:
-      "Focused interior and exterior color work for chimneys, fireplaces, cultured stone, mortar, and other confirmed absorbent surfaces.",
+      "Selective color work for mortar, ceramic architectural accents, and compatible surfaces when the material is installed but its finish does not belong.",
     detail:
-      "Interior and selective-material projects require a close look at the existing surface and previous coatings. Photos are the best first step for determining whether the project is a fit.",
+      "Some projects bring masonry, mortar, ceramic elements, and nearby finishes into the same view. MCC evaluates the installed surface, its existing finish, and the material it needs to relate to before confirming whether color matching is a fit.",
   },
 ];

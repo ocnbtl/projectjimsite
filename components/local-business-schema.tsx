@@ -3,13 +3,13 @@ import { siteUrl } from "@/content/site-url";
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
+  "@type": "LocalBusiness",
   name: business.name,
   url: siteUrl,
   telephone: "+1-513-612-8421",
   email: business.email,
   description:
-    "Precision masonry color mixing, staining, and matching for residential and commercial brick, stone, mortar, chimney, fireplace, repair, and addition projects.",
+    "Post-construction color mixing, staining, and matching for installed brick, mortar, masonry repairs, additions, and select compatible materials. MCC does not lay brick or perform structural masonry repair.",
   areaServed: [
     { "@type": "AdministrativeArea", name: "Greater Cincinnati" },
     { "@type": "AdministrativeArea", name: "Northern Kentucky" },

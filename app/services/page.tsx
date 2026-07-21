@@ -9,19 +9,16 @@ import styles from "./services.module.css";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Masonry color matching and staining services for repairs, additions, brick, fireplaces, stone, and mortar in the Cincinnati area.",
+    "Post-construction masonry color matching and staining for additions, repairs, brick, mortar, and specialty installed materials in the Cincinnati area.",
 };
 
 const serviceProjects = [projects[0], projects[3], projects[2]];
 
 const serviceSituations = [
-  ["Replacement brick", "Patched openings", "New additions"],
-  ["Broad color shifts", "Faded or inconsistent tones", "Exterior masonry updates"],
-  ["Fireplaces and chimneys", "Stone accents", "Mortar color differences"],
+  ["Replacement brick", "Completed wall repairs", "New additions"],
+  ["Broad color shifts", "Mismatched brick batches", "Exterior masonry updates"],
+  ["Mortar and grout", "Ceramic architectural accents", "Select installed surfaces"],
 ];
-
-const fireplaceServiceDetail =
-  "These projects often bring several materials into one view, so the correction has to respect the relationship between the masonry, mortar, trim, and nearby finishes. MCC evaluates the surface and its existing coatings, then develops and tests a direction for a more cohesive result.";
 
 const faqs = [
   {
@@ -37,7 +34,7 @@ const faqs = [
   {
     question: "Can MCC review interior and commercial projects?",
     answer:
-      "Yes. MCC welcomes residential and commercial inquiries for confirmed interior and exterior masonry color work. Each review considers the material, existing finish, viewing distance, and overall scope.",
+      "Yes. MCC welcomes residential and commercial inquiries for interior and exterior color work. Each review considers the installed material, existing finish, viewing distance, and overall scope.",
   },
   {
     question: "Will every masonry surface accept the same approach?",
@@ -49,14 +46,17 @@ const faqs = [
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro title="Match the new work to what’s already there.">
+      <PageIntro title="Color correction begins where masonry construction ends.">
         <p>
-          The right approach depends on the material, the amount of change, previous coatings,
-          and how the new work relates to the original masonry. MCC looks at the whole surface,
-          not only the isolated patch, before recommending a direction.
+          MCC does not build walls, lay brick, or perform structural repairs. A mason or builder
+          completes that work first; MCC then handles the specialized color stage when the new
+          material does not match what is already there.
         </p>
         <Link className="button" href="/contact">
           Request an estimate <span aria-hidden="true">→</span>
+        </Link>
+        <Link className="text-link" href="/masonry-staining">
+          See exactly what MCC does <span aria-hidden="true">→</span>
         </Link>
       </PageIntro>
 
@@ -69,7 +69,7 @@ export default function ServicesPage() {
             <div className="service-detail-copy">
               <span>{service.number}</span>
               <h2>{service.title}</h2>
-              <p>{index === 2 ? fireplaceServiceDetail : service.detail}</p>
+              <p>{service.detail}</p>
               <ul className="service-situations" aria-label="Common project situations">
                 {serviceSituations[index].map((situation) => (
                   <li key={situation}>{situation}</li>
@@ -96,8 +96,8 @@ export default function ServicesPage() {
         <div className="faq-heading">
           <h2 id="faq-title">A few useful things to know before you send photos.</h2>
           <p>
-            Color work begins with context: the full surface, the material, and the difference
-            drawing the attention.
+            Color work begins with context: the full installed surface, the material, and the
+            difference drawing the attention.
           </p>
         </div>
         <div className="faq-list">

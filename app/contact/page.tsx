@@ -18,9 +18,10 @@ export default function ContactPage() {
     <>
       <PageIntro title="Start with the mismatch.">
         <p>
-          Tell us where the project is, what changed, and what you want to look more consistent.
-          Photos from close up and normal viewing distance help MCC understand the material and
-          surrounding color. Residential and commercial projects are welcome.
+          If the material is already installed and the remaining problem is color, tell us where
+          the project is, what changed, and what you want to look more consistent. Photos from
+          close up and normal viewing distance help MCC understand the material and surrounding
+          color. Residential and commercial projects are welcome.
         </p>
       </PageIntro>
 

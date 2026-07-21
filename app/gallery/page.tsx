@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
-import { projects } from "@/content/projects";
+import { projects, type Project } from "@/content/projects";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -10,10 +10,24 @@ export const metadata: Metadata = {
   description: "Before-and-after masonry color correction work from Masonry Color Corrections LLC.",
 };
 
-const galleryProjectSummaries: Record<string, string> = {
-  "02":
-    "After a car drove through the wall, the damaged masonry was repaired. MCC’s matching work then brought the new brick into the darker, varied wall around it so the repair blended back into the original masonry.",
-};
+function CaseStudyDetails({ project }: { project: Project }) {
+  const details = [
+    ["What happened", project.story.situation],
+    ["MCC’s color work", project.story.colorWork],
+    ["Finished result", project.story.result],
+  ] as const;
+
+  return (
+    <div className={styles.caseStudy} aria-label={`${project.title} project details`}>
+      {details.map(([label, text]) => (
+        <article key={label}>
+          <h3>{label}</h3>
+          <p>{text}</p>
+        </article>
+      ))}
+    </div>
+  );
+}
 
 export default function GalleryPage() {
   const [featured, ...moreProjects] = projects;
@@ -40,7 +54,8 @@ export default function GalleryPage() {
             <p className="gallery-number">Project {featured.number}</p>
             <h2>{featured.title}</h2>
             <p className="gallery-category">{featured.category}</p>
-            <p>{featured.summary}</p>
+            <p className={styles.projectSummary}>{featured.summary}</p>
+            <CaseStudyDetails project={featured} />
           </div>
         </article>
 
@@ -62,7 +77,8 @@ export default function GalleryPage() {
                 <p className="gallery-number">Project {project.number}</p>
                 <h2>{project.title}</h2>
                 <p className="gallery-category">{project.category}</p>
-                <p>{galleryProjectSummaries[project.number] ?? project.summary}</p>
+                <p className={styles.projectSummary}>{project.summary}</p>
+                <CaseStudyDetails project={project} />
               </div>
             </article>
           ))}

@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     template: "%s | Masonry Color Corrections LLC",
   },
   description:
-    "Color staining and matching for brick repairs, additions, and mismatched masonry in the Cincinnati area.",
+    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry in the Cincinnati area.",
   robots: isLaunchReady
     ? { index: true, follow: true }
     : { index: false, follow: false, noarchive: true },
   openGraph: {
     title: "Masonry Color Corrections LLC",
     description:
-      "Color staining and matching for brick repairs, additions, and mismatched masonry in the Cincinnati area.",
+      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry in the Cincinnati area.",
     images: [
       {
         url: "/images/projects/addition-after.jpeg",

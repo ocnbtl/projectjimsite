@@ -45,9 +45,53 @@
   margin-top: clamp(54px, 6vw, 88px);
 }
 
+.projectSummary {
+  color: var(--smoke);
+  font-size: 1rem;
+  line-height: 1.68;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.caseStudy {
+  border-top: 1px solid var(--joint);
+  display: grid;
+  gap: 0;
+  margin-top: 28px;
+}
+
+.caseStudy article {
+  display: grid;
+  gap: 9px;
+  grid-template-columns: minmax(110px, 0.28fr) minmax(0, 0.72fr);
+  padding-block: 18px;
+}
+
+.caseStudy article + article {
+  border-top: 1px solid var(--joint-soft);
+}
+
+.caseStudy h3 {
+  color: var(--soot);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.caseStudy p {
+  color: var(--smoke);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin: 0;
+  text-wrap: pretty;
+}
+
 @media (min-width: 601px) {
   .secondary :global(.gallery-card:nth-child(3)) {
-    margin-top: clamp(-260px, -14vw, -125px);
+    margin-top: clamp(-180px, -10vw, -96px);
   }
 }
 
@@ -69,6 +113,11 @@
 
 @media (max-width: 600px) {
   .landscapeMedia figure {
+    grid-template-columns: 1fr;
+  }
+
+  .caseStudy article {
+    gap: 8px;
     grid-template-columns: 1fr;
   }
 }

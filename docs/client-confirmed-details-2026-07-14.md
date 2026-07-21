@@ -26,3 +26,15 @@ The client supplied five original before-and-after project sets downloaded from 
 - Choose and configure the secure form/email delivery provider
 - Obtain approved reviews and testimonial wording
 - Confirm whether every proposed surface is appropriate for treatment after MCC evaluates material and existing coatings
+
+## Client scope and project update — July 21, 2026
+
+- MCC is a color-matching and staining specialist. It does not lay brick, rebuild walls, or perform structural masonry repair.
+- The public site should make the handoff clear: the mason, builder, or installer completes the construction; MCC addresses the remaining color mismatch.
+- Project 01 was an addition. The builder deliberately distributed lighter and darker brick through the new work so MCC could reproduce the variation in the original red masonry during the color-matching stage.
+- Project 02 followed a car impact. Another contractor rebuilt the damaged wall, then MCC stained the visibly different repair to relate to the original brick.
+- Project 03 demonstrates multi-material matching, not a service category for wood refinishing. A ceramic mantel was color-matched to the existing wood beams while the fireplace stone remained unchanged.
+- Project 04 involved paint chalking from aluminum siding. Weathered pigment ran down onto the brick; MCC used color correction to visually cancel the unwanted cast.
+- Project 05 involved two brick shipments that did not match. MCC corrected the brick color and the surrounding mortar joints.
+- Nawkaw is the client’s principal national and international reference for clearer service education, deeper project storytelling, and testimonial placement. The MCC site should remain visually original.
+- No testimonial module should be published until the client supplies approved review text and attribution.

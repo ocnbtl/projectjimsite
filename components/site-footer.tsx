@@ -8,7 +8,10 @@ export function SiteFooter() {
       <div className="footer-inner">
         <div className="footer-brand">
           <Brand />
-          <p>Color staining and matching for repairs, additions, and mismatched masonry.</p>
+          <p>
+            Post-construction color staining and matching for installed brick, mortar, and select
+            compatible materials.
+          </p>
         </div>
         <div>
           <p className="footer-label">Navigate</p>
@@ -19,6 +22,10 @@ export function SiteFooter() {
                 <span aria-hidden="true">→</span>
               </Link>
             ))}
+            <Link href="/masonry-staining">
+              What MCC does
+              <span aria-hidden="true">→</span>
+            </Link>
           </nav>
         </div>
         <div className="footer-contact">

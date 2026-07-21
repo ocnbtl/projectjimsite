@@ -19,7 +19,9 @@ export default function AboutPage() {
       <PageIntro title="A specialist’s eye for color, variation, and fit.">
         <p>
           Masonry Color Corrections LLC focuses on the visual problems that can remain after a
-          repair, addition, replacement, or material change is structurally complete.
+          repair, addition, replacement, or material change is structurally complete. MCC is the
+          color specialist who follows the mason, builder, or installer—not the contractor who
+          lays the brick or rebuilds the wall.
         </p>
       </PageIntro>
 
@@ -39,9 +41,14 @@ export default function AboutPage() {
             Greater Cincinnati, Northern Kentucky, and Southeast Indiana from its base in
             Maineville near Mason.
           </p>
-          <Link className="button" href="/contact">
-            Start a conversation <span aria-hidden="true">→</span>
-          </Link>
+          <div className="about-actions">
+            <Link className="button" href="/contact">
+              Start a conversation <span aria-hidden="true">→</span>
+            </Link>
+            <Link className="text-link" href="/masonry-staining">
+              Learn how the color work is done <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
         <figure className="about-visual">
           <Image

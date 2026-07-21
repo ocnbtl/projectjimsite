@@ -1,0 +1,328 @@
+.definition {
+  background: var(--sample);
+  border: 1px solid var(--joint);
+  border-radius: var(--radius-main);
+  display: grid;
+  grid-template-columns: minmax(340px, 0.82fr) minmax(0, 1.18fr);
+  margin-top: clamp(56px, 6vw, 88px);
+  overflow: hidden;
+}
+
+.definitionCopy {
+  align-self: center;
+  padding: clamp(48px, 6vw, 92px);
+}
+
+.definitionCopy h2,
+.boundaryIntro h2,
+.processHeading h2,
+.applicationsCopy h2,
+.resource h2 {
+  font-size: clamp(2.5rem, 4.4vw, 4.85rem);
+  font-weight: 720;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.definitionCopy p,
+.boundaryIntro p,
+.processHeading p,
+.resource p {
+  color: var(--smoke);
+  line-height: 1.72;
+  margin: 28px 0 0;
+  max-width: 620px;
+  text-wrap: pretty;
+}
+
+.definitionVisual {
+  border-left: 1px solid var(--joint);
+  margin: 0;
+  min-height: 680px;
+  overflow: hidden;
+  position: relative;
+}
+
+.definitionVisual::after,
+.applicationsImage::after {
+  background: linear-gradient(to top, rgba(24, 23, 21, 0.78), transparent 44%);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.definitionVisual img,
+.applicationsImage img {
+  object-fit: cover;
+}
+
+.definitionVisual figcaption {
+  bottom: 30px;
+  color: white;
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  font-weight: 700;
+  left: 30px;
+  line-height: 1.35;
+  max-width: 570px;
+  position: absolute;
+  right: 30px;
+  z-index: 2;
+}
+
+.definitionVisual figcaption span {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.boundary {
+  background: var(--soot);
+  border: 1px solid #35332f;
+  border-radius: var(--radius-main);
+  color: var(--sample);
+  display: grid;
+  gap: clamp(56px, 7vw, 128px);
+  grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1.24fr);
+  margin-top: clamp(72px, 8vw, 116px);
+  padding: clamp(48px, 6vw, 88px);
+}
+
+.boundaryIntro p {
+  color: #b7b0a7;
+}
+
+.scopeCards {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scopeCards article {
+  border: 1px solid rgba(248, 245, 239, 0.16);
+  border-radius: var(--radius-media);
+  padding: clamp(28px, 3vw, 42px);
+}
+
+.scopeCards h3 {
+  color: var(--clay-light);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  margin: 0 0 24px;
+  text-transform: uppercase;
+}
+
+.scopeCards ul {
+  display: grid;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.scopeCards li {
+  border-top: 1px solid rgba(248, 245, 239, 0.12);
+  color: #d6d0c7;
+  line-height: 1.5;
+  padding-top: 16px;
+}
+
+.processSection {
+  display: grid;
+  gap: clamp(54px, 8vw, 130px);
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+  margin-top: clamp(88px, 10vw, 150px);
+}
+
+.processHeading {
+  align-self: start;
+}
+
+.processList {
+  border-bottom: 1px solid var(--joint);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.processList li {
+  border-top: 1px solid var(--joint);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  padding: 28px 0;
+}
+
+.processList li > span {
+  color: var(--clay);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.processList h3,
+.applicationList h3 {
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.processList p,
+.applicationList p {
+  color: var(--smoke);
+  line-height: 1.68;
+  margin: 12px 0 0;
+  max-width: 730px;
+  text-wrap: pretty;
+}
+
+.applications {
+  background: var(--sample);
+  border: 1px solid var(--joint);
+  border-radius: var(--radius-main);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  margin-top: clamp(88px, 10vw, 150px);
+  overflow: hidden;
+}
+
+.applicationsImage {
+  min-height: 760px;
+  overflow: hidden;
+  position: relative;
+}
+
+.applicationsCopy {
+  align-self: center;
+  border-left: 1px solid var(--joint);
+  padding: clamp(48px, 5vw, 84px);
+}
+
+.applicationList {
+  border-bottom: 1px solid var(--joint);
+  margin-top: 36px;
+}
+
+.applicationList article {
+  border-top: 1px solid var(--joint);
+  padding: 24px 0;
+}
+
+.resource {
+  align-items: center;
+  border-block: 1px solid var(--joint);
+  display: grid;
+  gap: clamp(36px, 7vw, 110px);
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: clamp(88px, 10vw, 150px);
+  padding-block: clamp(44px, 6vw, 80px);
+}
+
+.resource h2 {
+  font-size: clamp(2.2rem, 3.6vw, 4rem);
+}
+
+.resource :global(.button) {
+  white-space: nowrap;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 1120px) {
+  .boundary,
+  .processSection {
+    grid-template-columns: 1fr;
+  }
+
+  .applications {
+    grid-template-columns: 1fr;
+  }
+
+  .applicationsImage {
+    min-height: 560px;
+  }
+
+  .applicationsCopy {
+    border-left: 0;
+    border-top: 1px solid var(--joint);
+  }
+}
+
+@media (max-width: 900px) {
+  .definition {
+    grid-template-columns: 1fr;
+  }
+
+  .definitionVisual {
+    border-left: 0;
+    border-top: 1px solid var(--joint);
+    min-height: 540px;
+  }
+
+  .resource {
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+
+  .resource :global(.button) {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 600px) {
+  .definition {
+    margin-top: 64px;
+  }
+
+  .definitionCopy,
+  .applicationsCopy {
+    padding: 44px 24px;
+  }
+
+  .definitionVisual,
+  .applicationsImage {
+    min-height: 420px;
+  }
+
+  .definitionCopy h2,
+  .boundaryIntro h2,
+  .processHeading h2,
+  .applicationsCopy h2,
+  .resource h2 {
+    font-size: clamp(2.25rem, 11vw, 3.1rem);
+  }
+
+  .boundary {
+    gap: 40px;
+    padding: 42px 24px;
+  }
+
+  .scopeCards {
+    grid-template-columns: 1fr;
+  }
+
+  .processSection,
+  .applications,
+  .resource {
+    margin-top: 72px;
+  }
+
+  .processList li {
+    gap: 16px;
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .resource :global(.button),
+  .ctaActions,
+  .ctaActions :global(.button) {
+    width: 100%;
+  }
+}

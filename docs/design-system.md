@@ -15,6 +15,8 @@ Source concepts:
 - Remove the Problem/Material/Approach/Result annotation rail.
 - Keep the minimal editorial layout, rounded frames, generous negative space, brick comparison treatment, and the three service bands.
 - Keep “Change the color without hiding the masonry” as a homepage educational section.
+- Keep the top navigation unchanged. Link the deeper “What is masonry staining?” explainer from contextual page links and the footer.
+- State the service boundary plainly: MCC performs post-construction color work and does not lay brick, rebuild walls, or perform structural masonry repair.
 
 ## Component checkpoint
 
@@ -89,7 +91,7 @@ Source concepts:
 
 - Three aligned horizontal running-course pathways.
 - Compact copy, service number, and directional affordance remain within one integrated strip.
-- Titles: Repair and addition color matching; Brick and masonry staining; Fireplace, stone, and mortar correction.
+- Titles: Repair and addition color matching; Brick and masonry staining; Specialty material color matching.
 - The third service remains visibly marked as scope-dependent in internal content, but public preview copy stays conservative.
 
 ### Education split
