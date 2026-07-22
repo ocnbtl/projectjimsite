@@ -16,10 +16,10 @@ export function Brand({ onClick }: BrandProps = {}) {
       <span className="brand-logo-frame">
         <Image
           className="brand-logo"
-          src="/images/brand/mcc-facebook-logo.jpg"
+          src="/images/brand/mcc-logo-transparent.png"
           alt="MCC Masonry Color Corrections"
-          width={2048}
-          height={1228}
+          width={1609}
+          height={737}
           priority
           sizes="(max-width: 600px) 142px, 184px"
         />

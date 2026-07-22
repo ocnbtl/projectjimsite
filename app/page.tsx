@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
+import { TestimonialMarquee } from "@/components/testimonial-marquee";
 import { featuredProject, projects } from "@/content/projects";
 import { business, services } from "@/content/site";
 import styles from "./home.module.css";
@@ -259,6 +260,8 @@ export default function HomePage() {
           </span>
         </Link>
       </section>
+
+      <TestimonialMarquee />
 
       <section className={`${styles.closing} home-shell`} aria-labelledby="closing-title">
         <div className={styles.closingLead}>
