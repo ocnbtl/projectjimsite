@@ -2,6 +2,12 @@ import Link from "next/link";
 import { Brand } from "@/components/brand";
 import { business, navigation } from "@/content/site";
 
+const footerNavigation = [
+  ...navigation.slice(0, 3),
+  { label: "What MCC does", href: "/masonry-staining" },
+  ...navigation.slice(3),
+];
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -16,16 +22,12 @@ export function SiteFooter() {
         <div>
           <p className="footer-label">Navigate</p>
           <nav className="footer-nav" aria-label="Footer navigation">
-            {navigation.map((item) => (
+            {footerNavigation.map((item) => (
               <Link href={item.href} key={item.href}>
                 {item.label}
                 <span aria-hidden="true">→</span>
               </Link>
             ))}
-            <Link href="/masonry-staining">
-              What MCC does
-              <span aria-hidden="true">→</span>
-            </Link>
           </nav>
         </div>
         <div className="footer-contact">

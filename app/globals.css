@@ -132,44 +132,24 @@ img {
 .brand {
   align-items: center;
   display: inline-flex;
-  gap: 14px;
   min-width: max-content;
 }
 
-.brand-mark {
-  color: var(--clay);
+.brand-logo-frame {
+  aspect-ratio: 2.08 / 1;
+  border-radius: 8px;
   display: block;
   flex: 0 0 auto;
-  height: 32px;
-  width: 42px;
+  overflow: hidden;
+  position: relative;
+  width: clamp(152px, 12vw, 184px);
 }
 
-.brand-mark svg {
+.brand-logo {
   display: block;
-  fill: currentColor;
-  height: 100%;
+  height: auto;
+  transform: translateY(-7%);
   width: 100%;
-}
-
-.brand-name {
-  border-left: 1px solid var(--joint);
-  display: grid;
-  line-height: 1.04;
-  padding-left: 14px;
-}
-
-.brand-name strong {
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.brand-name span {
-  font-size: 0.71rem;
-  font-weight: 650;
-  letter-spacing: 0.04em;
-  margin-top: 3px;
 }
 
 .primary-nav {
@@ -581,7 +561,7 @@ img {
 }
 
 .gallery-grid {
-  padding-top: clamp(72px, 8vw, 116px);
+  padding-top: clamp(32px, 4vw, 56px);
 }
 
 .gallery-feature {
@@ -639,7 +619,7 @@ img {
   display: grid;
   gap: clamp(64px, 7vw, 104px) 18px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: clamp(72px, 8vw, 116px);
+  margin-top: clamp(40px, 4vw, 64px);
 }
 
 .gallery-card {
@@ -652,7 +632,7 @@ img {
 }
 
 .gallery-card-copy {
-  padding: 28px 8px 0;
+  padding: 22px 8px 0;
 }
 
 .gallery-card-copy h2 {
@@ -665,7 +645,7 @@ img {
   border-radius: var(--radius-main);
   display: grid;
   grid-template-columns: minmax(380px, 0.82fr) minmax(0, 1.18fr);
-  margin-top: clamp(72px, 8vw, 116px);
+  margin-top: clamp(32px, 4vw, 56px);
   overflow: hidden;
 }
 
@@ -785,7 +765,7 @@ img {
   border-radius: var(--radius-main);
   display: grid;
   grid-template-columns: minmax(340px, 0.82fr) minmax(520px, 1.18fr);
-  margin-block: clamp(72px, 8vw, 116px) 72px;
+  margin-block: clamp(32px, 4vw, 56px) 72px;
   overflow: hidden;
 }
 
@@ -955,12 +935,8 @@ img {
   width: 100%;
 }
 
-.site-footer .brand-name {
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.site-footer .brand-mark {
-  color: var(--clay-light);
+.site-footer .brand-logo-frame {
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .footer-brand > p {
@@ -1046,10 +1022,6 @@ img {
   .header-inner {
     min-height: 78px;
     padding: 13px 20px;
-  }
-
-  .site-header .brand-name {
-    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .menu-button {
@@ -1202,24 +1174,11 @@ img {
   }
 
   .brand {
-    gap: 10px;
+    min-width: 0;
   }
 
-  .brand-mark {
-    height: 27px;
-    width: 34px;
-  }
-
-  .brand-name {
-    padding-left: 10px;
-  }
-
-  .brand-name strong {
-    font-size: 0.68rem;
-  }
-
-  .brand-name span {
-    font-size: 0.62rem;
+  .brand-logo-frame {
+    width: 142px;
   }
 
   .hero-actions .button {
@@ -1277,7 +1236,7 @@ img {
   }
 
   .gallery-grid {
-    padding-top: 64px;
+    padding-top: 32px;
   }
 
   .gallery-feature-copy h2 {
@@ -1293,7 +1252,7 @@ img {
   }
 
   .about-grid {
-    margin-top: 64px;
+    margin-top: 32px;
   }
 
   .about-copy {
@@ -1310,7 +1269,7 @@ img {
   }
 
   .contact-page-grid {
-    margin-block: 64px 32px;
+    margin-block: 32px;
   }
 
   .contact-direct-image {

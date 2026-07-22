@@ -24,7 +24,7 @@ const faqs = [
   {
     question: "What should I send with an estimate request?",
     answer:
-      "Helpful photos make it easier to understand the project before we follow up. If you have them, include one or two wide views, a few close-ups, the project location, and a short description of what changed.",
+      "Photos make it easier to understand the project before we follow up. If you have them, include one or two wide views, a few close-ups, the project location, and a short description of what changed.",
   },
   {
     question: "Is color correction the same as painting masonry?",
@@ -34,30 +34,32 @@ const faqs = [
   {
     question: "Can MCC review interior and commercial projects?",
     answer:
-      "Yes. MCC welcomes residential and commercial inquiries for interior and exterior color work. Each review considers the installed material, existing finish, viewing distance, and overall scope.",
+      "Yes. MCC welcomes residential and commercial inquiries for interior and exterior color work. Each review considers the installed material, existing finish, viewing distance, and surrounding color.",
   },
   {
     question: "Will every masonry surface accept the same approach?",
     answer:
-      "No. Material type, porosity, previous coatings, current condition, and the amount of change all matter. MCC reviews those factors before recommending a direction.",
+      "No. Material type, porosity, previous coatings, current condition, and the amount of change all matter. MCC reviews those factors before recommending a solution.",
   },
 ];
 
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro title="Color correction begins where masonry construction ends.">
+      <PageIntro title="The structure is finished. The color still needs to belong.">
         <p>
-          MCC does not build walls, lay brick, or perform structural repairs. A mason or builder
-          completes that work first; MCC then handles the specialized color stage when the new
-          material does not match what is already there.
+          MCC custom-mixes and applies color to installed brick, mortar, and select compatible
+          materials. The work begins once a repair or addition is structurally complete and
+          focuses on making the new material look at home beside the original.
         </p>
-        <Link className="button" href="/contact">
-          Request an estimate <span aria-hidden="true">→</span>
-        </Link>
-        <Link className="text-link" href="/masonry-staining">
-          See exactly what MCC does <span aria-hidden="true">→</span>
-        </Link>
+        <div className={styles.introActions}>
+          <Link className="button" href="/contact">
+            Request an estimate <span aria-hidden="true">→</span>
+          </Link>
+          <Link className="text-link" href="/masonry-staining">
+            See exactly what MCC does <span aria-hidden="true">→</span>
+          </Link>
+        </div>
       </PageIntro>
 
       <section

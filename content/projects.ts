@@ -67,7 +67,7 @@ export const projects: Project[] = [
     title: "Ceramic mantel color matching",
     category: "Interior finish · multi-material matching",
     summary:
-      "A newly installed ceramic mantel was much lighter than the real wood beams around the room. MCC changed the mantel’s finish so it visually relates to the existing wood while leaving the fireplace stone unchanged.",
+      "MCC worked with the manufacturer on a ceramic mantel molded to resemble the room’s original woodwork, then colored the new piece to relate to the real wood beams around it.",
     before: "/images/projects/aligned/fireplace-before.webp",
     after: "/images/projects/aligned/fireplace-after.webp",
     beforeAlt:
@@ -76,9 +76,9 @@ export const projects: Project[] = [
       "After color matching, the ceramic fireplace mantel has a deeper brown finish that coordinates with the existing wood beams while the stone remains unchanged.",
     story: {
       situation:
-        "The new mantel was ceramic, not wood, and its pale factory finish did not agree with the darker wood beams already defining the room.",
+        "MCC worked with the factory to produce a ceramic mantel molded from an accurate wood replica. The new piece captured the shape and grain of wood, but its pale factory finish still stood apart from the darker beams already defining the room.",
       colorWork:
-        "MCC mixed a layered brown finish for the ceramic surface, using the nearby beams as the visual reference. The work was limited to the mantel; MCC did not alter the stone fireplace.",
+        "Using the original beams as the visual reference, MCC mixed, dyed, and layered color across the ceramic surface so the molded grain carried a convincing wood tone. The fireplace stone was left unchanged.",
       result:
         "The non-wood mantel now carries a wood-like tone that connects it to the room’s original beams and demonstrates MCC’s ability to solve select color problems beyond brick.",
     },

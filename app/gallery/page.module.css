@@ -9,6 +9,17 @@
   gap: 12px;
 }
 
+.introActions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+}
+
+.introActions .introCue {
+  margin: 0;
+}
+
 .introCue svg {
   fill: none;
   flex: 0 0 auto;
@@ -41,8 +52,8 @@
 }
 
 .secondary {
-  gap: clamp(42px, 4.5vw, 76px) 22px;
-  margin-top: clamp(54px, 6vw, 88px);
+  gap: clamp(30px, 3.2vw, 54px) 22px;
+  margin-top: clamp(40px, 4vw, 64px);
 }
 
 .projectSummary {
@@ -57,14 +68,14 @@
   border-top: 1px solid var(--joint);
   display: grid;
   gap: 0;
-  margin-top: 28px;
+  margin-top: 22px;
 }
 
 .caseStudy article {
   display: grid;
   gap: 9px;
   grid-template-columns: minmax(110px, 0.28fr) minmax(0, 0.72fr);
-  padding-block: 18px;
+  padding-block: 14px;
 }
 
 .caseStudy article + article {

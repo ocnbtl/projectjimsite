@@ -19,9 +19,10 @@ export default function AboutPage() {
       <PageIntro title="A specialist’s eye for color, variation, and fit.">
         <p>
           Masonry Color Corrections LLC focuses on the visual problems that can remain after a
-          repair, addition, replacement, or material change is structurally complete. MCC is the
-          color specialist who follows the mason, builder, or installer—not the contractor who
-          lays the brick or rebuilds the wall.
+          repair, addition, replacement, or material change is structurally complete. MCC steps
+          in as the color specialist once the mason, builder, or installer has completed the
+          structural work, then focuses on making the finished materials look like they belong
+          together.
         </p>
       </PageIntro>
 

@@ -34,7 +34,7 @@ export const services = [
     short:
       "Custom-mixed color adjustment for brick, mortar, and suitable masonry when the installed material is sound but the color is wrong.",
     detail:
-      "MCC does not lay the wall or replace the masonry. The staining work begins with the installed surface: its material, existing coatings, absorbency, texture, and the amount of color change needed. Colors are mixed and tested against the project before the application direction is finalized.",
+      "Brick and masonry staining begins with the installed surface: its material, existing coatings, absorbency, texture, and the amount of color change needed. MCC mixes and tests colors against the project, then applies the selected tones to bring the surface into a more natural relationship with the masonry around it.",
   },
   {
     number: "03",
@@ -42,6 +42,6 @@ export const services = [
     short:
       "Selective color work for mortar, ceramic architectural accents, and compatible surfaces when the material is installed but its finish does not belong.",
     detail:
-      "Some projects bring masonry, mortar, ceramic elements, and nearby finishes into the same view. MCC evaluates the installed surface, its existing finish, and the material it needs to relate to before confirming whether color matching is a fit.",
+      "Some projects bring masonry, mortar, ceramic elements, and nearby finishes into the same view. MCC evaluates the installed surface, its existing finish, and the material it needs to relate to before proceeding with color matching as the solution.",
   },
 ];

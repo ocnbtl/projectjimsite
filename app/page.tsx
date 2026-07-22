@@ -128,9 +128,8 @@ export default function HomePage() {
             </span>
           </h1>
           <p>
-            After the mason or builder finishes, MCC custom-mixes and applies color so repairs,
-            additions, brick, mortar, and select installed materials belong with what is already
-            there.
+            MCC custom-mixes and applies color to installed brick, mortar, repairs, additions,
+            and select compatible materials so new work belongs with what is already there.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">

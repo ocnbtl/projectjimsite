@@ -2,6 +2,18 @@
   margin-top: clamp(32px, 4vw, 56px);
 }
 
+.introActions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  margin-top: 16px;
+}
+
+.introActions :global(.button) {
+  margin-top: 0;
+}
+
 .serviceMedia.serviceMedia {
   overflow: visible;
   padding: clamp(12px, 1.25vw, 20px);
@@ -17,6 +29,11 @@
 }
 
 @media (max-width: 600px) {
+  .introActions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .serviceList.serviceList {
     margin-top: 32px;
   }
