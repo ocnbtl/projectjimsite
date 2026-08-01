@@ -19,17 +19,22 @@ export default function PrivacyPage() {
           respond to estimate requests. Do not send sensitive personal information through the
           website.
         </p>
-        <h2>Email-based estimate requests</h2>
+        <h2>Website estimate requests</h2>
         <p>
-          The estimate form opens your email application rather than uploading or storing the form
-          entry and photos on this website. Review the message, attach any selected project photos,
-          and send it when you are ready. Your email provider’s privacy practices apply to the
-          message and attachments.
+          When online delivery is available, the estimate form uploads the information and any
+          selected photos to the website server, where they are validated and relayed to Masonry
+          Color Corrections LLC through Resend, an email-delivery provider. The website does not
+          save submissions in its own database. Resend and the receiving email provider may process
+          and retain the message and attachments under their own privacy practices.
+        </p>
+        <p>
+          If online delivery is unavailable or fails, the form reports that the request was not
+          sent and directs you to call instead.
         </p>
         <h2>Changes to this notice</h2>
         <p>
-          This notice may be updated if the website later adds a secure form provider, analytics,
-          or other services that change how information is collected or processed.
+          This notice may be updated if the website changes its form-delivery service or later adds
+          analytics or other services that change how information is collected or processed.
         </p>
         <h2>Questions</h2>
         <p>

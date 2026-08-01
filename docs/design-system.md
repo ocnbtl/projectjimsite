@@ -108,8 +108,9 @@ Source concepts:
 ### Contact panel
 
 - Two-column editorial panel with a material field and an accessible estimate form.
-- During the first build, submission opens a pre-addressed email because a production form provider has not been selected.
-- Do not display a fake successful upload state.
+- Submission posts contact details and up to five project photos to the server-side consultation route.
+- The route validates the request and relays it through Resend when delivery is configured; otherwise the form reports the failure and directs the visitor to call.
+- Never display a successful state unless the server confirms delivery.
 
 ### Footer
 

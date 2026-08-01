@@ -136,12 +136,26 @@ img {
 }
 
 .brand-logo-frame {
-  aspect-ratio: 1609 / 737;
+  aspect-ratio: 2048 / 1228;
+  background: #fff;
+  border-radius: 10px;
   display: block;
   flex: 0 0 auto;
-  overflow: visible;
+  overflow: hidden;
   position: relative;
-  width: clamp(152px, 12vw, 184px);
+  width: clamp(172px, 13vw, 204px);
+}
+
+.brand-logo-frame::after {
+  background: #fff;
+  content: "";
+  height: 10.5%;
+  left: 1.5%;
+  pointer-events: none;
+  position: absolute;
+  top: 1.5%;
+  width: 7.5%;
+  z-index: 1;
 }
 
 .brand-logo {
@@ -1164,7 +1178,7 @@ img {
     padding: 10px;
     position: absolute;
     right: 12px;
-    top: 72px;
+    top: calc(100% - 6px);
   }
 
   .primary-nav.is-open {
@@ -1311,7 +1325,7 @@ img {
   }
 
   .brand-logo-frame {
-    width: 142px;
+    width: 158px;
   }
 
   .hero-actions .button {
