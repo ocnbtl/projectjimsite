@@ -136,32 +136,27 @@ img {
 }
 
 .brand-logo-frame {
-  aspect-ratio: 2048 / 1228;
-  background: #fff;
-  border-radius: 10px;
-  display: block;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   flex: 0 0 auto;
-  overflow: hidden;
-  position: relative;
   width: clamp(172px, 13vw, 204px);
-}
-
-.brand-logo-frame::after {
-  background: #fff;
-  content: "";
-  height: 10.5%;
-  left: 1.5%;
-  pointer-events: none;
-  position: absolute;
-  top: 1.5%;
-  width: 7.5%;
-  z-index: 1;
 }
 
 .brand-logo {
   display: block;
   height: auto;
   width: 100%;
+}
+
+.brand-phone {
+  color: var(--soot);
+  font-size: clamp(0.7rem, 0.82vw, 0.84rem);
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  line-height: 1;
+  margin-top: 1px;
+  white-space: nowrap;
 }
 
 .primary-nav {
@@ -951,6 +946,10 @@ img {
   width: clamp(172px, 14vw, 210px);
 }
 
+.site-footer .brand-phone {
+  color: #eee8df;
+}
+
 .testimonial-section {
   background: var(--soot);
   border: 1px solid #35332f;
@@ -1154,6 +1153,10 @@ img {
     border-color: rgba(255, 255, 255, 0.12);
     color: var(--sample);
     margin-top: 12px;
+  }
+
+  .site-header .brand-phone {
+    color: var(--sample);
   }
 
   .header-inner {
