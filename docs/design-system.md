@@ -130,3 +130,5 @@ Source concepts:
 ## Project photography policy
 
 The site uses five authorized original MCC before-and-after sets. The repository preserves the supplied JPEGs without editorial retouching; responsive crops and framing are handled in code. No stock photographs, generated project results, or invented testimonials appear on the public site.
+
+The testimonial presentation remains available in source but is disabled on the public homepage until the client supplies approved testimonial copy and attribution.

@@ -9,6 +9,9 @@ import styles from "./home.module.css";
 
 type ServiceIconName = "matching" | "staining" | "materials";
 
+// Re-enable only after the client supplies approved testimonial copy and attribution.
+const testimonialsEnabled = false;
+
 const homeServices = [
   {
     ...services[0],
@@ -261,7 +264,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      <TestimonialMarquee />
+      {testimonialsEnabled ? <TestimonialMarquee /> : null}
 
       <section className={`${styles.closing} home-shell`} aria-labelledby="closing-title">
         <div className={styles.closingLead}>
