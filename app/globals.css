@@ -1078,7 +1078,15 @@ img {
 .footer-brand > p {
   color: #aaa49b;
   line-height: 1.65;
+  margin-inline: auto;
   max-width: 390px;
+  text-align: center;
+}
+
+.footer-brand .brand {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .footer-label {
