@@ -140,7 +140,7 @@ img {
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  width: clamp(172px, 13vw, 204px);
+  width: clamp(188px, 14.5vw, 224px);
 }
 
 .brand-logo {
@@ -1328,7 +1328,7 @@ img {
   }
 
   .brand-logo-frame {
-    width: 158px;
+    width: 174px;
   }
 
   .hero-actions .button {
