@@ -138,7 +138,12 @@ export function EstimateForm() {
   }
 
   return (
-    <form className="estimate-form" onSubmit={handleSubmit} encType="multipart/form-data">
+    <form
+      className="estimate-form ph-no-capture"
+      data-ph-no-capture="true"
+      onSubmit={handleSubmit}
+      encType="multipart/form-data"
+    >
       <label className={styles.honeypot} aria-hidden="true">
         Website
         <input name="website" tabIndex={-1} autoComplete="off" />

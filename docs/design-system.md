@@ -114,7 +114,7 @@ Source concepts:
 
 ### Footer
 
-- Soot surface, structured columns, full NAP, and privacy link.
+- Soot surface, structured columns, full NAP, privacy notice, and persistent access to analytics privacy choices.
 - No fake certifications or review badges.
 
 ## Responsive behavior

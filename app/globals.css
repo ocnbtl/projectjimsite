@@ -1134,6 +1134,35 @@ img {
   padding-top: 24px;
 }
 
+.footer-legal-links {
+  align-items: center;
+  display: flex;
+  gap: 22px;
+}
+
+.footer-privacy-button,
+.privacy-choice-button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.footer-privacy-button:hover {
+  color: white;
+}
+
+.privacy-choice-button {
+  border-bottom: 1px solid currentColor;
+  color: var(--clay);
+  font-weight: 750;
+  margin-top: 4px;
+  padding-bottom: 2px;
+}
+
 @media (max-width: 1120px) {
   .nav-estimate {
     display: none;
@@ -1455,6 +1484,12 @@ img {
   }
 
   .footer-legal {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-legal-links {
     align-items: flex-start;
     flex-direction: column;
     gap: 10px;

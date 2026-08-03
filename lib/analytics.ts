@@ -2,8 +2,55 @@ import posthog from "posthog-js";
 
 let initialized = false;
 
+export type AnalyticsConsentStatus = "granted" | "denied" | "pending";
+
+export const analyticsPreferencesEvent = "mcc:open-analytics-preferences";
+
+const analyticsConsentKey = "mcc_analytics_consent";
+
+function stripUrlDetails(value: unknown) {
+  if (typeof value !== "string") return value;
+
+  try {
+    const url = new URL(value, window.location.origin);
+    return `${url.origin}${url.pathname}`;
+  } catch {
+    return value.split(/[?#]/, 1)[0];
+  }
+}
+
+function sanitizeAnalyticsProperties(properties: Record<string, unknown>) {
+  const sanitized = { ...properties };
+
+  for (const key of ["$current_url", "$referrer"]) {
+    if (key in sanitized) sanitized[key] = stripUrlDetails(sanitized[key]);
+  }
+
+  return sanitized;
+}
+
+export function getAnalyticsConsentStatus(): AnalyticsConsentStatus {
+  if (typeof window === "undefined") return "pending";
+
+  try {
+    const stored = window.localStorage.getItem(analyticsConsentKey);
+    return stored === "granted" || stored === "denied" ? stored : "pending";
+  } catch {
+    return "pending";
+  }
+}
+
+function saveAnalyticsConsent(status: Exclude<AnalyticsConsentStatus, "pending">) {
+  try {
+    window.localStorage.setItem(analyticsConsentKey, status);
+  } catch {
+    // If storage is unavailable, the choice applies only to this page view.
+  }
+}
+
 export function initializeAnalytics() {
   if (typeof window === "undefined") return null;
+  if (getAnalyticsConsentStatus() !== "granted") return null;
   if (initialized) return posthog;
 
   const projectToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;
@@ -22,21 +69,78 @@ export function initializeAnalytics() {
     autocapture: false,
     capture_pageview: false,
     capture_pageleave: true,
-    capture_dead_clicks: false,
+    capture_dead_clicks: true,
     capture_exceptions: false,
-    capture_heatmaps: false,
-    capture_performance: false,
-    disable_persistence: true,
+    capture_heatmaps: true,
+    capture_performance: {
+      network_timing: false,
+      web_vitals: true,
+    },
+    disable_persistence: false,
     disable_session_recording: true,
     disable_surveys: true,
     disable_surveys_automatic_display: true,
+    enable_recording_console_log: false,
+    ip: false,
     mask_all_element_attributes: true,
     mask_all_text: true,
+    mask_personal_data_properties: true,
+    opt_out_capturing_by_default: true,
+    opt_out_persistence_by_default: true,
+    persistence: "localStorage",
     person_profiles: "identified_only",
+    sanitize_properties: sanitizeAnalyticsProperties,
+    session_recording: {
+      blockClass: "ph-no-capture",
+      blockSelector: ".ph-no-capture, [data-ph-no-capture]",
+      captureCanvas: { recordCanvas: false },
+      collectFonts: false,
+      maskAllInputs: true,
+      maskTextSelector: "*",
+      recordBody: false,
+      recordCrossOriginIframes: false,
+      recordHeaders: false,
+    },
   });
 
   initialized = true;
+  posthog.opt_in_capturing({ captureEventName: false });
+  posthog.startSessionRecording(true);
   return posthog;
+}
+
+export function grantAnalyticsConsent() {
+  if (typeof window === "undefined") return null;
+
+  saveAnalyticsConsent("granted");
+  const analytics = initializeAnalytics();
+  if (!analytics) return null;
+
+  analytics.opt_in_capturing({ captureEventName: false });
+  analytics.startSessionRecording(true);
+  captureAnalyticsPageview(window.location.pathname);
+  return analytics;
+}
+
+export function denyAnalyticsConsent() {
+  if (typeof window === "undefined") return;
+
+  saveAnalyticsConsent("denied");
+  if (!initialized) return;
+
+  posthog.stopSessionRecording();
+  posthog.opt_out_capturing();
+}
+
+export function openAnalyticsPreferences() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(analyticsPreferencesEvent));
+}
+
+export function captureAnalyticsPageview(pathname: string) {
+  initializeAnalytics()?.capture("$pageview", {
+    $current_url: `${window.location.origin}${pathname}`,
+  });
 }
 
 export function captureAnalyticsEvent(

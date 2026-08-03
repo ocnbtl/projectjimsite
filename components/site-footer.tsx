@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AnalyticsPreferencesButton } from "@/components/analytics-consent";
 import { Brand } from "@/components/brand";
 import { business, navigation } from "@/content/site";
 
@@ -39,7 +40,10 @@ export function SiteFooter() {
         </div>
         <div className="footer-legal">
           <span>© {new Date().getFullYear()} {business.name}</span>
-          <Link href="/privacy">Privacy</Link>
+          <div className="footer-legal-links">
+            <Link href="/privacy">Privacy</Link>
+            <AnalyticsPreferencesButton className="footer-privacy-button" />
+          </div>
         </div>
       </div>
     </footer>
