@@ -77,7 +77,7 @@ export function initializeAnalytics() {
       web_vitals: true,
     },
     disable_persistence: false,
-    disable_session_recording: true,
+    disable_session_recording: false,
     disable_surveys: true,
     disable_surveys_automatic_display: true,
     enable_recording_console_log: false,
