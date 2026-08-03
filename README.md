@@ -10,7 +10,7 @@ Five original MCC before-and-after project sets are now integrated across the ho
 
 The `main` branch deploys to the connected Vercel project. The consultation form posts directly to a server route and includes up to five project photos. Production contains the required Resend environment configuration, and the form reports success only after the provider confirms delivery. A separately authorized live submission is still required whenever recipient delivery needs to be reverified.
 
-Optional PostHog analytics are consent-first. Before a visitor accepts, PostHog is not initialized. After acceptance, MCC records anonymous page and bounded interaction events, web vitals, heatmaps, dead clicks, and privacy-protected session replay. All replay text and inputs are masked; the estimate form and photo upload area are blocked entirely; console logs, network bodies and headers, canvas content, and cross-origin frames are excluded. Visitors can change their choice through the footer or privacy page.
+Optional PostHog analytics are consent-first. Before a visitor accepts, PostHog is not initialized. After acceptance, MCC records anonymous page and bounded interaction events, web vitals, heatmaps, dead clicks, and privacy-protected session replay. All replay text and inputs are masked; the estimate form and photo upload area are blocked entirely; console logs, network bodies and headers, canvas content, and cross-origin frames are excluded. Consented PostHog traffic uses the same-origin `/mcc-route` relay so browser privacy tools do not selectively drop replay while allowing other events. Visitors can change their choice through the footer or privacy page.
 
 ## Project documents
 

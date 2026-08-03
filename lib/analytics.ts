@@ -48,6 +48,16 @@ function saveAnalyticsConsent(status: Exclude<AnalyticsConsentStatus, "pending">
   }
 }
 
+function getPostHogUiHost(ingestionHost: string) {
+  try {
+    const url = new URL(ingestionHost);
+    url.hostname = url.hostname.replace(".i.posthog.com", ".posthog.com");
+    return url.origin;
+  } catch {
+    return "https://us.posthog.com";
+  }
+}
+
 export function initializeAnalytics() {
   if (typeof window === "undefined") return null;
   if (getAnalyticsConsentStatus() !== "granted") return null;
@@ -64,7 +74,8 @@ export function initializeAnalytics() {
   }
 
   posthog.init(projectToken, {
-    api_host: host,
+    api_host: "/mcc-route",
+    ui_host: getPostHogUiHost(host),
     defaults: "2026-01-30",
     autocapture: false,
     capture_pageview: false,
