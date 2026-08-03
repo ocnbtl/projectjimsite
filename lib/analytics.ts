@@ -33,7 +33,6 @@ export function initializeAnalytics() {
     mask_all_element_attributes: true,
     mask_all_text: true,
     person_profiles: "identified_only",
-    debug: process.env.NODE_ENV === "development",
   });
 
   initialized = true;
