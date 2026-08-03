@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
+import posthog from "posthog-js";
 import styles from "./estimate-form.module.css";
 
 const allowedPhotoTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -70,6 +71,7 @@ export function EstimateForm() {
 
     setSelectedPhotos(files.map((file) => file.name));
     setStatus({ kind: "idle", message: "" });
+    posthog.capture("consultation_photos_selected", { photo_count: files.length });
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -91,6 +93,7 @@ export function EstimateForm() {
           kind: "error",
           message: "Those photos are still too large to send together. Please choose fewer images.",
         });
+        posthog.capture("consultation_request_failed", { failure_reason: "photos_too_large" });
         return;
       }
 
@@ -114,6 +117,10 @@ export function EstimateForm() {
         kind: "success",
         message: result?.message || "Your project request has been sent. We’ll be in touch.",
       });
+      posthog.capture("consultation_request_submitted", {
+        photo_count: preparedPhotos.length,
+        property_type: String(source.get("propertyType") ?? ""),
+      });
     } catch (error) {
       setStatus({
         kind: "error",
@@ -122,6 +129,7 @@ export function EstimateForm() {
             ? error.message
             : "We could not send the request. Please call (513) 612-8421 instead.",
       });
+      posthog.capture("consultation_request_failed", { failure_reason: "submission_error" });
     }
   }
 
