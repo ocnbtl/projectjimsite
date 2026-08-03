@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import posthog from "posthog-js";
 import type { Project } from "@/content/projects";
+import { captureAnalyticsEvent } from "@/lib/analytics";
 import styles from "./before-after-slider.module.css";
 
 type BeforeAfterSliderProps = Pick<
@@ -28,7 +28,7 @@ export function BeforeAfterSlider({
   }
 
   function captureComparisonAdjustment() {
-    posthog.capture("project_comparison_adjusted", {
+    captureAnalyticsEvent("project_comparison_adjusted", {
       project_title: title,
       before_visibility_percent: position,
     });
