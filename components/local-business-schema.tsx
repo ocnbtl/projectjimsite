@@ -16,6 +16,9 @@ const schema = {
     { "@type": "State", name: "Indiana" },
     { "@type": "State", name: "West Virginia" },
     { "@type": "State", name: "Michigan" },
+    { "@type": "State", name: "Texas" },
+    { "@type": "State", name: "Arizona" },
+    { "@type": "State", name: "New Mexico" },
   ],
   makesOffer: services.map((service) => ({
     "@type": "Offer",

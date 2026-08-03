@@ -31,10 +31,26 @@ export default function PrivacyPage() {
           If online delivery is unavailable or fails, the form reports that the request was not
           sent and directs you to call instead.
         </p>
+        <h2>Website analytics</h2>
+        <p>
+          This website uses PostHog to measure anonymous page visits and a small set of website
+          interactions, such as selecting project photos, successfully submitting an estimate
+          request, or adjusting a before-and-after comparison. Analytics use an anonymous,
+          non-persistent browser identifier. MCC does not intentionally send names, phone numbers,
+          email addresses, project descriptions, locations, or uploaded photos to PostHog.
+        </p>
+        <p>
+          PostHog may process limited technical information needed to provide analytics and error
+          reporting under its own {" "}
+          <a href="https://posthog.com/privacy" rel="noreferrer" target="_blank">
+            privacy practices
+          </a>
+          .
+        </p>
         <h2>Changes to this notice</h2>
         <p>
-          This notice may be updated if the website changes its form-delivery service or later adds
-          analytics or other services that change how information is collected or processed.
+          This notice may be updated if the website changes its form-delivery, analytics, or other
+          services in a way that changes how information is collected or processed.
         </p>
         <h2>Questions</h2>
         <p>

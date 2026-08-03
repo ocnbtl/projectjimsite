@@ -144,9 +144,13 @@ export default function HomePage() {
             </a>
           </div>
           <p className={styles.heroUtility}>
-            OH <span aria-hidden="true">·</span> KY <span aria-hidden="true">·</span> IN{" "}
-            <span aria-hidden="true">·</span> WV <span aria-hidden="true">·</span> MI{" "}
-            <span aria-hidden="true">·</span> Residential &amp; commercial
+            <span className={styles.heroUtilityStates}>
+              OH <span aria-hidden="true">·</span> KY <span aria-hidden="true">·</span> IN{" "}
+              <span aria-hidden="true">·</span> WV <span aria-hidden="true">·</span> MI{" "}
+              <span aria-hidden="true">·</span> TX <span aria-hidden="true">·</span> AZ{" "}
+              <span aria-hidden="true">·</span> NM
+            </span>
+            <span className={styles.heroUtilityAudience}>Residential &amp; commercial</span>
           </p>
         </div>
 
@@ -284,7 +288,7 @@ export default function HomePage() {
           </div>
           <p className={styles.closingArea}>
             Serving Ohio, Kentucky, Indiana, West Virginia &amp; Michigan{" "}
-            <span aria-hidden="true">·</span> Expanding into Texas &amp; the Southwest
+            <span aria-hidden="true">·</span> Expanding into Texas, Arizona &amp; New Mexico
           </p>
         </div>
         <div className={styles.closingProcess}>

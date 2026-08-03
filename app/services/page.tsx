@@ -9,7 +9,7 @@ import styles from "./services.module.css";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Post-construction masonry color matching and staining for additions, repairs, brick, mortar, and specialty installed materials across Ohio, Kentucky, Indiana, West Virginia, and Michigan.",
+    "Post-construction masonry color matching and staining for additions, repairs, brick, mortar, and specialty installed materials across the Midwest and Southwest.",
 };
 
 const serviceProjects = [projects[0], projects[3], projects[2]];

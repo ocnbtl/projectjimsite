@@ -7,7 +7,18 @@ if (projectToken && host) {
   posthog.init(projectToken, {
     api_host: host,
     defaults: "2026-01-30",
+    autocapture: false,
+    capture_pageview: "history_change",
+    capture_pageleave: true,
+    capture_dead_clicks: false,
     capture_exceptions: true,
+    capture_heatmaps: false,
+    capture_performance: false,
+    disable_persistence: true,
+    disable_session_recording: true,
+    mask_all_element_attributes: true,
+    mask_all_text: true,
+    person_profiles: "identified_only",
     debug: process.env.NODE_ENV === "development",
   });
 } else if (process.env.NODE_ENV === "development") {

@@ -40,9 +40,14 @@
   margin: 32px 0 0;
 }
 
-.heroUtility span {
+.heroUtility [aria-hidden="true"] {
   color: var(--clay);
   margin-inline: 8px;
+}
+
+.heroUtilityStates,
+.heroUtilityAudience {
+  display: block;
 }
 
 .heroVisual {
@@ -820,7 +825,11 @@
   .heroUtility {
     align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .heroUtility [aria-hidden="true"] {
+    margin-inline: 5px;
   }
 
   .heroVisual {

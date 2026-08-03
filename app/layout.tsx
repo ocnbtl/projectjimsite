@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     template: "%s | Masonry Color Corrections LLC",
   },
   description:
-    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across Ohio, Kentucky, Indiana, West Virginia, and Michigan.",
+    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across the Midwest and Southwest.",
   robots: isLaunchReady
     ? { index: true, follow: true }
     : { index: false, follow: false, noarchive: true },
   openGraph: {
     title: "Masonry Color Corrections LLC",
     description:
-      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across Ohio, Kentucky, Indiana, West Virginia, and Michigan.",
+      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across the Midwest and Southwest.",
     images: [
       {
         url: "/images/projects/addition-after.jpeg",

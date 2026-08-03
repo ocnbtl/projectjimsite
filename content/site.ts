@@ -5,10 +5,10 @@ export const business = {
   email: "contact@masonrycolorcorrections.com",
   emailHref: "mailto:contact@masonrycolorcorrections.com",
   domain: "masonrycolorcorrections.com",
-  location: "Maineville, Ohio",
-  locationContext: "Based in Maineville, near Mason, Ohio",
+  location: "Cincinnati, OH",
+  locationContext: "Based in Cincinnati, Ohio",
   serviceArea:
-    "Serving residential and commercial properties across Ohio, Kentucky, Indiana, West Virginia, and Michigan, with service expanding into Texas and the Southwest.",
+    "Serving residential and commercial properties across Ohio, Kentucky, Indiana, West Virginia, Michigan, Texas, Arizona, and New Mexico.",
 };
 
 export const navigation = [

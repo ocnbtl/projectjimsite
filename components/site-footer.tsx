@@ -35,8 +35,7 @@ export function SiteFooter() {
           <a href={business.phoneHref}>{business.phoneDisplay}</a>
           <a href={business.emailHref}>{business.email}</a>
           <p>{business.location}</p>
-          <p>Serving Ohio, Kentucky, Indiana, West Virginia &amp; Michigan</p>
-          <p>Expanding into Texas &amp; the Southwest</p>
+          <p>Serving the Midwest and Southwest</p>
         </div>
         <div className="footer-legal">
           <span>© {new Date().getFullYear()} {business.name}</span>
