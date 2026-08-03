@@ -85,8 +85,6 @@ export function initializeAnalytics() {
     mask_all_element_attributes: true,
     mask_all_text: true,
     mask_personal_data_properties: true,
-    opt_out_capturing_by_default: true,
-    opt_out_persistence_by_default: true,
     persistence: "localStorage",
     person_profiles: "identified_only",
     sanitize_properties: sanitizeAnalyticsProperties,
