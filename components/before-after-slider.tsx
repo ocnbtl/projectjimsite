@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import posthog from "posthog-js";
 import type { Project } from "@/content/projects";
 import styles from "./before-after-slider.module.css";
 
@@ -21,6 +22,17 @@ export function BeforeAfterSlider({
   priority = false,
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50);
+
+  function handleComparisonChange(nextPosition: number) {
+    setPosition(nextPosition);
+  }
+
+  function captureComparisonAdjustment() {
+    posthog.capture("project_comparison_adjusted", {
+      project_title: title,
+      before_visibility_percent: position,
+    });
+  }
 
   return (
     <figure className={styles.comparison}>
@@ -60,7 +72,11 @@ export function BeforeAfterSlider({
           value={position}
           aria-label={`Compare before and after: ${title}`}
           aria-valuetext={`${position}% before visible, ${100 - position}% after visible`}
-          onInput={(event) => setPosition(Number(event.currentTarget.value))}
+          onInput={(event) => handleComparisonChange(Number(event.currentTarget.value))}
+          onPointerUp={captureComparisonAdjustment}
+          onKeyUp={(event) => {
+            if (event.key.startsWith("Arrow")) captureComparisonAdjustment();
+          }}
         />
 
         <span className={styles.divider} style={{ left: `${position}%` }} aria-hidden="true">
