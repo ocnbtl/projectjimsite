@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Masonry Color Corrections LLC, a masonry color matching specialist serving the Cincinnati area from Maineville, Ohio.",
+    "Learn about Masonry Color Corrections LLC, a masonry color matching specialist serving Ohio, Kentucky, Indiana, West Virginia, and Michigan from Maineville, Ohio.",
 };
 
 export default function AboutPage() {
@@ -39,8 +39,8 @@ export default function AboutPage() {
           </p>
           <p>
             For more than 10 years, MCC has served residential and commercial clients across
-            Greater Cincinnati, Northern Kentucky, and Southeast Indiana from its base in
-            Maineville near Mason.
+            Ohio, Kentucky, Indiana, West Virginia, and Michigan from its base in Maineville near
+            Mason. MCC is also beginning to expand into Texas and the Southwest.
           </p>
           <div className="about-actions">
             <Link className="button" href="/contact">

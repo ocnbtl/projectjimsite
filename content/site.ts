@@ -8,7 +8,7 @@ export const business = {
   location: "Maineville, Ohio",
   locationContext: "Based in Maineville, near Mason, Ohio",
   serviceArea:
-    "Serving residential and commercial properties across Greater Cincinnati, Northern Kentucky, and Southeast Indiana.",
+    "Serving residential and commercial properties across Ohio, Kentucky, Indiana, West Virginia, and Michigan, with service expanding into Texas and the Southwest.",
 };
 
 export const navigation = [

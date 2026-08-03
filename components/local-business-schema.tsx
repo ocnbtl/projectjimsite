@@ -11,9 +11,11 @@ const schema = {
   description:
     "Post-construction color mixing, staining, and matching for installed brick, mortar, masonry repairs, additions, and select compatible materials. MCC does not lay brick or perform structural masonry repair.",
   areaServed: [
-    { "@type": "AdministrativeArea", name: "Greater Cincinnati" },
-    { "@type": "AdministrativeArea", name: "Northern Kentucky" },
-    { "@type": "AdministrativeArea", name: "Southeast Indiana" },
+    { "@type": "State", name: "Ohio" },
+    { "@type": "State", name: "Kentucky" },
+    { "@type": "State", name: "Indiana" },
+    { "@type": "State", name: "West Virginia" },
+    { "@type": "State", name: "Michigan" },
   ],
   makesOffer: services.map((service) => ({
     "@type": "Offer",

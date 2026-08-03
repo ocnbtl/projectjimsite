@@ -144,8 +144,9 @@ export default function HomePage() {
             </a>
           </div>
           <p className={styles.heroUtility}>
-            Cincinnati tri-state area <span aria-hidden="true">·</span> Residential &amp;
-            commercial
+            OH <span aria-hidden="true">·</span> KY <span aria-hidden="true">·</span> IN{" "}
+            <span aria-hidden="true">·</span> WV <span aria-hidden="true">·</span> MI{" "}
+            <span aria-hidden="true">·</span> Residential &amp; commercial
           </p>
         </div>
 
@@ -282,8 +283,8 @@ export default function HomePage() {
             </a>
           </div>
           <p className={styles.closingArea}>
-            Greater Cincinnati <span aria-hidden="true">·</span> Northern Kentucky{" "}
-            <span aria-hidden="true">·</span> Southeast Indiana
+            Serving Ohio, Kentucky, Indiana, West Virginia &amp; Michigan{" "}
+            <span aria-hidden="true">·</span> Expanding into Texas &amp; the Southwest
           </p>
         </div>
         <div className={styles.closingProcess}>

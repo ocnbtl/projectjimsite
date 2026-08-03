@@ -14,18 +14,18 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Masonry Color Corrections LLC | Cincinnati Masonry Color Matching",
+    default: "Masonry Color Corrections LLC | Masonry Color Matching",
     template: "%s | Masonry Color Corrections LLC",
   },
   description:
-    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry in the Cincinnati area.",
+    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across Ohio, Kentucky, Indiana, West Virginia, and Michigan.",
   robots: isLaunchReady
     ? { index: true, follow: true }
     : { index: false, follow: false, noarchive: true },
   openGraph: {
     title: "Masonry Color Corrections LLC",
     description:
-      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry in the Cincinnati area.",
+      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across Ohio, Kentucky, Indiana, West Virginia, and Michigan.",
     images: [
       {
         url: "/images/projects/addition-after.jpeg",
