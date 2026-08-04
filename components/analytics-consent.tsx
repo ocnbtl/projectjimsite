@@ -68,7 +68,7 @@ export function AnalyticsConsent() {
       ? "Optional analytics are currently on."
       : status === "denied"
         ? "Optional analytics are currently off."
-        : "Nothing is sent to PostHog until you choose.";
+        : "Analytics are off until you choose.";
 
   return (
     <>
@@ -97,12 +97,11 @@ export function AnalyticsConsent() {
             <p className={styles.eyebrow}>Your privacy. Your choice.</p>
             <h2 id="analytics-consent-title">Help MCC improve this website</h2>
             <p id="analytics-consent-description">
-              With your permission, anonymous analytics and fully masked session replay help us
-              find confusing pages and broken interactions. The estimate form and photo uploads are
-              always excluded.
+              Optional analytics help us improve the site. Estimate information and photos are
+              excluded.
             </p>
             <p className={styles.status}>{statusMessage}</p>
-            <Link href="/privacy">Read the privacy notice</Link>
+            <Link href="/privacy">Privacy details</Link>
           </div>
           <div className={styles.actions}>
             <button className={styles.decline} type="button" onClick={declineAnalytics}>
