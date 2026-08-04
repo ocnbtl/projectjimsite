@@ -96,7 +96,7 @@ export function AnalyticsConsent() {
           <div className={styles.copy}>
             <h2 id="analytics-consent-title">Help MCC improve this website</h2>
             <p id="analytics-consent-description">
-              Optional anonymous analytics help us improve the site.
+              Anonymous analytics help us improve the site.
             </p>
             <p className={styles.status}>{statusMessage}</p>
             <Link href="/privacy">Privacy details</Link>
