@@ -21,6 +21,8 @@
 }
 
 .brandColumn {
+  --consent-logo-width: 142px;
+
   align-items: center;
   border-right: 1px solid var(--joint);
   display: flex;
@@ -35,13 +37,15 @@
   letter-spacing: 0.045em;
   line-height: 1;
   margin-top: 2px;
+  text-align: center;
   white-space: nowrap;
+  width: var(--consent-logo-width);
 }
 
 .logo {
   display: block;
   height: auto;
-  width: 142px;
+  width: var(--consent-logo-width);
 }
 
 .copy {
@@ -126,11 +130,9 @@
   }
 
   .brandColumn {
-    justify-content: center;
-  }
+    --consent-logo-width: 108px;
 
-  .logo {
-    width: 108px;
+    justify-content: center;
   }
 
   .actions {
@@ -152,14 +154,12 @@
   }
 
   .brandColumn {
+    --consent-logo-width: 128px;
+
     align-items: flex-start;
     border-bottom: 1px solid var(--joint);
     border-right: 0;
     padding: 0 0 14px;
-  }
-
-  .logo {
-    width: 128px;
   }
 
   .copy > p:not(.status) {
