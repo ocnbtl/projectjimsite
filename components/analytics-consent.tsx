@@ -94,11 +94,9 @@ export function AnalyticsConsent() {
             <span>(513) 612-8421</span>
           </div>
           <div className={styles.copy}>
-            <p className={styles.eyebrow}>Your privacy. Your choice.</p>
             <h2 id="analytics-consent-title">Help MCC improve this website</h2>
             <p id="analytics-consent-description">
-              Optional analytics help us improve the site. Estimate information and photos are
-              excluded.
+              Optional anonymous analytics help us improve the site.
             </p>
             <p className={styles.status}>{statusMessage}</p>
             <Link href="/privacy">Privacy details</Link>
