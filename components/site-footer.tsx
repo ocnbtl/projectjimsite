@@ -43,6 +43,7 @@ export function SiteFooter() {
           <div className="footer-legal-links">
             <Link href="/privacy">Privacy</Link>
             <AnalyticsPreferencesButton className="footer-privacy-button" />
+            <span>Website by Madagin</span>
           </div>
         </div>
       </div>
