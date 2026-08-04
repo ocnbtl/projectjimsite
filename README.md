@@ -41,7 +41,7 @@ For a production-domain launch, configure:
 NEXT_PUBLIC_SITE_URL=https://masonrycolorcorrections.com
 RESEND_API_KEY=re_replace_with_resend_api_key
 CONTACT_TO_EMAIL=contact@masonrycolorcorrections.com
-CONTACT_FROM_EMAIL=MCC Website <website@masonrycolorcorrections.com>
+CONTACT_FROM_EMAIL=MCC Website <website@send.masonrycolorcorrections.com>
 ```
 
 Preview deployments stay `noindex`; setting the final URL enables the production canonical URLs, sitemap, and indexing rules.
