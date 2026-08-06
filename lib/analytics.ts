@@ -105,6 +105,7 @@ export function initializeAnalytics() {
       captureCanvas: { recordCanvas: false },
       collectFonts: false,
       maskAllInputs: true,
+      maskTextSelector: ".ph-mask",
       recordBody: false,
       recordCrossOriginIframes: false,
       recordHeaders: false,
