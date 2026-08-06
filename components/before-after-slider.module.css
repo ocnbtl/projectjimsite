@@ -57,6 +57,8 @@
   outline: 0;
   position: absolute;
   touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
   width: 100%;
   z-index: 5;
 }

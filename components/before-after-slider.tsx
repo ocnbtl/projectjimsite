@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import type { Project } from "@/content/projects";
 import { captureAnalyticsEvent } from "@/lib/analytics";
 import styles from "./before-after-slider.module.css";
@@ -22,16 +23,50 @@ export function BeforeAfterSlider({
   priority = false,
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50);
+  const positionRef = useRef(50);
+  const activePointerId = useRef<number | null>(null);
 
   function handleComparisonChange(nextPosition: number) {
-    setPosition(nextPosition);
+    const boundedPosition = Math.min(100, Math.max(0, Math.round(nextPosition)));
+    positionRef.current = boundedPosition;
+    setPosition(boundedPosition);
   }
 
   function captureComparisonAdjustment() {
     captureAnalyticsEvent("project_comparison_adjusted", {
       project_title: title,
-      before_visibility_percent: position,
+      before_visibility_percent: positionRef.current,
     });
+  }
+
+  function updateFromPointer(event: ReactPointerEvent<HTMLInputElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const nextPosition = ((event.clientX - bounds.left) / bounds.width) * 100;
+    handleComparisonChange(nextPosition);
+  }
+
+  function beginPointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    activePointerId.current = event.pointerId;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    updateFromPointer(event);
+  }
+
+  function continuePointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
+    if (activePointerId.current !== event.pointerId) return;
+    updateFromPointer(event);
+  }
+
+  function finishPointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
+    if (activePointerId.current !== event.pointerId) return;
+
+    updateFromPointer(event);
+    activePointerId.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    captureComparisonAdjustment();
   }
 
   return (
@@ -73,7 +108,10 @@ export function BeforeAfterSlider({
           aria-label={`Compare before and after: ${title}`}
           aria-valuetext={`${position}% before visible, ${100 - position}% after visible`}
           onInput={(event) => handleComparisonChange(Number(event.currentTarget.value))}
-          onPointerUp={captureComparisonAdjustment}
+          onPointerDown={beginPointerDrag}
+          onPointerMove={continuePointerDrag}
+          onPointerUp={finishPointerDrag}
+          onPointerCancel={finishPointerDrag}
           onKeyUp={(event) => {
             if (event.key.startsWith("Arrow")) captureComparisonAdjustment();
           }}

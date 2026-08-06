@@ -1,14 +1,16 @@
 "use client";
 
 import type { ChangeEvent, FormEvent } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { captureAnalyticsEvent } from "@/lib/analytics";
+import { TurnstileWidget } from "@/components/turnstile-widget";
 import styles from "./estimate-form.module.css";
 
 const allowedPhotoTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const maxPhotoCount = 5;
 const maxUploadBytes = 3_600_000;
 const maxPhotoDimension = 1800;
+const turnstileEnabled = Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
 type FormStatus = {
   kind: "idle" | "sending" | "success" | "error";
@@ -47,6 +49,14 @@ async function preparePhoto(file: File) {
 export function EstimateForm() {
   const [status, setStatus] = useState<FormStatus>({ kind: "idle", message: "" });
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
+  const formStarted = useRef(false);
+
+  function handleFormStart() {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    captureAnalyticsEvent("consultation_form_started");
+  }
 
   function handlePhotos(event: ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.currentTarget.files ?? []);
@@ -82,6 +92,14 @@ export function EstimateForm() {
       .getAll("photos")
       .filter((value): value is File => value instanceof File && value.size > 0);
 
+    if (turnstileEnabled && !source.get("cf-turnstile-response")) {
+      setStatus({
+        kind: "error",
+        message: "Please complete the security check before sending your request.",
+      });
+      return;
+    }
+
     setStatus({ kind: "sending", message: "Preparing your project details and photos…" });
 
     try {
@@ -107,14 +125,21 @@ export function EstimateForm() {
       payload.set("submissionId", crypto.randomUUID());
 
       const response = await fetch("/api/consultation", { method: "POST", body: payload });
-      const result = (await response.json().catch(() => null)) as { message?: string } | null;
+      const result = (await response.json().catch(() => null)) as {
+        code?: string;
+        message?: string;
+      } | null;
 
       if (!response.ok) {
+        if (result?.code === "turnstile_verification_failed") {
+          setTurnstileResetKey((current) => current + 1);
+        }
         throw new Error(result?.message || "We could not send the request. Please call us instead.");
       }
 
       formElement.reset();
       setSelectedPhotos([]);
+      setTurnstileResetKey((current) => current + 1);
       setStatus({
         kind: "success",
         message: result?.message || "Your project request has been sent. We’ll be in touch.",
@@ -138,7 +163,12 @@ export function EstimateForm() {
   }
 
   return (
-    <form className="estimate-form" onSubmit={handleSubmit} encType="multipart/form-data">
+    <form
+      className="estimate-form"
+      onChangeCapture={handleFormStart}
+      onSubmit={handleSubmit}
+      encType="multipart/form-data"
+    >
       <label className={styles.honeypot} aria-hidden="true">
         Website
         <input name="website" tabIndex={-1} autoComplete="off" />
@@ -200,6 +230,7 @@ export function EstimateForm() {
           {selectedPhotos.length} {selectedPhotos.length === 1 ? "photo" : "photos"} ready
         </p>
       ) : null}
+      <TurnstileWidget className={styles.turnstile} key={turnstileResetKey} />
       <button className="button" type="submit" disabled={status.kind === "sending"}>
         {status.kind === "sending" ? "Sending request…" : "Request Your Estimate"}
         <span aria-hidden="true">→</span>

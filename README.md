@@ -10,7 +10,11 @@ Five original MCC before-and-after project sets are now integrated across the ho
 
 The `main` branch deploys to the connected Vercel project. The consultation form posts directly to a server route and includes up to five project photos. Production contains the required Resend environment configuration, and the form reports success only after the provider confirms delivery. A separately authorized live submission is still required whenever recipient delivery needs to be reverified.
 
-Optional PostHog analytics are consent-first. Before a visitor accepts, PostHog is not initialized. After acceptance, MCC records anonymous page and bounded interaction events, web vitals, heatmaps, dead clicks, and privacy-protected session replay. All replay text and inputs are masked; the estimate form and photo upload area are blocked entirely; console logs, network bodies and headers, canvas content, and cross-origin frames are excluded. Consented PostHog traffic uses the same-origin `/mcc-route` relay so browser privacy tools do not selectively drop replay while allowing other events. Visitors can change their choice through the footer or privacy page.
+Optional PostHog analytics are consent-first. Before a visitor accepts, PostHog is not initialized. After acceptance, MCC records anonymous page and bounded interaction events, web vitals, heatmaps, dead clicks, and privacy-protected session replay. Public page copy remains visible in replay, while every form input value is masked; console logs, network bodies and headers, canvas content, and cross-origin frames are excluded. Consented PostHog traffic uses the same-origin `/mcc-route` relay so browser privacy tools do not selectively drop replay while allowing other events. Visitors can change their choice through the footer or privacy page.
+
+Consultation analytics record only that the form was started, whether photos were selected, and the delivery outcome. Contact details, project descriptions, filenames, and photo contents are never sent to PostHog.
+
+The consultation form supports Cloudflare Turnstile when both Turnstile environment values are configured. The browser obtains a short-lived challenge token and the server validates it before calling Resend. The existing honeypot, same-origin validation, file limits, idempotency, and phone fallback remain in place.
 
 ## Project documents
 
@@ -42,6 +46,8 @@ NEXT_PUBLIC_SITE_URL=https://masonrycolorcorrections.com
 RESEND_API_KEY=re_replace_with_resend_api_key
 CONTACT_TO_EMAIL=contact@masonrycolorcorrections.com
 CONTACT_FROM_EMAIL=MCC Website <website@send.masonrycolorcorrections.com>
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=replace_with_turnstile_site_key
+TURNSTILE_SECRET_KEY=replace_with_turnstile_secret_key
 ```
 
 Preview deployments stay `noindex`; setting the final URL enables the production canonical URLs, sitemap, and indexing rules.

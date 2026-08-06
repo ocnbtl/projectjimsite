@@ -76,6 +76,12 @@
   width: 1px;
 }
 
+.turnstile {
+  margin: 4px 0 18px;
+  min-height: 65px;
+  width: 100%;
+}
+
 .status {
   min-height: 24px;
 }

@@ -9,6 +9,11 @@ const maxPhotoCount = 5;
 const maxPhotoBytes = 2_500_000;
 const maxTotalPhotoBytes = 3_600_000;
 
+type TurnstileResponse = {
+  success: boolean;
+  "error-codes"?: string[];
+};
+
 function textValue(form: FormData, key: string, maxLength: number) {
   const value = form.get(key);
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
@@ -25,6 +30,33 @@ function escapeHtml(value: string) {
     };
     return entities[character];
   });
+}
+
+async function verifyTurnstileToken(token: string, secret: string) {
+  const body = new URLSearchParams({ response: token, secret });
+
+  try {
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+      signal: AbortSignal.timeout(5_000),
+    });
+
+    if (!response.ok) return { status: "unavailable" as const };
+
+    const result = (await response.json()) as TurnstileResponse;
+    if (!result.success) {
+      console.warn("Turnstile verification rejected", {
+        errorCodes: result["error-codes"] ?? [],
+      });
+      return { status: "invalid" as const };
+    }
+
+    return { status: "valid" as const };
+  } catch {
+    return { status: "unavailable" as const };
+  }
 }
 
 export async function POST(request: Request) {
@@ -75,6 +107,41 @@ export async function POST(request: Request) {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ message: "Please enter a valid email address." }, { status: 400 });
+    }
+
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+    if (turnstileSecret) {
+      const turnstileToken = textValue(form, "cf-turnstile-response", 2048);
+      if (!turnstileToken) {
+        return NextResponse.json(
+          {
+            code: "turnstile_verification_failed",
+            message: "Please complete the security check before sending your request.",
+          },
+          { status: 400 },
+        );
+      }
+
+      const verification = await verifyTurnstileToken(turnstileToken, turnstileSecret);
+      if (verification.status === "unavailable") {
+        return NextResponse.json(
+          {
+            code: "turnstile_verification_failed",
+            message:
+              "Security verification is temporarily unavailable. Please call (513) 612-8421 instead.",
+          },
+          { status: 503 },
+        );
+      }
+      if (verification.status === "invalid") {
+        return NextResponse.json(
+          {
+            code: "turnstile_verification_failed",
+            message: "That security check expired. Please verify again and resend your request.",
+          },
+          { status: 403 },
+        );
+      }
     }
 
     const photos = form
