@@ -4,6 +4,8 @@ export const business = {
   phoneHref: "tel:+15136128421",
   email: "contact@masonrycolorcorrections.com",
   emailHref: "mailto:contact@masonrycolorcorrections.com",
+  facebookUrl:
+    "https://www.facebook.com/people/Masonry-Color-Corrections-LLC/61565411505495/",
   domain: "masonrycolorcorrections.com",
   location: "Cincinnati, OH",
   locationContext: "Based in Cincinnati, Ohio",

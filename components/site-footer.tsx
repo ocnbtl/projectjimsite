@@ -37,6 +37,21 @@ export function SiteFooter() {
           <a href={business.emailHref}>{business.email}</a>
           <p>{business.location}</p>
           <p>Serving the Midwest and Southwest</p>
+          <a
+            className="footer-social-link"
+            href={business.facebookUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Masonry Color Corrections LLC on Facebook"
+            title="MCC on Facebook"
+          >
+            <svg aria-hidden="true" viewBox="0 0 16 16">
+              <path
+                fill="currentColor"
+                d="M16 8.05A8 8 0 1 0 6.75 16v-5.63H4.72V8.05h2.03V6.28c0-2.02 1.2-3.13 3.02-3.13.87 0 1.78.16 1.78.16v1.96h-1c-1 0-1.3.62-1.3 1.25v1.53h2.22l-.36 2.32H9.25V16A8 8 0 0 0 16 8.05Z"
+              />
+            </svg>
+          </a>
         </div>
         <div className="footer-legal">
           <span>© {new Date().getFullYear()} {business.name}</span>

@@ -1124,6 +1124,27 @@ img {
   color: white;
 }
 
+.footer-contact .footer-social-link {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  margin: 8px 0 0;
+  width: 36px;
+}
+
+.footer-social-link svg {
+  height: 18px;
+  width: 18px;
+}
+
+.footer-contact .footer-social-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.48);
+}
+
 .footer-legal {
   border-top: 1px solid rgba(255, 255, 255, 0.13);
   color: #938d84;
