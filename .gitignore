@@ -3,6 +3,7 @@ node_modules/
 out/
 .vercel/
 .playwright-cli/
+/output/playwright/
 .env*
 !.env.example
 npm-debug.log*

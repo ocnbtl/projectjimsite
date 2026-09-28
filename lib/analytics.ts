@@ -156,7 +156,11 @@ export function captureAnalyticsEvent(
   eventName: string,
   properties?: Record<string, string | number | boolean>,
 ) {
-  initializeAnalytics()?.capture(eventName, properties);
+  try {
+    initializeAnalytics()?.capture(eventName, properties);
+  } catch {
+    // Optional analytics must never interrupt an estimate request or its confirmation.
+  }
 }
 
 export function captureAnalyticsException(error: Error) {

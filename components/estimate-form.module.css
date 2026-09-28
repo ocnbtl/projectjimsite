@@ -103,3 +103,86 @@
 .idle {
   color: var(--smoke);
 }
+
+.fields {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.fields:disabled { opacity: 0.7; }
+
+.confirmation {
+  background: var(--sample);
+  border: 1px solid var(--joint);
+  border-radius: 12px;
+  margin-top: 28px;
+  padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 40px);
+  text-align: center;
+}
+
+.confirmation:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.confirmationMark {
+  background: #e4eddf;
+  border-radius: 50%;
+  color: #29633b;
+  display: grid;
+  height: 64px;
+  margin: 0 auto 24px;
+  place-items: center;
+  width: 64px;
+  animation: confirmation-settle 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.confirmationMark svg {
+  height: 36px;
+  width: 36px;
+}
+
+.confirmationMark path {
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: confirmation-check 380ms cubic-bezier(0.16, 1, 0.3, 1) 100ms both;
+}
+
+.confirmation h3 {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 0 auto;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.confirmation p { color: var(--smoke); line-height: 1.65; }
+.nextSteps { margin: 28px auto 0; max-width: 40ch; }
+.nextSteps h4 { font-size: 1rem; line-height: 1.4; margin: 0 0 8px; }
+.nextSteps p { font-size: 0.95rem; margin: 0; }
+.nextSteps strong { color: var(--soot); font-weight: 600; }
+.confirmation .confirmationHelp { font-size: 0.85rem; margin: 20px 0 0; }
+.confirmationHelp a, .help a { color: var(--clay-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.confirmationActions { display: flex; justify-content: center; margin-top: 28px; }
+.help { color: var(--smoke); font-size: 0.86rem; line-height: 1.6; }
+
+@keyframes confirmation-settle {
+  from { transform: scale(0.88); }
+  to { transform: scale(1); }
+}
+
+@keyframes confirmation-check {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmationMark, .confirmationMark path { animation: none; }
+}

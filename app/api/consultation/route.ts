@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-export const maxDuration = 10;
+// Allow both bounded upstream calls (5s security + 8s email) to finish.
+export const maxDuration = 30;
 
 const allowedPhotoTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const maxPhotoCount = 5;
@@ -244,12 +245,13 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({
+      accepted: true,
       message: "Your project request has been sent. We’ll be in touch.",
     });
   } catch (error) {
     console.error("Consultation request failed", error);
     return NextResponse.json(
-      { message: "We could not send the request. Please call (513) 612-8421 instead." },
+      { message: "We could not confirm whether your request was sent. Please call (513) 612-8421 before trying again." },
       { status: 500 },
     );
   }

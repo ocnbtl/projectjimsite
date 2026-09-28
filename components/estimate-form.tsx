@@ -1,7 +1,9 @@
 "use client";
 
 import type { ChangeEvent, FormEvent } from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { business } from "@/content/site";
 import { captureAnalyticsEvent } from "@/lib/analytics";
 import { TurnstileWidget } from "@/components/turnstile-widget";
 import styles from "./estimate-form.module.css";
@@ -51,6 +53,19 @@ export function EstimateForm() {
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
   const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const formStarted = useRef(false);
+  const submitting = useRef(false);
+  const submissionId = useRef<string | null>(null);
+  const validationReported = useRef(false);
+  const confirmationRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (status.kind === "success") confirmationRef.current?.focus();
+  }, [status.kind]);
+
+  function reportFailure(reason: string, message?: string) {
+    if (message) setStatus({ kind: "error", message });
+    captureAnalyticsEvent("consultation_request_failed", { failure_reason: reason });
+  }
 
   function handleFormStart() {
     if (formStarted.current) return;
@@ -65,17 +80,14 @@ export function EstimateForm() {
     if (invalid) {
       event.currentTarget.value = "";
       setSelectedPhotos([]);
-      setStatus({
-        kind: "error",
-        message: "Please choose JPG, PNG, or WebP project photos.",
-      });
+      reportFailure("invalid_photo_type", "Please choose JPG, PNG, or WebP project photos.");
       return;
     }
 
     if (files.length > maxPhotoCount) {
       event.currentTarget.value = "";
       setSelectedPhotos([]);
-      setStatus({ kind: "error", message: "Please choose no more than five photos." });
+      reportFailure("too_many_photos", "Please choose no more than five photos.");
       return;
     }
 
@@ -86,6 +98,8 @@ export function EstimateForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting.current) return;
+    handleFormStart();
     const formElement = event.currentTarget;
     const source = new FormData(formElement);
     const photos = source
@@ -93,13 +107,12 @@ export function EstimateForm() {
       .filter((value): value is File => value instanceof File && value.size > 0);
 
     if (turnstileEnabled && !source.get("cf-turnstile-response")) {
-      setStatus({
-        kind: "error",
-        message: "Please complete the security check before sending your request.",
-      });
+      reportFailure("security_check_missing", "Please complete the security check before sending your request.");
       return;
     }
 
+    submitting.current = true;
+    let requestAttempted = false;
     setStatus({ kind: "sending", message: "Preparing your project details and photos…" });
 
     try {
@@ -122,24 +135,33 @@ export function EstimateForm() {
         if (key !== "photos") payload.append(key, value);
       }
       for (const photo of preparedPhotos) payload.append("photos", photo, photo.name);
-      payload.set("submissionId", crypto.randomUUID());
+      submissionId.current ??= crypto.randomUUID();
+      payload.set("submissionId", submissionId.current);
 
+      requestAttempted = true;
       const response = await fetch("/api/consultation", { method: "POST", body: payload });
       const result = (await response.json().catch(() => null)) as {
+        accepted?: boolean;
         code?: string;
         message?: string;
       } | null;
 
-      if (!response.ok) {
-        if (result?.code === "turnstile_verification_failed") {
-          setTurnstileResetKey((current) => current + 1);
-        }
-        throw new Error(result?.message || "We could not send the request. Please call us instead.");
+      if (!response.ok || result?.accepted !== true) {
+        const reason = result?.code === "turnstile_verification_failed"
+          ? "security_check_failed"
+          : response.status === 400 ? "validation_error"
+          : response.status === 413 ? "photos_too_large"
+          : response.status === 415 ? "invalid_photo_type"
+          : response.status === 503 ? "delivery_unavailable"
+          : response.ok ? "invalid_response" : "delivery_error";
+        reportFailure(reason, response.ok
+          ? "We could not confirm your request. Please call us before trying again."
+          : result?.message || "We could not send the request. Please call us instead.");
+        return;
       }
 
       formElement.reset();
       setSelectedPhotos([]);
-      setTurnstileResetKey((current) => current + 1);
       setStatus({
         kind: "success",
         message: result?.message || "Your project request has been sent. We’ll be in touch.",
@@ -147,28 +169,71 @@ export function EstimateForm() {
       captureAnalyticsEvent("consultation_request_submitted", {
         photo_count: preparedPhotos.length,
         property_type: String(source.get("propertyType") ?? ""),
+        confirmation: "email_provider_accepted",
       });
-    } catch (error) {
+    } catch {
       setStatus({
         kind: "error",
         message:
-          error instanceof Error
-            ? error.message
-            : "We could not send the request. Please call (513) 612-8421 instead.",
+          "We could not confirm whether your request was sent. Please call (513) 612-8421 before trying again.",
       });
       captureAnalyticsEvent("consultation_request_failed", {
-        failure_reason: "submission_error",
+        failure_reason: "network_or_preparation_error",
       });
+    } finally {
+      // Verification tokens are single-use, including when email delivery later fails.
+      if (requestAttempted) setTurnstileResetKey((current) => current + 1);
+      submitting.current = false;
     }
+  }
+
+  if (status.kind === "success") {
+    return (
+      <section
+        ref={confirmationRef}
+        className={styles.confirmation}
+        tabIndex={-1}
+        aria-labelledby="estimate-confirmation-title"
+      >
+        <span className={styles.confirmationMark} aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" focusable="false">
+            <path d="M8 16L14 22L24 10" pathLength="1" />
+          </svg>
+        </span>
+        <span className="sr-only">Request sent.</span>
+        <h3 id="estimate-confirmation-title">Thanks for telling us about your project.</h3>
+        <div className={styles.nextSteps}>
+          <h4>What happens next?</h4>
+          <p>We’ll review your details and get in touch by phone or email, usually <strong>within two business days.</strong></p>
+        </div>
+        <p className={styles.confirmationHelp}>Haven’t heard from us by then?<br />Call <a href={business.phoneHref}>{business.phoneDisplay}</a>.</p>
+        <div className={styles.confirmationActions}>
+          <Link className="button" href="/gallery">See completed projects <span aria-hidden="true">→</span></Link>
+        </div>
+      </section>
+    );
   }
 
   return (
     <form
       className="estimate-form"
-      onChangeCapture={handleFormStart}
+      aria-label="Estimate request"
+      aria-busy={status.kind === "sending"}
+      onChangeCapture={() => {
+        submissionId.current = null;
+        validationReported.current = false;
+        handleFormStart();
+      }}
+      onInvalidCapture={() => {
+        if (validationReported.current) return;
+        validationReported.current = true;
+        reportFailure("validation_error", "Please check the required fields and enter a valid email address.");
+      }}
       onSubmit={handleSubmit}
       encType="multipart/form-data"
     >
+      <fieldset className={styles.fields} disabled={status.kind === "sending"}>
+        <legend className="sr-only">Your project details</legend>
       <label className={styles.honeypot} aria-hidden="true">
         Website
         <input name="website" tabIndex={-1} autoComplete="off" />
@@ -235,6 +300,7 @@ export function EstimateForm() {
         {status.kind === "sending" ? "Sending request…" : "Request Your Estimate"}
         <span aria-hidden="true">→</span>
       </button>
+      </fieldset>
       <p
         className={`${styles.status} ${styles[status.kind]}`}
         role="status"
@@ -242,6 +308,9 @@ export function EstimateForm() {
       >
         {status.message}
       </p>
+      {status.kind === "error" ? (
+        <p className={styles.help}>Need a hand? Call <a href={business.phoneHref}>{business.phoneDisplay}</a>. Your details are still here if you want to try again.</p>
+      ) : null}
     </form>
   );
 }

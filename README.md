@@ -8,7 +8,7 @@ Phase 1 research and strategy is complete. The responsive Next.js website now in
 
 Five original MCC before-and-after project sets are now integrated across the homepage, gallery, and social-sharing metadata. The repository preserves the supplied JPEGs byte-for-byte; responsive framing is handled by the website without editorial retouching.
 
-The `main` branch deploys to the connected Vercel project. The consultation form posts directly to a server route and includes up to five project photos. Production contains the required Resend environment configuration, and the form reports success only after the provider confirms delivery. A separately authorized live submission is still required whenever recipient delivery needs to be reverified.
+The `main` branch deploys to the connected Vercel project. The consultation form posts directly to a server route and includes up to five project photos. The form reports success only after the email provider accepts the request. Provider acceptance does not confirm inbox delivery; a separately authorized live submission is required whenever recipient delivery needs to be verified.
 
 Optional PostHog analytics are consent-first. Before a visitor accepts, PostHog is not initialized. After acceptance, MCC records anonymous page and bounded interaction events, web vitals, heatmaps, dead clicks, and privacy-protected session replay. Public page copy remains visible in replay, while every form input value is masked; console logs, network bodies and headers, canvas content, and cross-origin frames are excluded. Consented PostHog traffic uses the same-origin `/mcc-route` relay so browser privacy tools do not selectively drop replay while allowing other events. Visitors can change their choice through the footer or privacy page.
 
@@ -53,6 +53,29 @@ TURNSTILE_SECRET_KEY=replace_with_turnstile_secret_key
 Preview deployments stay `noindex`; setting the final URL enables the production canonical URLs, sitemap, and indexing rules.
 
 ## Delivery path
+
+### Estimate confirmation and analytics
+
+The contact form displays an accessible thank-you panel only after the API returns
+`accepted: true` following email-provider acceptance. This is not proof of inbox
+delivery. Failed requests keep the entered details, and an unchanged retry reuses
+its submission ID to avoid duplicate email sends. The security token is refreshed
+after each network attempt.
+
+The consent-based PostHog funnel uses the existing event names:
+`consultation_form_started` → `consultation_request_submitted`.
+Inspect `consultation_request_failed` separately by `failure_reason`; this now
+includes browser validation, photo validation, and missing security checks.
+No form text, contact details, or photos are added to these events. Query these
+names rather than the report's proposed `estimate_form_*` names.
+
+Run `node --test scripts/consultation.test.mjs` for isolated API regression checks.
+For a local UI preview, run `node scripts/preview-consultation.mjs` and open
+`http://127.0.0.1:3102/contact`. This fixture disables real analytics and Turnstile
+and intercepts email-provider requests. No email is sent. Enter `LOCAL_FAILURE`
+in the description to simulate rejection, then change it to test success.
+
+### Production delivery
 
 1. Keep the Google Workspace inbox, Resend sending domain, and three server-only form-delivery values under the approved client/provider ownership model.
 2. Use an authorized, clearly labeled live request only when recipient delivery must be verified; do not submit a real lead as routine smoke testing.
