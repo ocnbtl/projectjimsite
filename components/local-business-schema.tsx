@@ -4,12 +4,14 @@ import { siteUrl } from "@/content/site-url";
 const schema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": new URL("/#business", siteUrl).toString(),
   name: business.name,
   url: siteUrl,
   telephone: "+1-513-612-8421",
   email: business.email,
-  description:
-    "Post-construction color mixing, staining, and matching for installed brick, mortar, masonry repairs, additions, and select compatible materials. MCC does not lay brick or perform structural masonry repair.",
+  description: `${business.description} MCC does not lay brick or perform structural masonry repair.`,
+  logo: new URL("/images/brand/mcc-logo-transparent.png", siteUrl).toString(),
+  sameAs: [business.facebookUrl],
   areaServed: [
     { "@type": "State", name: "Ohio" },
     { "@type": "State", name: "Kentucky" },
@@ -32,9 +34,25 @@ const schema = {
 
 export function LocalBusinessSchema() {
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": new URL("/#website", siteUrl).toString(),
+            name: business.name,
+            alternateName: "Masonry Color Corrections",
+            url: new URL("/", siteUrl).toString(),
+            publisher: { "@id": schema["@id"] },
+          }),
+        }}
+      />
+    </>
   );
 }

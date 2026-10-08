@@ -16,11 +16,10 @@ export function SiteFooter() {
         <div className="footer-brand">
           <Brand />
           <p>
-            Post-construction color staining and matching for installed brick, mortar, and select
-            compatible materials.
+            Helping repairs, additions, and mismatched masonry blend in for more than 10 years.
           </p>
         </div>
-        <div>
+        <div data-nosnippet>
           <p className="footer-label">Navigate</p>
           <nav className="footer-nav" aria-label="Footer navigation">
             {footerNavigation.map((item) => (
@@ -53,7 +52,7 @@ export function SiteFooter() {
             </svg>
           </a>
         </div>
-        <div className="footer-legal">
+        <div className="footer-legal" data-nosnippet>
           <span>© {new Date().getFullYear()} {business.name}</span>
           <div className="footer-legal-links">
             <Link href="/privacy">Privacy</Link>

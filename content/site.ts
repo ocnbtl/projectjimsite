@@ -1,5 +1,7 @@
 export const business = {
   name: "Masonry Color Corrections LLC",
+  description:
+    "Masonry Color Corrections LLC: 10+ years of brick staining and color matching in Cincinnati and beyond. Call (513) 612-8421 for a free estimate.",
   phoneDisplay: "(513) 612-8421",
   phoneHref: "tel:+15136128421",
   email: "contact@masonrycolorcorrections.com",
@@ -26,24 +28,24 @@ export const services = [
     number: "01",
     title: "Repair and addition color matching",
     short:
-      "Post-construction color matching for replacement brick, patched openings, additions, and other new work that does not visually agree with the original masonry.",
+      "Help replacement brick, repaired walls, and additions blend with the masonry already there.",
     detail:
-      "A mason or builder completes the structural work first. If the closest available brick still looks lighter, darker, redder, or more uniform than the surrounding wall, MCC studies the original material, mixes the target tones, and handles the color-matching stage afterward.",
+      "Your mason or builder finishes the construction first. If the new brick still stands out, we mix and test colors against the original wall, then adjust the new work to match its tones and natural variation.",
   },
   {
     number: "02",
     title: "Brick and masonry staining",
     short:
-      "Custom-mixed color adjustment for brick, mortar, and suitable masonry when the installed material is sound but the color is wrong.",
+      "Change the color of sound brick and mortar without covering up their natural texture.",
     detail:
-      "Brick and masonry staining begins with the installed surface: its material, existing coatings, absorbency, texture, and the amount of color change needed. MCC mixes and tests colors against the project, then applies the selected tones to bring the surface into a more natural relationship with the masonry around it.",
+      "We check the surface, any existing coatings, and how well the material absorbs stain before recommending a treatment. Then we mix and test colors on the project to find the right match.",
   },
   {
     number: "03",
     title: "Specialty material color matching",
     short:
-      "Selective color work for mortar, ceramic architectural accents, and compatible surfaces when the material is installed but its finish does not belong.",
+      "Bring mortar, ceramic accents, and other suitable surfaces closer to the colors around them.",
     detail:
-      "Some projects bring masonry, mortar, ceramic elements, and nearby finishes into the same view. MCC evaluates the installed surface, its existing finish, and the material it needs to relate to before proceeding with color matching as the solution.",
+      "Sometimes a single detail draws attention for the wrong reason. We look at the material and its finish first, then let you know whether color matching can help it fit with the rest of the space.",
   },
 ];

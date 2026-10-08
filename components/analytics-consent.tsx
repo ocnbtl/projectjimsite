@@ -77,6 +77,7 @@ export function AnalyticsConsent() {
       </p>
       {isOpen ? (
         <section
+          data-nosnippet
           className={`${styles.panel} ph-no-capture`}
           data-ph-no-capture="true"
           aria-labelledby="analytics-consent-title"

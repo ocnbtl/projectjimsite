@@ -18,11 +18,9 @@ export default function AboutPage() {
     <>
       <PageIntro title="A specialist’s eye for color, variation, and fit.">
         <p>
-          Masonry Color Corrections LLC focuses on the visual problems that can remain after a
-          repair, addition, replacement, or material change is structurally complete. MCC steps
-          in as the color specialist once the mason, builder, or installer has completed the
-          structural work, then focuses on making the finished materials look like they belong
-          together.
+          A repair can be well built and still stand out. Masonry Color Corrections LLC helps
+          new brick, mortar, and additions blend with what’s already there. Your mason or builder
+          handles the construction; we take care of the color afterward.
         </p>
       </PageIntro>
 
@@ -30,12 +28,10 @@ export default function AboutPage() {
         <div className="about-copy">
           <h2>Color isn’t one flat value.</h2>
           <p>
-            Existing masonry carries variation from brick to brick, through mortar joints,
-            texture, absorbency, and changing light. MCC compares a repair, addition, or changed
-            area with the surrounding field, then mixes and tests target tones for selective
-            color correction or broader staining when the masonry can accept the treatment. The
-            goal is to bring the distracting difference back into the larger material relationship
-            without flattening the surface into one uniform color.
+            Look closely at an older wall and you’ll see several colors, not just one. We study
+            those differences, mix and test colors against the brick and mortar, and check
+            whether the surface can accept the treatment. The aim is a match that keeps the
+            wall’s character, rather than covering it with one flat color.
           </p>
           <p>
             For more than 10 years, MCC has served residential and commercial clients across Ohio,

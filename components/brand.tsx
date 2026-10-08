@@ -13,7 +13,7 @@ export function Brand({ onClick }: BrandProps = {}) {
       aria-label="Masonry Color Corrections home"
       onClick={onClick}
     >
-      <span className="brand-logo-frame">
+      <span className="brand-logo-frame" data-nosnippet>
         <Image
           className="brand-logo"
           src="/images/brand/mcc-logo-transparent.png"

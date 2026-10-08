@@ -63,6 +63,44 @@ test('Contact FAQ uses four closed native disclosures with crawlable answers', a
   assert.match(html, /contact-faq-grid/);
 });
 
+test('homepage exposes the preferred site name, matching identity and useful description', async () => {
+  const html = await (await fetch(`${base}/`)).text();
+  const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+  assert.ok(description?.startsWith('Masonry Color Corrections LLC:'));
+  assert.match(description, /10\+ years of brick staining and color matching/);
+  assert.match(description, /Cincinnati/);
+  assert.match(description, /\(513\) 612-8421/);
+  assert.ok(description.length <= 160);
+  assert.match(html, /<meta property="og:site_name" content="Masonry Color Corrections LLC"/);
+  assert.match(html, /More than 10 years of color matching/);
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)]
+    .map((match) => JSON.parse(match[1]));
+  const websites = schemas.filter((schema) => schema['@type'] === 'WebSite');
+  assert.equal(websites.length, 1);
+  assert.equal(websites[0].name, 'Masonry Color Corrections LLC');
+  assert.equal(websites[0].url, `${canonicalOrigin}/`);
+  const business = schemas.find((schema) => schema['@type'] === 'LocalBusiness');
+  assert.equal(business.name, websites[0].name);
+  assert.equal(business['@id'], websites[0].publisher['@id']);
+  assert.equal(business.telephone, '+1-513-612-8421');
+  assert.match(business.logo, /^https:\/\/masonrycolorcorrections\.com\/images\/brand\//);
+  assert.equal(business.sameAs.length, 1);
+  assert.match(business.description, /does not lay brick or perform structural masonry repair/);
+  assert.equal(business.aggregateRating, undefined, 'Do not invent reviews');
+  assert.equal(business.foundingDate, undefined, 'Do not infer an exact founding date');
+});
+
+test('navigation is excluded from snippets without excluding the useful main content', async () => {
+  const html = await (await fetch(`${base}/`)).text();
+  assert.match(html, /<div class="header-inner" data-nosnippet="true">/);
+  assert.match(html, /<span class="brand-logo-frame" data-nosnippet="true">/);
+  assert.match(html, /<div class="footer-legal" data-nosnippet="true">/);
+  const main = html.match(/<main id="main-content">(.*?)<\/main>/s)?.[1];
+  assert.ok(main);
+  assert.doesNotMatch(main, /data-nosnippet/);
+  assert.match(main, /New brick doesn’t always match the old/);
+});
+
 test('analytics disclosure and security policy allow only the intended Cloudflare services', async () => {
   const response = await fetch(`${base}/privacy`);
   const policy = response.headers.get('content-security-policy');

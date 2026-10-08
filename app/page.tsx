@@ -132,8 +132,11 @@ export default function HomePage() {
             </span>
           </h1>
           <p>
-            MCC custom-mixes and applies color to installed brick, mortar, repairs, additions,
-            and select compatible materials so new work belongs with what is already there.
+            New brick doesn’t always match the old. We mix and apply color to help repairs,
+            additions, and mismatched mortar blend in, while keeping the texture you love.
+          </p>
+          <p className={styles.heroExperience}>
+            More than 10 years of color matching. Based in Cincinnati, serving homes and businesses.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">

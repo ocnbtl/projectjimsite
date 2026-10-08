@@ -20,8 +20,14 @@
   max-width: 580px;
 }
 
-.heroCopy > p:not(.heroUtility) {
+.heroCopy > p:not(.heroUtility):not(.heroExperience) {
   max-width: 440px;
+}
+
+.heroCopy > .heroExperience {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  max-width: 410px;
 }
 
 .heroHeadlineLine {
@@ -33,7 +39,7 @@
   color: var(--clay);
 }
 
-.heroUtility {
+.heroCopy > .heroUtility {
   color: var(--ash);
   font-size: 0.82rem;
   letter-spacing: 0.015em;
@@ -42,12 +48,17 @@
 
 .heroUtility [aria-hidden="true"] {
   color: var(--clay);
+  font-weight: 400;
   margin-inline: 8px;
 }
 
 .heroUtilityStates,
 .heroUtilityAudience {
   display: block;
+}
+
+.heroUtilityStates {
+  font-weight: 700;
 }
 
 .heroVisual {
@@ -713,7 +724,7 @@
     color: var(--soot);
   }
 
-  .heroUtility {
+  .heroCopy > .heroUtility {
     color: #938d84;
     margin-top: 24px;
   }
@@ -829,7 +840,7 @@
   }
 
   .heroUtility [aria-hidden="true"] {
-    margin-inline: 5px;
+    margin-inline: 3px;
   }
 
   .heroVisual {

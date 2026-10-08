@@ -6,6 +6,7 @@ import { AnalyticsProvider } from "@/components/analytics-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { isLaunchReady, siteUrl } from "@/content/site-url";
+import { business } from "@/content/site";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -20,15 +21,14 @@ export const metadata: Metadata = {
     default: "Masonry Color Corrections LLC | Masonry Color Matching",
     template: "%s | Masonry Color Corrections LLC",
   },
-  description:
-    "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across the Midwest and Southwest.",
+  description: business.description,
   robots: isLaunchReady
     ? { index: true, follow: true }
     : { index: false, follow: false, noarchive: true },
   openGraph: {
-    title: "Masonry Color Corrections LLC",
-    description:
-      "Post-construction color staining and matching for installed brick, mortar, repairs, additions, and mismatched masonry across the Midwest and Southwest.",
+    title: business.name,
+    siteName: business.name,
+    description: business.description,
     images: [
       {
         url: "/images/projects/addition-after.jpeg",

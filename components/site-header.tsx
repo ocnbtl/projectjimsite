@@ -27,7 +27,7 @@ export function SiteHeader() {
 
   return (
     <header className={pathname === "/" ? "site-header site-header-home" : "site-header"}>
-      <div className="header-inner">
+      <div className="header-inner" data-nosnippet>
         <Brand onClick={() => setIsOpen(false)} />
         <button
           ref={menuButtonRef}
