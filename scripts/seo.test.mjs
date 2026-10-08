@@ -48,7 +48,7 @@ test('sitemap lists seven preferred URLs without fabricated modification dates',
   assert.doesNotMatch(xml, /<lastmod>/);
 });
 
-test('Contact FAQ is visible HTML without changing coverage or lead fields', async () => {
+test('Contact FAQ uses four closed native disclosures with crawlable answers', async () => {
   const html = await (await fetch(`${base}/contact`)).text();
   assert.match(html, /Common questions/);
   assert.match(html, /Can you match new brick to an older wall\?/);
@@ -56,4 +56,19 @@ test('Contact FAQ is visible HTML without changing coverage or lead fields', asy
   assert.match(html, /usually within two business days/);
   assert.match(html, /Ohio, Kentucky, Indiana, West Virginia, Michigan, Texas, Arizona, and New Mexico/);
   assert.doesNotMatch(html, /How did you hear|How did you find/);
+  const disclosures = html.match(/<details class="contact-faq-item"[^>]*>/g) ?? [];
+  assert.equal(disclosures.length, 4);
+  assert.ok(disclosures.every((tag) => !/\bopen\b/.test(tag)));
+  assert.equal((html.match(/<summary>/g) ?? []).length, 4);
+  assert.match(html, /contact-faq-grid/);
+});
+
+test('analytics disclosure and security policy allow only the intended Cloudflare services', async () => {
+  const response = await fetch(`${base}/privacy`);
+  const policy = response.headers.get('content-security-policy');
+  assert.match(policy, /script-src[^;]*https:\/\/static\.cloudflareinsights\.com/);
+  assert.match(policy, /connect-src[^;]*https:\/\/cloudflareinsights\.com\/cdn-cgi\/rum/);
+  const html = await response.text();
+  assert.match(html, /With your permission, Cloudflare Web Analytics/);
+  assert.doesNotMatch(html, /<script[^>]*src="https:\/\/static\.cloudflareinsights\.com/);
 });

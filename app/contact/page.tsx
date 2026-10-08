@@ -78,20 +78,20 @@ export default function ContactPage() {
           <EstimateForm />
         </div>
       </section>
-      <section className="faq-section shell" aria-labelledby="contact-faq-title">
+      <section className="faq-section contact-faq-section shell" aria-labelledby="contact-faq-title">
         <div className="faq-heading">
           <h2 id="contact-faq-title">Common questions</h2>
           <p>A few answers to help you plan the next step.</p>
         </div>
-        <div className="faq-list">
-          {contactFaqs.map((faq, index) => (
-            <article key={faq.question}>
-              <span aria-hidden="true">0{index + 1}</span>
-              <div>
+        <div className="contact-faq-grid">
+          {contactFaqs.map((faq) => (
+            <details className="contact-faq-item" key={faq.question}>
+              <summary>
                 <h3>{faq.question}</h3>
-                <p>{faq.answer}</p>
-              </div>
-            </article>
+                <span className="contact-faq-toggle" aria-hidden="true" />
+              </summary>
+              <p>{faq.answer}</p>
+            </details>
           ))}
         </div>
       </section>

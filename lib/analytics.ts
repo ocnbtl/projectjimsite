@@ -1,4 +1,5 @@
 import posthog from "posthog-js";
+import { initializeCloudflareAnalytics } from "./cloudflare-analytics";
 
 let initialized = false;
 
@@ -7,6 +8,7 @@ export type AnalyticsConsentStatus = "granted" | "denied" | "pending";
 export const analyticsPreferencesEvent = "mcc:open-analytics-preferences";
 
 const analyticsConsentKey = "mcc_analytics_consent";
+let sessionConsent: AnalyticsConsentStatus = "pending";
 
 function stripUrlDetails(value: unknown) {
   if (typeof value !== "string") return value;
@@ -36,11 +38,12 @@ export function getAnalyticsConsentStatus(): AnalyticsConsentStatus {
     const stored = window.localStorage.getItem(analyticsConsentKey);
     return stored === "granted" || stored === "denied" ? stored : "pending";
   } catch {
-    return "pending";
+    return sessionConsent;
   }
 }
 
 function saveAnalyticsConsent(status: Exclude<AnalyticsConsentStatus, "pending">) {
+  sessionConsent = status;
   try {
     window.localStorage.setItem(analyticsConsentKey, status);
   } catch {
@@ -61,6 +64,7 @@ function getPostHogUiHost(ingestionHost: string) {
 export function initializeAnalytics() {
   if (typeof window === "undefined") return null;
   if (getAnalyticsConsentStatus() !== "granted") return null;
+  initializeCloudflareAnalytics(() => getAnalyticsConsentStatus() === "granted");
   if (initialized) return posthog;
 
   const projectToken = process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN;

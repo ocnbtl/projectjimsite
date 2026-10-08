@@ -544,6 +544,116 @@ img {
   max-width: 730px;
 }
 
+.faq-section.contact-faq-section {
+  display: block;
+}
+
+.contact-faq-section .faq-heading {
+  position: static;
+  margin-bottom: 32px;
+}
+
+.contact-faq-section .faq-heading p {
+  margin-top: 14px;
+  max-width: none;
+}
+
+.contact-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  align-items: start;
+}
+
+.contact-faq-item {
+  border: 1px solid var(--joint);
+  border-radius: 12px;
+}
+
+.contact-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.contact-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.contact-faq-item summary:hover,
+.contact-faq-item[open] summary {
+  color: var(--clay);
+}
+
+.contact-faq-item summary:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.contact-faq-item h3 {
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.contact-faq-toggle {
+  position: relative;
+  flex: 0 0 18px;
+  height: 18px;
+  color: var(--clay);
+}
+
+.contact-faq-toggle::before,
+.contact-faq-toggle::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  inset: 8px 2px;
+}
+
+.contact-faq-toggle::after {
+  transform: rotate(90deg);
+  transition: transform 180ms ease;
+}
+
+.contact-faq-item[open] .contact-faq-toggle::after {
+  transform: rotate(0);
+}
+
+.contact-faq-item > p {
+  color: var(--smoke);
+  line-height: 1.68;
+  margin: 0;
+  padding: 0 24px 24px;
+}
+
+@media (max-width: 700px) {
+  .contact-faq-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-faq-item summary {
+    padding: 20px;
+  }
+
+  .contact-faq-item > p {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-faq-toggle::after {
+    transition: none;
+  }
+}
+
 .plain-cta {
   align-items: center;
   background: var(--soot);

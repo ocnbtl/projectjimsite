@@ -32,6 +32,15 @@ export default function PrivacyPage() {
           .
         </p>
         <p>
+          With your permission, Cloudflare Web Analytics also measures page views, visits, referring
+          websites, country-level location, device and browser types, and page performance. It does
+          not use analytics cookies or record your form entries. See Cloudflare’s{" "}
+          <a href="https://www.cloudflare.com/privacypolicy/" rel="noreferrer" target="_blank">
+            privacy practices
+          </a>
+          .
+        </p>
+        <p>
           You can accept or decline analytics and change your choice at any time.
         </p>
         <AnalyticsPreferencesButton className="privacy-choice-button" />
