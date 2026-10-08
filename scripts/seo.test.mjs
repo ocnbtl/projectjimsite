@@ -50,7 +50,7 @@ test('sitemap lists seven preferred URLs without fabricated modification dates',
 
 test('Contact FAQ is visible HTML without changing coverage or lead fields', async () => {
   const html = await (await fetch(`${base}/contact`)).text();
-  assert.match(html, /Before you get in touch\./);
+  assert.match(html, /Common questions/);
   assert.match(html, /Can you match new brick to an older wall\?/);
   assert.match(html, /Do you repair or rebuild the masonry\?/);
   assert.match(html, /usually within two business days/);

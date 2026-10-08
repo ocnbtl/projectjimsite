@@ -80,7 +80,7 @@ export default function ContactPage() {
       </section>
       <section className="faq-section shell" aria-labelledby="contact-faq-title">
         <div className="faq-heading">
-          <h2 id="contact-faq-title">Before you get in touch.</h2>
+          <h2 id="contact-faq-title">Common questions</h2>
           <p>A few answers to help you plan the next step.</p>
         </div>
         <div className="faq-list">
