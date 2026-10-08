@@ -92,7 +92,7 @@ test('failed script can retry and SSR is safe', () => {
   f.consent(true);
   f.init();
   [...f.scripts.values()][0].onerror();
-  assert.equal(f.scripts.size, 0);
+  assert.equal([...f.scripts.values()][0].dataset.state, 'blocked');
   f.init();
   assert.equal(f.scripts.size, 1);
   const server = vm.createContext({ exports: {} });

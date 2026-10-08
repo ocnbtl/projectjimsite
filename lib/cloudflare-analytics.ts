@@ -65,16 +65,21 @@ export function initializeCloudflareAnalytics(hasConsent: () => boolean) {
 
   try {
     installConsentGuard(hasConsent);
-    if (document.getElementById(scriptId)) return;
+    const existing = document.getElementById(scriptId);
+    if (existing?.dataset.state === "blocked") existing.remove();
+    else if (existing) return;
 
     const script = document.createElement("script");
     script.id = scriptId;
     script.type = "module";
     script.src = "https://static.cloudflareinsights.com/beacon.min.js";
     script.dataset.cfBeacon = JSON.stringify({ token: siteToken, spa: true });
-    script.onerror = () => script.remove();
+    script.dataset.state = "loading";
+    script.onload = () => { script.dataset.state = "loaded"; };
+    script.onerror = () => { script.dataset.state = "blocked"; };
     document.body.appendChild(script);
   } catch {
     // Optional analytics must never interrupt navigation or an estimate request.
+    console.warn("Cloudflare Web Analytics could not initialize; optional analytics remain unavailable.");
   }
 }
