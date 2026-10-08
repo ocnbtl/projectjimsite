@@ -1,8 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/page-metadata";
 import { AnalyticsPreferencesButton } from "@/components/analytics-consent";
 import { PageIntro } from "@/components/page-intro";
 
-export const metadata: Metadata = { title: "Privacy" };
+export const metadata = pageMetadata("/privacy", {
+  title: "Privacy",
+  description: "How Masonry Color Corrections LLC handles estimate requests, photos, and optional website analytics.",
+});
 
 export default function PrivacyPage() {
   return (

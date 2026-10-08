@@ -28,6 +28,14 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    // Normalize only public content pages. Keep API and PostHog paths untouched.
+    return ["services", "masonry-staining", "gallery", "about", "contact", "privacy"].map((page) => ({
+      source: `/${page}/`,
+      destination: `/${page}`,
+      permanent: true,
+    }));
+  },
   async headers() {
     return [
       {

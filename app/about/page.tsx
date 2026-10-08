@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/page-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { projects } from "@/content/projects";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata("/about", {
   title: "About",
   description:
     "Learn about Masonry Color Corrections LLC, a Cincinnati-based masonry color matching specialist serving the Midwest and Southwest.",
-};
+});
 
 export default function AboutPage() {
   const entryProject = projects[4];

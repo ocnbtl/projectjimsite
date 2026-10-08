@@ -14,7 +14,8 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${siteUrl}${route}`,
-    lastModified: new Date(),
+    // Omit lastModified until real per-page content dates are maintained.
+    // A deployment alone does not mean every page's content changed.
     changeFrequency: route === "" ? "monthly" : "yearly",
     priority: route === "" ? 1 : route === "/contact" ? 0.9 : 0.8,
   }));

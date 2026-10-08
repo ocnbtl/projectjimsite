@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/page-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
@@ -6,11 +6,11 @@ import { business } from "@/content/site";
 import { projects } from "@/content/projects";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata("/masonry-staining", {
   title: "What Is Masonry Staining?",
   description:
     "Learn what Masonry Color Corrections LLC does after masonry construction: custom color mixing and staining for mismatched brick, mortar, and select installed materials.",
-};
+});
 
 const process = [
   {

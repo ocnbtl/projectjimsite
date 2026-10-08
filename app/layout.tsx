@@ -15,6 +15,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: { canonical: new URL("/", siteUrl).toString() },
   title: {
     default: "Masonry Color Corrections LLC | Masonry Color Matching",
     template: "%s | Masonry Color Corrections LLC",

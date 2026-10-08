@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/page-metadata";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
@@ -6,11 +6,11 @@ import { projects } from "@/content/projects";
 import { services } from "@/content/site";
 import styles from "./services.module.css";
 
-export const metadata: Metadata = {
-  title: "Services",
+export const metadata = pageMetadata("/services", {
+  title: "Brick Staining & Masonry Color Matching Services",
   description:
     "Post-construction masonry color matching and staining for additions, repairs, brick, mortar, and specialty installed materials across the Midwest and Southwest.",
-};
+});
 
 const serviceProjects = [projects[0], projects[3], projects[2]];
 

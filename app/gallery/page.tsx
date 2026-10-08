@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/content/page-metadata";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
 import { projects, type Project } from "@/content/projects";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata("/gallery", {
   title: "Gallery",
   description: "Before-and-after masonry color correction work from Masonry Color Corrections LLC.",
-};
+});
 
 function CaseStudyDetails({ project }: { project: Project }) {
   const details = [
