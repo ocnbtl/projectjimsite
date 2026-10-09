@@ -153,7 +153,21 @@ export default function HomePage() {
               <span aria-hidden="true">·</span> TX <span aria-hidden="true">·</span> AZ{" "}
               <span aria-hidden="true">·</span> NM
             </span>
-            <span className={styles.heroUtilityAudience}>Residential &amp; commercial</span>
+            <span className={styles.heroUtilityAudience}>
+              <span className={styles.heroAudienceItem}>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                  <path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" />
+                </svg>
+                Residential
+              </span>
+              <span>&amp;</span>
+              <span className={styles.heroAudienceItem}>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                  <path d="M5 21V3h14v18M3 21h18M9 7h1m4 0h1M9 11h1m4 0h1M10 21v-6h4v6" />
+                </svg>
+                Commercial
+              </span>
+            </span>
           </p>
         </div>
 

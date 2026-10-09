@@ -26,7 +26,7 @@
 
 .heroCopy > .heroExperience {
   font-size: 0.86rem;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 1.65;
   max-width: none;
 }
@@ -47,15 +47,39 @@
   margin: 32px 0 0;
 }
 
-.heroUtility [aria-hidden="true"] {
+.heroUtilityStates [aria-hidden="true"] {
   color: var(--clay);
   font-weight: 400;
   margin-inline: 8px;
 }
 
-.heroUtilityStates,
-.heroUtilityAudience {
+.heroUtilityStates {
   display: block;
+}
+
+.heroUtilityAudience {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+
+.heroAudienceItem {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.heroAudienceItem svg {
+  fill: none;
+  flex: none;
+  height: 16px;
+  width: 16px;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .heroUtilityStates {
@@ -840,7 +864,7 @@
     flex-direction: column;
   }
 
-  .heroUtility [aria-hidden="true"] {
+  .heroUtilityStates [aria-hidden="true"] {
     margin-inline: 3px;
   }
 
