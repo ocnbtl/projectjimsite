@@ -1,0 +1,11 @@
+{
+  "name":"mcc-free-plan-probe",
+  "account_id":"0fe57401a5fd98319e16832ee97de02d",
+  "main":"receipt-probe.ts",
+  "compatibility_date":"2026-10-08",
+  "compatibility_flags":["nodejs_compat"],
+  "workers_dev":true,
+  "preview_urls":false,
+  "d1_databases":[{"binding":"DB","database_name":"mcc-free-plan-test","database_id":"78ab3260-f9eb-401a-ae46-dcaa28b7967c","migrations_dir":"../../migrations"}],
+  "observability":{"enabled":true,"head_sampling_rate":1}
+}

@@ -1,0 +1,5 @@
+.receipt-preview{background:#f2f0eb;border:1px solid var(--line);border-radius:8px;margin:18px 0;text-align:center}
+.receipt-preview img{display:block;width:100%;height:auto;max-height:42dvh;object-fit:contain;min-width:0}
+.receipt-storage{font-size:13px}.receipt-confirm{border:1px solid var(--line);border-radius:8px;padding:16px;margin-top:18px}
+dialog fieldset{min-width:0}dialog input[type=file]{max-width:100%;font-size:14px}dialog .check{align-items:flex-start;margin:18px 0}
+dialog .actions{flex-wrap:wrap}dialog .button{display:inline-flex;margin-bottom:16px}

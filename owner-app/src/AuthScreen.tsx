@@ -1,0 +1,3 @@
+export function AuthScreen(){
+  return <main className="login"><div className="login-box"><div className="wordmark">MCC</div><h1>Sign in</h1><p>Use your approved email address. Cloudflare will send you a one-time code.</p><a className="button primary" href="/">Continue to sign in</a><details className="login-help"><summary>Need access?</summary><p>Ask Jim to add your own email address. Personal email is fine. Never share login codes.</p><p>If your address is approved but no code arrives, check your spam folder. Ask for a new code if the previous one expires.</p></details><a className="text-button" href="/cdn-cgi/access/logout">Use a different email</a></div></main>;
+}

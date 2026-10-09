@@ -11,3 +11,7 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 *.tsbuildinfo
+owner-app/dist/
+owner-app/.wrangler/
+owner-app/.dev.vars*
+owner-app/.test-output/

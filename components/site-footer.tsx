@@ -58,6 +58,12 @@ export function SiteFooter() {
             <Link href="/privacy">Privacy</Link>
             <AnalyticsPreferencesButton className="footer-privacy-button" />
             <span>Website by Madagin</span>
+            <a className="footer-office-link" href="https://office.masonrycolorcorrections.com" aria-label="MCC team sign in" title="Team sign in" rel="nofollow">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="5" y="10" width="14" height="11" rx="2" />
+                <path d="M8 10V6a4 4 0 0 1 8 0v4M12 14v3" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>

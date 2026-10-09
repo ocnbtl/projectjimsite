@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mcc-office",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "office.masonrycolorcorrections.com", "custom_domain": true }],
+  "assets": { "directory": "./dist", "binding": "ASSETS", "run_worker_first": true, "not_found_handling": "single-page-application" },
+  "d1_databases": [{ "binding": "DB", "database_name": "mcc-office", "database_id": "1824a77f-1cac-4903-942e-b24eb27f8f94", "migrations_dir": "migrations" }],
+  "vars": {
+    "APP_ORIGIN": "https://office.masonrycolorcorrections.com",
+    "ENVIRONMENT": "production",
+    "ACCESS_TEAM_DOMAIN": "https://green-wildflower-f89d.cloudflareaccess.com",
+    "ACCESS_AUD": "993483086dc83a759a885658fc863f6e2ee211e31a16d2852aa9dfdab7119e3c"
+  },
+  "observability": { "enabled": false }
+}

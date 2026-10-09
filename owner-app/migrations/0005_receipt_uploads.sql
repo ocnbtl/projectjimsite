@@ -1,0 +1,5 @@
+-- At most one unfinished compressed photo per member. Saved receipts are untouched.
+CREATE TABLE receipt_uploads (id TEXT PRIMARY KEY, actor_id TEXT NOT NULL UNIQUE REFERENCES members(user_id), expense_id TEXT NOT NULL REFERENCES expenses(id), expected_id TEXT NOT NULL, bytes INTEGER NOT NULL CHECK(bytes>0 AND bytes<=524288), mime TEXT, expires_at INTEGER NOT NULL);
+CREATE TABLE receipt_upload_parts (upload_id TEXT NOT NULL REFERENCES receipt_uploads(id) ON DELETE CASCADE, part INTEGER NOT NULL CHECK(part>=0 AND part<16), data BLOB NOT NULL CHECK(length(data)>0 AND length(data)<=32768), PRIMARY KEY(upload_id,part));
+CREATE TABLE receipt_upload_guard (id TEXT PRIMARY KEY REFERENCES receipt_uploads(id));
+CREATE TRIGGER receipt_upload_complete BEFORE INSERT ON receipt_upload_guard BEGIN SELECT RAISE(ABORT,'receipt_incomplete') WHERE NOT EXISTS(SELECT 1 FROM receipt_uploads u WHERE u.id=NEW.id AND u.mime IS NOT NULL AND u.expires_at>unixepoch() AND u.bytes=(SELECT COALESCE(SUM(length(p.data)),0) FROM receipt_upload_parts p WHERE p.upload_id=u.id)); END;

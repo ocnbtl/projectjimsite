@@ -1,0 +1,7 @@
+CREATE TABLE receipt_storage (id INTEGER PRIMARY KEY CHECK(id=1), used_bytes INTEGER NOT NULL DEFAULT 0 CHECK(used_bytes>=0), cap_bytes INTEGER NOT NULL DEFAULT 209715200 CHECK(used_bytes<=cap_bytes));
+INSERT INTO receipt_storage(id) VALUES(1);
+CREATE TABLE receipt_chunks (receipt_id TEXT NOT NULL REFERENCES receipts(id) ON DELETE CASCADE, part INTEGER NOT NULL CHECK(part>=0 AND part<16), data BLOB NOT NULL CHECK(length(data)>0 AND length(data)<=32768), PRIMARY KEY(receipt_id,part));
+CREATE TRIGGER receipt_chunk_added AFTER INSERT ON receipt_chunks BEGIN UPDATE receipt_storage SET used_bytes=used_bytes+length(NEW.data) WHERE id=1; END;
+CREATE TRIGGER receipt_chunk_removed AFTER DELETE ON receipt_chunks BEGIN UPDATE receipt_storage SET used_bytes=used_bytes-length(OLD.data) WHERE id=1; END;
+CREATE TABLE receipt_write_guard (id TEXT PRIMARY KEY, expense_id TEXT NOT NULL, actor_id TEXT NOT NULL, expected_id TEXT NOT NULL);
+CREATE TRIGGER receipt_guard_check BEFORE INSERT ON receipt_write_guard BEGIN SELECT RAISE(ABORT,'receipt_access') WHERE NOT EXISTS(SELECT 1 FROM expenses e JOIN members m ON m.user_id=NEW.actor_id WHERE e.id=NEW.expense_id AND m.active=1 AND e.status!='void' AND (m.role='owner' OR (e.user_id=m.user_id AND e.status='submitted'))); SELECT RAISE(ABORT,'receipt_conflict') WHERE COALESCE((SELECT id FROM receipts WHERE expense_id=NEW.expense_id),'')!=NEW.expected_id; END;

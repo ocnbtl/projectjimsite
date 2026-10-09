@@ -1292,6 +1292,26 @@ img {
   color: white;
 }
 
+.footer-office-link {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 6px;
+}
+
+.footer-office-link:hover,
+.footer-office-link:focus-visible {
+  color: white;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.footer-office-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 .privacy-choice-button {
   border-bottom: 1px solid currentColor;
   color: var(--clay);
