@@ -21,13 +21,13 @@
 }
 
 .heroCopy > p:not(.heroUtility):not(.heroExperience) {
-  max-width: 440px;
+  max-width: 590px;
 }
 
 .heroCopy > .heroExperience {
   font-size: 0.86rem;
   line-height: 1.65;
-  max-width: 410px;
+  max-width: none;
 }
 
 .heroHeadlineLine {
