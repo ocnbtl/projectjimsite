@@ -26,6 +26,7 @@
 
 .heroCopy > .heroExperience {
   font-size: 0.86rem;
+  font-weight: 500;
   line-height: 1.65;
   max-width: none;
 }

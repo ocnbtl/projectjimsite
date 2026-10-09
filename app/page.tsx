@@ -136,7 +136,7 @@ export default function HomePage() {
             additions, and mismatched mortar blend in, while keeping the texture you love.
           </p>
           <p className={styles.heroExperience}>
-            More than 10 years of color matching. Based in Cincinnati, serving homes and businesses.
+            10+ years of color matching. Based in Cincinnati, serving the Midwest and Southwest.
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">
