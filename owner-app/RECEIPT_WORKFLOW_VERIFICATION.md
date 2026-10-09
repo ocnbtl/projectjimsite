@@ -1,5 +1,11 @@
 # Receipt workflow implementation, October 9, 2026
 
+Historical checkpoint below, superseded by RELEASE-GATE.md and OPERATIONS.md. The final
+implementation now stages bounded 32 KiB requests, expires unfinished stages after one
+hour, and atomically finalizes the saved photo. Production was deployed October 9;
+32 tests pass. First authenticated owner validation remains pending. The older counts,
+single-upload mechanism and not-deployed statements below describe the earlier checkpoint only.
+
 State: PARTIALLY VERIFIED for release; receipt implementation locally verified. Not deployed. No real records, emails, provider changes, purchases, or production credentials used.
 
 ## Implemented
