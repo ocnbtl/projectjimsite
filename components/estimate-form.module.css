@@ -58,6 +58,11 @@
 }
 
 .status {
+  margin: 0;
+}
+
+.status:not(:empty) {
+  margin-top: 16px;
   min-height: 24px;
 }
 

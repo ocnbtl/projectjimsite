@@ -970,6 +970,7 @@ img {
 
 .contact-form-panel {
   padding: clamp(46px, 6vw, 90px);
+  padding-bottom: 32px;
 }
 
 .contact-form-panel > h2 {
@@ -1658,6 +1659,10 @@ img {
   .contact-direct-copy,
   .contact-form-panel {
     padding: 42px 22px;
+  }
+
+  .contact-form-panel {
+    padding-bottom: 28px;
   }
 
   .field-grid {
