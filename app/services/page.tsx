@@ -67,7 +67,7 @@ export default function ServicesPage() {
         aria-label="Masonry color services"
       >
         {services.map((service, index) => (
-          <article className="service-detail" key={service.number}>
+          <article className="service-detail" id={`service-${service.number}`} key={service.number}>
             <div className="service-detail-copy">
               <span>{service.number}</span>
               <h2>{service.title}</h2>

@@ -15,6 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  other: { "is-agentic-site-type": "business" },
   metadataBase: new URL(siteUrl),
   alternates: { canonical: new URL("/", siteUrl).toString() },
   title: {

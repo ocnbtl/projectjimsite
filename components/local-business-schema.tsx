@@ -12,6 +12,20 @@ const schema = {
   description: `${business.description} MCC does not lay brick or perform structural masonry repair.`,
   logo: new URL("/images/brand/mcc-logo-transparent.png", siteUrl).toString(),
   sameAs: [business.facebookUrl],
+  // City-level business base only: MCC has no public walk-in office.
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Cincinnati",
+    addressRegion: "OH",
+    addressCountry: "US",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+1-513-612-8421",
+    email: business.email,
+    contactType: "project estimates and customer inquiries",
+    url: new URL("/contact", siteUrl).toString(),
+  },
   areaServed: [
     { "@type": "State", name: "Ohio" },
     { "@type": "State", name: "Kentucky" },
@@ -26,8 +40,11 @@ const schema = {
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
+      "@id": new URL(`/services#service-${service.number}`, siteUrl).toString(),
       name: service.title,
-      description: service.short,
+      description: `${service.short} ${service.detail}`,
+      url: new URL(`/services#service-${service.number}`, siteUrl).toString(),
+      provider: { "@id": new URL("/#business", siteUrl).toString() },
     },
   })),
 };

@@ -4,6 +4,8 @@ import { EstimateForm } from "@/components/estimate-form";
 import { PageIntro } from "@/components/page-intro";
 import { projects } from "@/content/projects";
 import { business } from "@/content/site";
+import { contactFaqs } from "@/content/contact-faqs";
+import { siteUrl } from "@/content/site-url";
 
 export const metadata = pageMetadata("/contact", {
   title: "Contact",
@@ -11,30 +13,22 @@ export const metadata = pageMetadata("/contact", {
     "Request a masonry color consultation from Masonry Color Corrections LLC or call (513) 612-8421.",
 });
 
-const contactFaqs = [
-  {
-    question: "Can you match new brick to an older wall?",
-    answer: "Once the repairs or addition are finished, we mix and test colors to help the new brick blend in with what’s already there. We’ll take a look at the surface and the change you have in mind, then talk you through what’s possible.",
-  },
-  {
-    question: "What should I include in my request?",
-    answer: "Include the project location and a short description of the mismatch. If you have photos, send a wide view and a few close-ups showing the brick, mortar, and surrounding material.",
-  },
-  {
-    question: "Do you repair or rebuild the masonry?",
-    answer: "No. A mason or builder handles structural repairs and construction first. MCC handles the color matching and staining of the installed material afterward.",
-  },
-  {
-    question: "What happens after I request an estimate?",
-    answer: "MCC reviews your project details and gets in touch by phone or email, usually within two business days, to discuss fit and next steps. Estimates are free.",
-  },
-];
-
 export default function ContactPage() {
   const entryProject = projects[4];
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${siteUrl}/contact#faq`,
+        url: `${siteUrl}/contact`,
+        about: { "@id": `${siteUrl}/#business` },
+        mainEntity: contactFaqs.map((faq) => ({
+          "@type": "Question", name: faq.question,
+          acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        })),
+      }).replace(/</g, "\\u003c") }} />
       <PageIntro title="Start with the mismatch.">
         <p>
           If the material is already installed and the remaining problem is color, tell us where
