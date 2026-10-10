@@ -14,7 +14,7 @@ export const metadata = pageMetadata("/contact", {
 const contactFaqs = [
   {
     question: "Can you match new brick to an older wall?",
-    answer: "MCC reviews replacement brick and additions after construction is complete, then mixes and tests colors against the surrounding masonry. The material, existing finish, and amount of color change determine whether staining is a good fit.",
+    answer: "Once the repairs or addition are finished, we mix and test colors to help the new brick blend in with what’s already there. We’ll take a look at the surface and the change you have in mind, then talk you through what’s possible.",
   },
   {
     question: "What should I include in my request?",
