@@ -16,7 +16,7 @@ export function SiteFooter() {
         <div className="footer-brand">
           <Brand />
           <p>
-            Helping repairs, additions, and mismatched masonry blend in for more than 10 years.
+            Helping repairs, additions, and mismatched masonry blend in for over a decade.
           </p>
         </div>
         <div data-nosnippet>

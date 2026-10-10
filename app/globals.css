@@ -1220,6 +1220,7 @@ img {
 .footer-brand > p {
   color: #aaa49b;
   line-height: 1.65;
+  margin-top: 28px;
   margin-inline: auto;
   max-width: 390px;
   text-align: center;
