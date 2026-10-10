@@ -16,7 +16,7 @@ const homeServices = [
   {
     ...services[0],
     icon: "matching" as ServiceIconName,
-    title: "Repair & addition matching",
+    title: "Repair and addition matching",
     short: "Match the color after the mason or builder completes the new work.",
   },
   {
@@ -29,7 +29,7 @@ const homeServices = [
     ...services[2],
     icon: "materials" as ServiceIconName,
     title: "Specialty material matching",
-    short: "Coordinate mortar, ceramic accents, and compatible installed surfaces.",
+    short: "Help mortar and ceramic details blend in with the colors around them.",
   },
 ];
 
@@ -67,9 +67,10 @@ function ServiceIcon({ name }: { name: ServiceIconName }) {
   }
 
   return (
-    <svg viewBox="0 0 32 32" role="presentation">
-      <path d="M4.5 7.5h23v17h-23zM4.5 13h23M4.5 19h23M11.5 7.5V13M20.5 7.5V13M9 19v5.5M23 19v5.5" />
-      <path d="M11.5 13h9v6h-9M7 16h3.2M8.5 14.5 10.2 16 8.5 17.5M25 16h-3.2M23.5 14.5 21.8 16l1.7 1.5" />
+    // Lucide brick-wall icon; ISC license in public/licenses/lucide.txt.
+    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+      <rect width="18" height="18" x="3" y="3" rx="2" />
+      <path d="M12 9v6M16 15v6M16 3v6M3 15h18M3 9h18M8 15v6M8 3v6" />
     </svg>
   );
 }
@@ -158,14 +159,14 @@ export default function HomePage() {
                 <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                   <path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8" />
                 </svg>
-                Residential
+                <span>Residential</span>
               </span>
-              <span>&amp;</span>
+              <span>and</span>
               <span className={styles.heroAudienceItem}>
                 <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
                   <path d="M5 21V3h14v18M3 21h18M9 7h1m4 0h1M9 11h1m4 0h1M10 21v-6h4v6" />
                 </svg>
-                Commercial
+                <span>Commercial</span>
               </span>
             </span>
           </p>

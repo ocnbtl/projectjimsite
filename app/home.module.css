@@ -67,11 +67,13 @@
 .heroAudienceItem {
   align-items: center;
   display: inline-flex;
-  gap: 5px;
+  gap: 6px;
+  line-height: 1.35;
   white-space: nowrap;
 }
 
 .heroAudienceItem svg {
+  display: block;
   fill: none;
   flex: none;
   height: 16px;
