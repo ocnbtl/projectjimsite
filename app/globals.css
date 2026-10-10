@@ -904,12 +904,13 @@ img {
 }
 
 .contact-direct-copy {
+  --contact-method-gap: 42px;
   padding: clamp(38px, 4.5vw, 64px);
 }
 
 .contact-direct h2 {
   font-size: var(--card-heading-size);
-  margin: 42px 0 18px;
+  margin: var(--contact-method-gap) 0 18px;
 }
 
 .contact-method-label {
@@ -944,7 +945,7 @@ img {
   color: var(--smoke);
   display: grid;
   gap: 16px;
-  margin-top: 34px;
+  margin-top: var(--contact-method-gap);
 }
 
 .contact-service-area p {
