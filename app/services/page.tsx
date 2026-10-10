@@ -48,7 +48,7 @@ export default function ServicesPage() {
     <>
       <PageIntro title="The structure is finished. The color still needs to belong.">
         <p>
-          MCC custom-mixes and applies color to installed brick, mortar, and select compatible
+          MCC custom-mixes and applies color to installed brick, mortar, and other compatible
           materials. The work begins once a repair or addition is structurally complete and
           focuses on making the new material look at home beside the original.
         </p>

@@ -458,7 +458,7 @@
 .educationCopy h2,
 .workHeading h2,
 .closingLead h2 {
-  font-size: clamp(2.5rem, 4.1vw, 4.85rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
@@ -519,7 +519,7 @@
 }
 
 .workHeading h2 {
-  font-size: clamp(2.5rem, 3.8vw, 4.5rem);
+  font-size: var(--section-heading-size);
   max-width: 560px;
 }
 
@@ -943,12 +943,6 @@
 
   .materialPhoto {
     min-height: 260px;
-  }
-
-  .educationCopy h2,
-  .workHeading h2,
-  .closingLead h2 {
-    font-size: clamp(2.25rem, 11vw, 3.1rem);
   }
 
   .comparison {

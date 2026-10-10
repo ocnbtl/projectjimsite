@@ -1,5 +1,7 @@
 :root {
   --page-heading-size: clamp(2.25rem, 3.5vw, 5rem);
+  --section-heading-size: calc(var(--page-heading-size) * 0.78);
+  --card-heading-size: calc(var(--page-heading-size) * 0.66);
   --limestone: #ece6dc;
   --mortar: #e3dbcf;
   --mortar-deep: #d7cec0;
@@ -339,7 +341,7 @@ img {
 }
 
 .page-intro {
-  align-items: end;
+  align-items: start;
   display: grid;
   gap: clamp(48px, 7vw, 110px);
   grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
@@ -410,7 +412,7 @@ img {
 }
 
 .service-detail-copy h2 {
-  font-size: clamp(2.45rem, 4vw, 4.6rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
@@ -498,7 +500,7 @@ img {
 .values-heading h2,
 .contact-direct h2,
 .contact-form-panel > h2 {
-  font-size: clamp(2.5rem, 4.4vw, 4.85rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
@@ -669,7 +671,7 @@ img {
 }
 
 .plain-cta h2 {
-  font-size: clamp(2.3rem, 3.8vw, 4.2rem);
+  font-size: var(--section-heading-size);
 }
 
 .plain-cta p {
@@ -701,7 +703,7 @@ img {
 
 .gallery-feature-copy h2,
 .gallery-card-copy h2 {
-  font-size: clamp(2.3rem, 4vw, 4.5rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
@@ -754,7 +756,7 @@ img {
 }
 
 .gallery-card-copy h2 {
-  font-size: clamp(1.9rem, 3vw, 3.15rem);
+  font-size: var(--card-heading-size);
 }
 
 .about-grid {
@@ -773,7 +775,7 @@ img {
 }
 
 .about-copy h2 {
-  font-size: clamp(2.6rem, 4.4vw, 4.8rem);
+  font-size: var(--section-heading-size);
 }
 
 .about-copy p {
@@ -904,7 +906,7 @@ img {
 }
 
 .contact-direct h2 {
-  font-size: clamp(2.1rem, 3.4vw, 3.5rem);
+  font-size: var(--card-heading-size);
   margin: 42px 0 18px;
 }
 
@@ -1111,7 +1113,7 @@ img {
 }
 
 .testimonial-heading h2 {
-  font-size: clamp(2.45rem, 4.1vw, 4.8rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   grid-column: 1;
   letter-spacing: -0.06em;
@@ -1583,14 +1585,6 @@ img {
     padding: 42px 24px;
   }
 
-  .service-detail-copy h2,
-  .faq-heading h2,
-  .about-copy h2,
-  .values-heading h2,
-  .contact-form-panel > h2 {
-    font-size: clamp(2.25rem, 11vw, 3.1rem);
-  }
-
   .service-detail-media {
     padding: 10px;
   }
@@ -1623,10 +1617,6 @@ img {
 
   .gallery-grid {
     padding-top: 32px;
-  }
-
-  .gallery-feature-copy h2 {
-    font-size: 2.65rem;
   }
 
   .gallery-secondary {
@@ -1696,10 +1686,6 @@ img {
 
   .testimonial-heading {
     padding-inline: 24px;
-  }
-
-  .testimonial-heading h2 {
-    font-size: clamp(2.25rem, 11vw, 3.1rem);
   }
 
   .testimonial-card {

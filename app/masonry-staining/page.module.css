@@ -18,7 +18,7 @@
 .processHeading h2,
 .applicationsCopy h2,
 .resource h2 {
-  font-size: clamp(2.5rem, 4.4vw, 4.85rem);
+  font-size: var(--section-heading-size);
   font-weight: 720;
   letter-spacing: -0.06em;
   line-height: 0.98;
@@ -222,10 +222,6 @@
   padding-block: clamp(44px, 6vw, 80px);
 }
 
-.resource h2 {
-  font-size: clamp(2.2rem, 3.6vw, 4rem);
-}
-
 .resource :global(.button) {
   white-space: nowrap;
 }
@@ -290,14 +286,6 @@
   .definitionVisual,
   .applicationsImage {
     min-height: 420px;
-  }
-
-  .definitionCopy h2,
-  .boundaryIntro h2,
-  .processHeading h2,
-  .applicationsCopy h2,
-  .resource h2 {
-    font-size: clamp(2.25rem, 11vw, 3.1rem);
   }
 
   .boundary {
