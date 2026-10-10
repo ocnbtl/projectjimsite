@@ -90,7 +90,7 @@ function MaterialComparisonVisual() {
         </div>
         <div className={styles.materialLabel}>
           <span>Painted brick</span>
-          <p>One opaque surface across brick and mortar</p>
+          <p>One solid coat over brick and mortar</p>
         </div>
       </div>
 
@@ -248,7 +248,7 @@ export default function HomePage() {
             </div>
             <div>
               <span>Color correction</span>
-              <p>Targeted shifts work with the visible character of the masonry.</p>
+              <p>We adjust the color while keeping the natural texture and variation.</p>
             </div>
           </div>
           <Link className="text-link" href="/masonry-staining">
@@ -306,8 +306,8 @@ export default function HomePage() {
             </a>
           </div>
           <p className={styles.closingArea}>
-            Serving Ohio, Kentucky, Indiana, West Virginia &amp; Michigan{" "}
-            <span aria-hidden="true">·</span> Expanding into Texas, Arizona &amp; New Mexico
+            <span>Serving Ohio, Kentucky, Indiana, West Virginia &amp; Michigan</span>
+            <span>Expanding into Texas, Arizona &amp; New Mexico</span>
           </p>
         </div>
         <div className={styles.closingProcess}>

@@ -27,7 +27,7 @@ export function BeforeAfterSlider({
   const activePointerId = useRef<number | null>(null);
 
   function handleComparisonChange(nextPosition: number) {
-    const boundedPosition = Math.min(100, Math.max(0, Math.round(nextPosition)));
+    const boundedPosition = Math.min(100, Math.max(0, Math.round(nextPosition * 100) / 100));
     positionRef.current = boundedPosition;
     setPosition(boundedPosition);
   }
@@ -46,7 +46,12 @@ export function BeforeAfterSlider({
   }
 
   function beginPointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
+
+    // Native thumb-inset coordinates conflict with our full-image drag coordinates.
+    // Suppress native dragging so only this pointer handler controls the position.
+    event.preventDefault();
+    event.currentTarget.focus({ preventScroll: true });
 
     activePointerId.current = event.pointerId;
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -55,13 +60,14 @@ export function BeforeAfterSlider({
 
   function continuePointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
     if (activePointerId.current !== event.pointerId) return;
+    event.preventDefault();
     updateFromPointer(event);
   }
 
   function finishPointerDrag(event: ReactPointerEvent<HTMLInputElement>) {
     if (activePointerId.current !== event.pointerId) return;
 
-    updateFromPointer(event);
+    if (event.type === "pointerup") updateFromPointer(event);
     activePointerId.current = null;
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -103,17 +109,32 @@ export function BeforeAfterSlider({
           type="range"
           min="0"
           max="100"
-          step="1"
+          step="0.01"
           value={position}
           aria-label={`Compare before and after: ${title}`}
-          aria-valuetext={`${position}% before visible, ${100 - position}% after visible`}
-          onInput={(event) => handleComparisonChange(Number(event.currentTarget.value))}
+          aria-valuetext={`${Math.round(position)}% before visible, ${100 - Math.round(position)}% after visible`}
+          onChange={(event) => {
+            if (activePointerId.current === null) {
+              handleComparisonChange(Number(event.currentTarget.value));
+            }
+          }}
           onPointerDown={beginPointerDrag}
           onPointerMove={continuePointerDrag}
           onPointerUp={finishPointerDrag}
           onPointerCancel={finishPointerDrag}
+          onLostPointerCapture={() => { activePointerId.current = null; }}
+          onKeyDown={(event) => {
+            const increments: Record<string, number> = {
+              ArrowLeft: -1, ArrowDown: -1, ArrowRight: 1, ArrowUp: 1,
+              PageDown: -10, PageUp: 10,
+            };
+            if (event.key === "Home" || event.key === "End" || event.key in increments) {
+              event.preventDefault();
+              handleComparisonChange(event.key === "Home" ? 0 : event.key === "End" ? 100 : positionRef.current + increments[event.key]);
+            }
+          }}
           onKeyUp={(event) => {
-            if (event.key.startsWith("Arrow")) captureComparisonAdjustment();
+            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "PageUp", "PageDown"].includes(event.key)) captureComparisonAdjustment();
           }}
         />
 

@@ -1,4 +1,5 @@
 :root {
+  --page-heading-size: clamp(2.65rem, 4.1vw, 5.85rem);
   --limestone: #ece6dc;
   --mortar: #e3dbcf;
   --mortar-deep: #d7cec0;
@@ -288,7 +289,7 @@ img {
 
 .hero h1,
 .page-intro h1 {
-  font-size: clamp(3.65rem, 5.6vw, 6rem);
+  font-size: var(--page-heading-size);
   font-weight: 720;
   letter-spacing: -0.07em;
   line-height: 0.94;
@@ -1293,6 +1294,8 @@ img {
 }
 
 .footer-office-link {
+  /* Keep the 44px target, but space the visible lock like adjacent text. */
+  margin-left: -17.333333px;
   align-items: center;
   display: inline-flex;
   justify-content: center;
@@ -1336,6 +1339,7 @@ img {
 
 @media (max-width: 900px) {
   :root {
+    --page-heading-size: clamp(3rem, 13vw, 4.5rem);
     --radius-main: 24px;
     --radius-media: 14px;
     --shell: calc(100% - 28px);
@@ -1413,7 +1417,7 @@ img {
   }
 
   .page-intro h1 {
-    font-size: clamp(3rem, 12.5vw, 5rem);
+    font-size: var(--page-heading-size);
   }
 
   .page-intro-copy {
@@ -1507,6 +1511,12 @@ img {
   .testimonial-heading > p:last-child {
     grid-column: 1;
     grid-row: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --page-heading-size: clamp(2rem, 9.5vw, 3rem);
   }
 }
 

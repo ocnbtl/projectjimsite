@@ -16,7 +16,7 @@
 }
 
 .heroCopy h1 {
-  font-size: clamp(2.65rem, 4.1vw, 5.85rem);
+  font-size: var(--page-heading-size);
   max-width: 580px;
 }
 
@@ -161,6 +161,8 @@
 }
 
 .heroServices {
+  --step-width: 42px;
+  --step-height: 62px;
   background: var(--buff);
   border-block: 5px solid var(--buff);
   display: grid;
@@ -180,7 +182,7 @@
   min-height: 174px;
   padding: 32px clamp(28px, 3vw, 56px);
   position: relative;
-  transition: color 180ms ease;
+  transition: color 180ms ease, background 180ms ease;
   z-index: 1;
 }
 
@@ -188,58 +190,48 @@
   padding-left: clamp(50px, 4vw, 78px);
 }
 
-.heroServices a::before {
-  background: var(--sample);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-  transition: background 180ms ease;
-  z-index: -1;
+.heroServices a:not(:last-of-type) {
+  width: calc(100% + var(--step-width));
+  padding-right: calc(clamp(28px, 3vw, 56px) + var(--step-width));
 }
 
-.heroServices a:first-of-type::before {
+.heroServices a:first-of-type {
   clip-path: polygon(
     0 0,
-    calc(100% - 42px) 0,
-    calc(100% - 42px) calc(100% - 62px),
-    100% calc(100% - 62px),
+    calc(100% - var(--step-width)) 0,
+    calc(100% - var(--step-width)) calc(100% - var(--step-height)),
+    100% calc(100% - var(--step-height)),
     100% 100%,
     0 100%
   );
-  right: -42px;
 }
 
-.heroServices a:last-of-type::before {
+.heroServices a:last-of-type {
   clip-path: polygon(
     0 0,
     100% 0,
     100% 100%,
-    42px 100%,
-    42px calc(100% - 62px),
-    0 calc(100% - 62px)
+    var(--step-width) 100%,
+    var(--step-width) calc(100% - var(--step-height)),
+    0 calc(100% - var(--step-height))
   );
 }
 
-.heroServices a:nth-of-type(2)::before {
+.heroServices a:nth-of-type(2) {
   clip-path: polygon(
     0 0,
-    calc(100% - 42px) 0,
-    calc(100% - 42px) calc(100% - 62px),
-    100% calc(100% - 62px),
+    calc(100% - var(--step-width)) 0,
+    calc(100% - var(--step-width)) calc(100% - var(--step-height)),
+    100% calc(100% - var(--step-height)),
     100% 100%,
-    42px 100%,
-    42px calc(100% - 62px),
-    0 calc(100% - 62px)
+    var(--step-width) 100%,
+    var(--step-width) calc(100% - var(--step-height)),
+    0 calc(100% - var(--step-height))
   );
-  right: -42px;
 }
 
-.heroServices a:hover::before {
+.heroServices a:is(:hover, :focus-visible) {
   background: var(--soot);
-}
-
-.heroServices a:hover {
   color: var(--sample);
   z-index: 4;
 }
@@ -293,7 +285,7 @@
   max-width: 350px;
 }
 
-.heroServices a:hover .serviceCopy {
+.heroServices a:is(:hover, :focus-visible) .serviceCopy {
   color: #c9c3ba;
 }
 
@@ -310,7 +302,7 @@
   pointer-events: none;
   position: absolute;
   top: 0;
-  width: 42px;
+  width: var(--step-width);
   z-index: 8;
 }
 
@@ -323,7 +315,7 @@
 
 .serviceSeam::before {
   border-left: 5px solid var(--buff);
-  bottom: 62px;
+  bottom: var(--step-height);
   left: 0;
   top: 0;
 }
@@ -332,17 +324,17 @@
   border-right: 5px solid var(--buff);
   border-top: 5px solid var(--buff);
   bottom: 0;
-  height: 62px;
+  height: var(--step-height);
   left: 0;
-  width: 42px;
+  width: var(--step-width);
 }
 
 .serviceSeamOne {
-  left: calc(33.333333% - 2.5px);
+  left: calc(100% / 3);
 }
 
 .serviceSeamTwo {
-  left: calc(66.666667% - 2.5px);
+  left: calc(200% / 3);
 }
 
 .serviceArrow svg {
@@ -351,11 +343,12 @@
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.6;
+  stroke-width: 2;
   width: 28px;
 }
 
-.heroServices a:hover .serviceArrow {
+.heroServices a:is(:hover, :focus-visible) .serviceArrow {
+  color: white;
   transform: translateX(4px);
 }
 
@@ -610,8 +603,7 @@
 }
 
 .closingArea span {
-  color: var(--clay-light);
-  margin-inline: 8px;
+  display: block;
 }
 
 .closingProcess {
@@ -732,7 +724,7 @@
   }
 
   .heroCopy h1 {
-    font-size: clamp(3rem, 13vw, 4.5rem);
+    font-size: var(--page-heading-size);
   }
 
   .heroCopy > p {
@@ -792,7 +784,10 @@
   }
 
   .heroServices a,
-  .heroServices a + a {
+  .heroServices a + a,
+  .heroServices a:not(:last-of-type) {
+    clip-path: none;
+    width: auto;
     border-bottom: 1px solid var(--joint);
     grid-template-columns: 52px minmax(0, 1fr) 28px;
     min-height: 124px;
@@ -801,12 +796,6 @@
 
   .heroServices a:last-child {
     border-bottom: 0;
-  }
-
-  .heroServices a::before,
-  .heroServices a:not(:last-child)::before {
-    clip-path: none !important;
-    inset: 0;
   }
 
   .serviceSeam {
@@ -857,7 +846,7 @@
   }
 
   .heroCopy h1 {
-    font-size: clamp(2rem, 9.5vw, 3rem);
+    font-size: var(--page-heading-size);
   }
 
   .heroUtility {
@@ -893,7 +882,8 @@
   }
 
   .heroServices a,
-  .heroServices a + a {
+  .heroServices a + a,
+  .heroServices a:not(:last-of-type) {
     grid-template-columns: 46px minmax(0, 1fr) 24px;
     min-height: 112px;
     padding: 20px;
