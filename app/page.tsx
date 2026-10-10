@@ -138,7 +138,11 @@ export default function HomePage() {
             additions, and mismatched mortar blend in, while keeping the texture you love.
           </p>
           <p className={styles.heroExperience}>
-            10+ years of color matching. Based in Cincinnati, serving the Midwest and Southwest.
+            <svg className={styles.experienceBadge} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+              <path className={styles.experienceCheck} d="m16 9-5.5 5.5L8 12" />
+            </svg>
+            <span>10+ years of color matching. Based in Cincinnati, serving the Midwest and Southwest.</span>
           </p>
           <div className="hero-actions">
             <Link className="button" href="/contact">

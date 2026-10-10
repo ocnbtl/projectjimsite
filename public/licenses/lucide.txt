@@ -1,10 +1,11 @@
-Lucide brick-wall, droplet, swatch-book, map-pin, and briefcase-business icons
+Lucide brick-wall, droplet, swatch-book, map-pin, briefcase-business, and badge-check icons
 Sources:
 https://github.com/lucide-icons/lucide/blob/main/icons/brick-wall.svg
 https://github.com/lucide-icons/lucide/blob/main/icons/droplet.svg
 https://github.com/lucide-icons/lucide/blob/main/icons/swatch-book.svg
 https://github.com/lucide-icons/lucide/blob/main/icons/map-pin.svg
 https://github.com/lucide-icons/lucide/blob/main/icons/briefcase-business.svg
+https://github.com/lucide-icons/lucide/blob/main/icons/badge-check.svg
 
 ISC License
 
