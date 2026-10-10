@@ -68,6 +68,13 @@ test('consultation API acknowledges only provider-accepted requests', async (t) 
     assert.notEqual((await response.json()).accepted, true);
     providerStatus = 200;
   });
+  await t.test('both property choices reach the mocked email unchanged', async () => {
+    for (const propertyType of ['Residential', 'Commercial']) {
+      const response = await route.exports.POST(request({ propertyType }));
+      assert.equal((await response.json()).accepted, true);
+      assert.ok(JSON.parse(calls.at(-1).options.body).html.includes(propertyType));
+    }
+  });
   await t.test('missing configuration fails clearly', async () => {
     delete process.env.RESEND_API_KEY;
     const response = await route.exports.POST(request());
@@ -77,7 +84,7 @@ test('consultation API acknowledges only provider-accepted requests', async (t) 
   });
   await t.test('missing and invalid fields do not reach provider', async () => {
     calls = [];
-    for (const fields of [{ name: '' }, { email: 'invalid' }]) {
+    for (const fields of [{ name: '' }, { email: 'invalid' }, { propertyType: '' }]) {
       assert.equal((await route.exports.POST(request(fields))).status, 400);
     }
     assert.equal(calls.length, 0);

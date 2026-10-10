@@ -6,6 +6,7 @@ import Link from "next/link";
 import { business } from "@/content/site";
 import { captureAnalyticsEvent } from "@/lib/analytics";
 import { TurnstileWidget } from "@/components/turnstile-widget";
+import { PropertyTypeSelect } from "@/components/property-type-select";
 import styles from "./estimate-form.module.css";
 
 const allowedPhotoTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -71,6 +72,12 @@ export function EstimateForm() {
     if (formStarted.current) return;
     formStarted.current = true;
     captureAnalyticsEvent("consultation_form_started");
+  }
+
+  function handleFormChange() {
+    submissionId.current = null;
+    validationReported.current = false;
+    handleFormStart();
   }
 
   function handlePhotos(event: ChangeEvent<HTMLInputElement>) {
@@ -219,11 +226,7 @@ export function EstimateForm() {
       className="estimate-form"
       aria-label="Estimate request"
       aria-busy={status.kind === "sending"}
-      onChangeCapture={() => {
-        submissionId.current = null;
-        validationReported.current = false;
-        handleFormStart();
-      }}
+      onChangeCapture={handleFormChange}
       onInvalidCapture={() => {
         if (validationReported.current) return;
         validationReported.current = true;
@@ -258,16 +261,7 @@ export function EstimateForm() {
           <input name="location" autoComplete="postal-code" required />
         </label>
       </div>
-      <label>
-        Property type
-        <select className={styles.select} name="propertyType" defaultValue="" required>
-          <option value="" disabled>
-            Select residential or commercial
-          </option>
-          <option value="Residential">Residential</option>
-          <option value="Commercial">Commercial</option>
-        </select>
-      </label>
+      <PropertyTypeSelect disabled={status.kind === "sending"} onValueChange={handleFormChange} />
       <label>
         Description
         <textarea

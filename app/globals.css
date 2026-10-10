@@ -2,6 +2,7 @@
   --page-heading-size: clamp(2.25rem, 3.5vw, 5rem);
   --section-heading-size: calc(var(--page-heading-size) * 0.78);
   --card-heading-size: calc(var(--page-heading-size) * 0.66);
+  --contact-section-gap: clamp(32px, 4vw, 56px);
   --limestone: #ece6dc;
   --mortar: #e3dbcf;
   --mortar-deep: #d7cec0;
@@ -549,6 +550,7 @@ img {
 
 .faq-section.contact-faq-section {
   display: block;
+  margin-top: var(--contact-section-gap);
 }
 
 .contact-faq-section .faq-heading {
@@ -885,7 +887,7 @@ img {
   border-radius: var(--radius-main);
   display: grid;
   grid-template-columns: minmax(340px, 0.82fr) minmax(520px, 1.18fr);
-  margin-block: clamp(32px, 4vw, 56px) 72px;
+  margin-block: var(--contact-section-gap);
   overflow: hidden;
 }
 
