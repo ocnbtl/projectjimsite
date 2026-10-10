@@ -47,27 +47,28 @@ function ArrowIcon() {
   );
 }
 
+// Lucide service icons; ISC license in public/licenses/lucide.txt.
 function ServiceIcon({ name }: { name: ServiceIconName }) {
   if (name === "staining") {
     return (
-      <svg viewBox="0 0 32 32" role="presentation">
-        <path d="M16 4.5c3.4 5.2 7 9.8 7 14a7 7 0 0 1-14 0c0-4.2 3.6-8.8 7-14Z" />
-        <path d="M13 20.5a3.4 3.4 0 0 0 3 1.8" />
+      <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+        <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
       </svg>
     );
   }
 
   if (name === "materials") {
     return (
-      <svg viewBox="0 0 32 32" role="presentation">
-        <path d="M5 7h10v8H5zM17 7h10v8H17zM5 17h10v8H5zM17 17h10v8H17z" />
-        <path d="M8 11h4M20 11h4M8 21h4M20 21h4" />
+      <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+        <path d="M11 17a4 4 0 0 1-8 0V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2Z" />
+        <path d="M16.7 13H19a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H7" />
+        <path d="M7 17h.01" />
+        <path d="m11 8 2.3-2.3a2.4 2.4 0 0 1 3.404.004L18.6 7.6a2.4 2.4 0 0 1 .026 3.434L9.9 19.8" />
       </svg>
     );
   }
 
   return (
-    // Lucide brick-wall icon; ISC license in public/licenses/lucide.txt.
     <svg viewBox="0 0 24 24" role="presentation" focusable="false">
       <rect width="18" height="18" x="3" y="3" rx="2" />
       <path d="M12 9v6M16 15v6M16 3v6M3 15h18M3 9h18M8 15v6M8 3v6" />
