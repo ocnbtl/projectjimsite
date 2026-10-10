@@ -38,10 +38,16 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      {
-        source: "/:path*",
-        headers: securityHeaders,
-      },
+      ...["/", "/services", "/masonry-staining", "/gallery", "/about", "/contact", "/privacy"].map((source) => ({
+        source,
+        headers: [{
+        // Declare this at the hosting layer as well as Proxy: prerendered HTML
+        // on Vercel can otherwise replace Proxy's Vary with its RSC fields.
+          key: "Vary",
+          value: "Accept, RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+        }],
+      })),
+      { source: "/:path*", headers: securityHeaders },
     ];
   },
   async rewrites() {
