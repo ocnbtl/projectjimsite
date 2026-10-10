@@ -33,19 +33,42 @@ test('all public pages negotiate Markdown without replacing HTML or polluting ca
       const response = await get(path, accept);
       assert.equal(response.status, 200, path);
       const text = await response.text();
-      assert.match(response.headers.get('vary') ?? '', /\baccept\b/i, `${path}: Vary`);
       if (accept === 'text/markdown') {
+        assert.match(response.headers.get('vary') ?? '', /\baccept\b/i, `${path}: Markdown Vary`);
         assert.match(response.headers.get('content-type'), /^text\/markdown/);
         assert.match(response.headers.get('cache-control'), /no-store/);
         assert.ok(text.startsWith('# '));
         assert.ok(text.includes(`Source: ${origin}${path}`));
         assert.doesNotMatch(text, /<html|<script/i);
       } else {
+        // Vercel's prerendered HTML overwrites custom Vary with its RSC fields.
+        // When Accept is absent, require immediate revalidation instead of
+        // allowing a downstream cache to reuse HTML for a Markdown request.
+        if (!/\baccept\b/i.test(response.headers.get('vary') ?? '')) {
+          const cache = response.headers.get('cache-control') ?? '';
+          assert.match(cache, /(?:^|,\s*)max-age=0(?:,|$)/, `${path}: HTML cache freshness`);
+          assert.match(cache, /must-revalidate/, `${path}: HTML revalidation`);
+          assert.doesNotMatch(cache, /s-maxage|stale-while-revalidate/);
+        }
         assert.match(response.headers.get('content-type'), /^text\/html/);
         assert.match(text, /<h1/);
         assert.match(response.headers.get('link') ?? '', /rel="alternate"; type="text\/markdown"/);
       }
     }
+  }
+});
+
+test('HTML validators cannot produce a stale HTML 304 for Markdown requests', async () => {
+  for (const path of pages) {
+    const html = await get(path, 'text/html');
+    const etag = html.headers.get('etag');
+    await html.text();
+    if (!etag) continue;
+    const markdown = await get(path, 'text/markdown', { headers: { 'If-None-Match': etag } });
+    assert.equal(markdown.status, 200, path);
+    assert.match(markdown.headers.get('content-type'), /^text\/markdown/);
+    assert.match(markdown.headers.get('cache-control'), /no-store/);
+    assert.ok((await markdown.text()).startsWith('# '));
   }
 });
 
