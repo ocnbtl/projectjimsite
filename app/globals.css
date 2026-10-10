@@ -1,5 +1,5 @@
 :root {
-  --page-heading-size: clamp(2.65rem, 4.1vw, 5.85rem);
+  --page-heading-size: clamp(2.25rem, 3.5vw, 5rem);
   --limestone: #ece6dc;
   --mortar: #e3dbcf;
   --mortar-deep: #d7cec0;
@@ -1371,7 +1371,7 @@ img {
 
 @media (max-width: 900px) {
   :root {
-    --page-heading-size: clamp(3rem, 13vw, 4.5rem);
+    --page-heading-size: clamp(2.55rem, 11vw, 3.85rem);
     --radius-main: 24px;
     --radius-media: 14px;
     --shell: calc(100% - 28px);
@@ -1548,7 +1548,7 @@ img {
 
 @media (max-width: 640px) {
   :root {
-    --page-heading-size: clamp(2rem, 9.5vw, 3rem);
+    --page-heading-size: clamp(1.875rem, 8.1vw, 2.55rem);
   }
 }
 
