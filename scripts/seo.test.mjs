@@ -72,7 +72,7 @@ test('homepage exposes the preferred site name, matching identity and useful des
   assert.match(description, /\(513\) 612-8421/);
   assert.ok(description.length <= 160);
   assert.match(html, /<meta property="og:site_name" content="Masonry Color Corrections LLC"/);
-  assert.match(html, /10\+ years of color matching/);
+  assert.match(html, /10\+ years of professional color matching/);
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)]
     .map((match) => JSON.parse(match[1]));
   const websites = schemas.filter((schema) => schema['@type'] === 'WebSite');
