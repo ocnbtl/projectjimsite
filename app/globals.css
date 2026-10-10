@@ -932,6 +932,37 @@ img {
   margin: 18px 0 0;
 }
 
+.contact-direct .contact-phone {
+  font-size: clamp(1.15rem, 1.85vw, 1.4rem);
+}
+
+.contact-service-area {
+  color: var(--smoke);
+  display: grid;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.contact-service-area p {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 20px minmax(0, 1fr);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.contact-service-area svg {
+  color: var(--clay);
+  fill: none;
+  height: 20px;
+  margin-top: 3px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+  width: 20px;
+}
+
 .contact-form-panel {
   padding: clamp(46px, 6vw, 90px);
 }

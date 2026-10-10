@@ -63,9 +63,23 @@ export default function ContactPage() {
             <p className="contact-method-label">Email</p>
             <a href={business.emailHref}>{business.email}</a>
             <h2>Prefer to call?</h2>
-            <a href={business.phoneHref}>{business.phoneDisplay}</a>
-            <p>{business.locationContext}</p>
-            <p>{business.serviceArea}</p>
+            <a className="contact-phone" href={business.phoneHref}>{business.phoneDisplay}</a>
+            <div className="contact-service-area">
+              <p>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                  <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>{business.locationContext}</span>
+              </p>
+              <p>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                  <path d="M12 12h.01M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M22 13a18.15 18.15 0 0 1-20 0" />
+                  <rect width="20" height="14" x="2" y="6" rx="2" />
+                </svg>
+                <span>{business.serviceArea}</span>
+              </p>
+            </div>
           </div>
         </aside>
 
@@ -73,7 +87,7 @@ export default function ContactPage() {
           <h2>Request a project consultation</h2>
           <p>
             Share a short description, project location, and a few useful photos. That context
-            helps MCC respond quickly with a free estimate, usually within two business days.
+            helps us respond quickly with a free estimate, usually within two business days.
           </p>
           <EstimateForm />
         </div>
