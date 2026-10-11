@@ -4,16 +4,21 @@
 }
 
 .introActions {
-  align-items: stretch;
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
-.introActions :global(.button) { margin-top: 0; text-align: center; }
+.introActions :global(.button) {
+  margin-top: 0;
+  max-width: 100%;
+  padding-inline: 15px;
+  text-align: center;
+}
 
-@media (min-width: 901px) and (max-width: 1200px), (max-width: 600px) {
-  .introActions { grid-template-columns: 1fr; }
+@media (min-width: 601px) {
+  .introActions :global(.button) { white-space: nowrap; }
 }
 
 @media (max-width: 900px) {

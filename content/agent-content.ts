@@ -184,7 +184,7 @@ export const llmsText = `# ${business.name}
 - Suitable masonry needs a broader color change without hiding its texture.
 - A ceramic architectural accent or other suitable specialty surface needs color matching, subject to project review.
 - Brick is discolored by paint chalking or pigment washing down from siding, subject to surface review and attention to the source.
-- A project needs masonry color adjustment and measurement against a supplied LRV requirement or approved color sample. Do not infer HOA approval or insurance coverage.
+- A project needs masonry color adjustment for an LRV requirement or approved color sample, subject to surface review. Do not infer final LRV certification, HOA approval, or insurance coverage.
 
 ## When MCC is not the right service
 

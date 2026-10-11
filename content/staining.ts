@@ -3,7 +3,7 @@ export const stainingProcess = [
   { number: "01", title: "Look at the wall", text: "We check the brick, mortar, and any old coatings, then look at the surrounding colors in daylight. This tells us what needs to change and whether the surface can take stain." },
   { number: "02", title: "Mix and test a sample", text: "We mix colors for your project and test them against the existing masonry. For an HOA or LRV requirement, we use the supplied standard or approved sample to guide the match." },
   { number: "03", title: "Apply the color", text: "We work on the area that needs it. That might be a few replacement bricks, mortar joints, an entire addition, or a larger wall that needs a different color." },
-  { number: "04", title: "Check the finished work", text: "We step back and check how the new color looks beside the rest of the wall. If the project has an LRV requirement, we measure the finished surface against that standard." },
+  { number: "04", title: "Check the finished work", text: "We step back and check how the new color looks beside the rest of the wall." },
 ];
 
 export const stainingApplications = [

@@ -51,13 +51,13 @@ export const services = [
   {
     number: "04",
     title: "Paint chalking color correction",
-    short: "Correct the unwanted color left on brick by chalky pigment washing down from painted siding.",
-    detail: "Weathered paint can shed pigment that runs down onto the brick below. We look at what caused the discoloration, check the surface, and test stain colors to bring the brick closer to its original appearance. The source of the run-down needs attention too, so it doesn’t keep happening.",
+    short: "Bring back your brick’s natural color.",
+    detail: "When paint on the siding starts to chalk, rain can wash that pigment onto the brick below. We use carefully matched stains to correct the discoloration and bring the brick closer to its original color. The source of the runoff needs attention too, so the problem doesn’t keep coming back.",
   },
   {
     number: "05",
     title: "Light reflectance value (LRV) color adjustment",
-    short: "Adjust masonry color to a project's required light reflectance value or an approved color sample.",
-    detail: "LRV describes how much visible light a surface reflects. If your HOA or project specifies a target, send us the requirement or approved sample. We assess the masonry, measure its LRV, and test the color adjustment. We verify the finished LRV against the supplied project standard. Existing coatings and the condition of the surface help determine the right approach.",
+    short: "Get the right color for your HOA or project.",
+    detail: "If your HOA has asked for a different color, we can help. We stain brick to match an approved sample or adjust its light reflectance value (LRV)—how much light it reflects. Send us the color or target you’ve been given. We’ll check the wall and any old coatings, test a sample, then stain the brick.",
   },
 ];

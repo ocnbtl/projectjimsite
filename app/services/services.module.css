@@ -25,10 +25,10 @@
 
 .additionalServices { margin-top: clamp(56px, 6vw, 96px); }
 .additionalServices > h2 {
-  font-size: var(--section-heading-size);
+  font-size: min(var(--section-heading-size), clamp(1.5rem, 4.1vw, 3.5rem));
   letter-spacing: -0.04em;
   line-height: 1.05;
-  max-width: 20ch;
+  max-width: none;
   margin: 0 0 32px;
 }
 .additionalServiceList {
@@ -49,8 +49,16 @@
 }
 .additionalServiceList p { color: var(--smoke); line-height: 1.7; max-width: 65ch; }
 .additionalServiceList .additionalLead { color: var(--soot); font-weight: 600; margin-top: 22px; }
-.additionalServiceList :global(.text-link) { display: flex; margin-top: 20px; }
-@media (max-width: 760px) {
+.additionalActions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 24px;
+}
+.additionalActions :global(.button),
+.additionalActions :global(.text-link) { margin: 0; }
+@media (max-width: 1000px) {
   .additionalServiceList { grid-template-columns: 1fr; gap: 12px; }
 }
 
@@ -60,6 +68,11 @@
 }
 
 @media (max-width: 600px) {
+  .additionalActions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .introActions {
     align-items: flex-start;
     flex-direction: column;

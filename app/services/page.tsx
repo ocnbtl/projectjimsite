@@ -102,8 +102,10 @@ export default function ServicesPage() {
               <h3>{service.title}</h3>
               <p className={styles.additionalLead}>{service.short}</p>
               <p>{service.detail}</p>
-              <Link className="button button-secondary" href="/contact">Ask about this service</Link>
-              {service.number === "04" ? <Link className="text-link" href="/gallery#paint-chalking-color-correction">See the finished brick</Link> : null}
+              <div className={styles.additionalActions}>
+                <Link className="button button-secondary" href="/contact">Ask about this service</Link>
+                {service.number === "04" ? <Link className="text-link" href="/gallery#paint-chalking-color-correction">See a finished project</Link> : null}
+              </div>
             </article>
           ))}
         </div>

@@ -36,15 +36,21 @@ test('both new services have visible destinations and matching machine-readable 
     assert.ok(md.includes(offer.itemOffered.name));
   }
   for (const view of [text, md]) {
-    assert.match(view, /verify the finished LRV against the supplied project standard/i);
-    assert.doesNotMatch(view, /insurance pays|insurance will pay|guaranteed HOA approval/i);
+    assert.match(view, /then stain the brick/i);
+    assert.match(view, /Bring back your brick’s natural color/);
+    assert.match(view, /Get the right color for your HOA or project/);
+    assert.doesNotMatch(view, /verify the finished LRV|measure the finished surface|insurance pays|insurance will pay|guaranteed HOA approval/i);
   }
+  assert.match(text, /See a finished project/);
+  assert.match(text, /href="\/gallery#paint-chalking-color-correction"/);
+  assert.doesNotMatch(text, /See the finished brick/);
 });
 
 test('staining explanations, FAQ, and gallery navigation remain consistent and usable', async () => {
   const staining = await html('/masonry-staining');
   const md = await markdown('/masonry-staining');
   for (const view of [staining, md]) {
+    assert.doesNotMatch(view, /measure the finished surface against that standard/i);
     for (const phrase of ['Look at the wall', 'Mix and test a sample', 'Apply the color', 'Check the finished work', 'Paint chalking on brick', 'HOA and LRV requirements']) {
       assert.ok(view.includes(phrase), phrase);
     }
