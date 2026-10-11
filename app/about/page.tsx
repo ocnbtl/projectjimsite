@@ -18,8 +18,8 @@ export default function AboutPage() {
     <>
       <PageIntro title="A specialist’s eye for color, variation, and fit.">
         <p>
-          A repair can be well built and still stand out. Masonry Color Corrections LLC helps
-          new brick, mortar, and additions blend with what’s already there. Your mason or builder
+          A repair can be well built and still stand out. Masonry Color Corrections helps
+          new brick, mortar, and additions blend in with what’s already there. Your mason or builder
           handles the construction; we take care of the color afterward.
         </p>
       </PageIntro>

@@ -3,32 +3,24 @@
   position: relative;
 }
 
-.introCue {
-  align-items: center;
-  display: inline-flex;
+.introActions {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   gap: 12px;
 }
 
-.introActions {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px 28px;
+.introActions :global(.button) { margin-top: 0; text-align: center; }
+
+@media (min-width: 901px) and (max-width: 1200px), (max-width: 600px) {
+  .introActions { grid-template-columns: 1fr; }
 }
 
-.introActions .introCue {
-  margin: 0;
-}
-
-.introCue svg {
-  fill: none;
-  flex: 0 0 auto;
-  height: 22px;
-  stroke: var(--clay);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
-  width: 22px;
+@media (max-width: 900px) {
+  .introActions :global(.button-secondary) {
+    border-color: rgba(255, 255, 255, 0.32);
+    color: var(--sample);
+  }
 }
 
 .projectMedia::after {

@@ -9,7 +9,7 @@ import styles from "./services.module.css";
 export const metadata = pageMetadata("/services", {
   title: "Brick Staining & Masonry Color Matching Services",
   description:
-    "Post-construction masonry color matching and staining for additions, repairs, brick, mortar, and specialty installed materials across the Midwest and Southwest.",
+    "Brick and mortar color matching, masonry staining, paint chalking color correction, and LRV color adjustments across the Midwest and Southwest. Ask MCC for a free estimate.",
 });
 
 const serviceProjects = [projects[0], projects[3], projects[2]];
@@ -54,7 +54,7 @@ export default function ServicesPage() {
         </p>
         <div className={styles.introActions}>
           <Link className="button" href="/contact">
-            Request an estimate <span aria-hidden="true">→</span>
+            Request an estimate
           </Link>
           <Link className="text-link" href="/masonry-staining">
             See exactly what MCC does <span aria-hidden="true">→</span>
@@ -66,7 +66,7 @@ export default function ServicesPage() {
         className={`service-detail-list shell ${styles.serviceList}`}
         aria-label="Masonry color services"
       >
-        {services.map((service, index) => (
+        {services.slice(0, 3).map((service, index) => (
           <article className="service-detail" id={`service-${service.number}`} key={service.number}>
             <div className="service-detail-copy">
               <span>{service.number}</span>
@@ -92,6 +92,21 @@ export default function ServicesPage() {
             </div>
           </article>
         ))}
+      </section>
+
+      <section className={`${styles.additionalServices} shell`} aria-labelledby="additional-services-title">
+        <h2 id="additional-services-title">Other color problems we can help with.</h2>
+        <div className={styles.additionalServiceList}>
+          {services.slice(3).map((service) => (
+            <article key={service.number} id={`service-${service.number}`}>
+              <h3>{service.title}</h3>
+              <p className={styles.additionalLead}>{service.short}</p>
+              <p>{service.detail}</p>
+              <Link className="button button-secondary" href="/contact">Ask about this service</Link>
+              {service.number === "04" ? <Link className="text-link" href="/gallery#paint-chalking-color-correction">See the finished brick</Link> : null}
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="faq-section shell" aria-labelledby="faq-title">

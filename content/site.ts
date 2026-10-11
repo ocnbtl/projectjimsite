@@ -48,4 +48,16 @@ export const services = [
     detail:
       "Sometimes a single detail draws attention for the wrong reason. We look at the material and its finish first, then let you know whether color matching can help it fit with the rest of the space.",
   },
+  {
+    number: "04",
+    title: "Paint chalking color correction",
+    short: "Correct the unwanted color left on brick by chalky pigment washing down from painted siding.",
+    detail: "Weathered paint can shed pigment that runs down onto the brick below. We look at what caused the discoloration, check the surface, and test stain colors to bring the brick closer to its original appearance. The source of the run-down needs attention too, so it doesn’t keep happening.",
+  },
+  {
+    number: "05",
+    title: "Light reflectance value (LRV) color adjustment",
+    short: "Adjust masonry color to a project's required light reflectance value or an approved color sample.",
+    detail: "LRV describes how much visible light a surface reflects. If your HOA or project specifies a target, send us the requirement or approved sample. We assess the masonry, measure its LRV, and test the color adjustment. We verify the finished LRV against the supplied project standard. Existing coatings and the condition of the surface help determine the right approach.",
+  },
 ];

@@ -29,7 +29,7 @@ export default function ContactPage() {
           acceptedAnswer: { "@type": "Answer", text: faq.answer },
         })),
       }).replace(/</g, "\\u003c") }} />
-      <PageIntro title="Start with the mismatch.">
+      <PageIntro title="Start with the mismatch." align="top">
         <p>
           If the material is already installed and the remaining problem is color, tell us where
           the project is, what changed, and what you want to look more consistent. Photos from

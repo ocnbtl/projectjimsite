@@ -2,15 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
-import { TestimonialMarquee } from "@/components/testimonial-marquee";
+import { clientTestimonial } from "@/content/testimonials";
 import { featuredProject, projects } from "@/content/projects";
 import { business, services } from "@/content/site";
 import styles from "./home.module.css";
 
 type ServiceIconName = "matching" | "staining" | "materials";
-
-// Re-enable only after the client supplies approved testimonial copy and attribution.
-const testimonialsEnabled = false;
 
 const homeServices = [
   {
@@ -292,7 +289,25 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {testimonialsEnabled ? <TestimonialMarquee /> : null}
+      <section className={`${styles.testimonial} home-shell`} aria-labelledby="client-word-title">
+        <div className={styles.testimonialIntro}>
+          <h2 id="client-word-title">A word from our client.</h2>
+          <p>A message from Joe after a brick color match.</p>
+        </div>
+        <figure className={styles.testimonialMessage}>
+          <blockquote><p>{clientTestimonial.quote}</p></blockquote>
+          <figcaption>
+            <strong>{clientTestimonial.name}</strong>
+            <a href={clientTestimonial.companyProfileUrl} target="_blank" rel="noopener noreferrer"
+              aria-label={`${clientTestimonial.companyProfileName} on Google Maps (opens in a new tab)`}>
+              {clientTestimonial.company}
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M15 3h6v6M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" />
+              </svg>
+            </a>
+          </figcaption>
+        </figure>
+      </section>
 
       <section className={`${styles.closing} home-shell`} aria-labelledby="closing-title">
         <div className={styles.closingLead}>

@@ -140,7 +140,7 @@ test('business schema contains truthful contact, city-level location and linked 
   assert.equal(business.address.streetAddress, undefined);
   assert.equal(business.contactPoint.email, 'contact@masonrycolorcorrections.com');
   assert.equal(business.contactPoint.telephone, business.telephone);
-  assert.equal(business.makesOffer.length, 3);
+  assert.equal(business.makesOffer.length, 5);
   const services = await (await get('/services', 'text/html')).text();
   for (const offer of business.makesOffer) {
     assert.equal(offer.itemOffered.provider['@id'], business['@id']);

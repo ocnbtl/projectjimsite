@@ -365,6 +365,12 @@ img {
   margin-top: 0;
 }
 
+.page-intro-bottom { align-items: end; }
+.page-intro-top .page-intro-copy {
+  padding-top: calc(var(--page-heading-size) * 0.1);
+}
+.page-intro-copy > :last-child { margin-bottom: 0; }
+
 .page-intro-copy .button {
   margin-top: 16px;
 }
@@ -1461,6 +1467,8 @@ img {
   .page-intro-copy {
     color: #bbb4aa;
   }
+
+  .page-intro-top .page-intro-copy { padding-top: 0; }
 
   .service-detail {
     grid-template-columns: 1fr;

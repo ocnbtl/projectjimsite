@@ -2,7 +2,7 @@
 export const contactFaqs = [
   {
     question: "Can you match new brick to an older wall?",
-    answer: "Once the repairs or addition are finished, we mix and test colors to help the new brick blend in with what’s already there. We’ll take a look at the surface and the change you have in mind, then talk you through what’s possible.",
+    answer: "Yes—we can help new brick blend in with an older wall. Once the repairs or addition are finished, we mix and test colors against what’s already there. We’ll take a look at the surface and the change you have in mind, then talk you through the best approach.",
   },
   {
     question: "What should I include in my request?",

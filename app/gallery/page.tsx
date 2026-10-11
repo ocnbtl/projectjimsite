@@ -36,19 +36,16 @@ export default function GalleryPage() {
     <>
       <PageIntro title="The result should read as part of the original work.">
         <div className={styles.introActions}>
-          <p className={styles.introCue}>
-            Browse completed MCC projects
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 5v14M7 14l5 5 5-5" />
-            </svg>
-          </p>
-          <Link className="text-link" href="/masonry-staining">
-            More detail on what we do <span aria-hidden="true">→</span>
+          <a className="button" href="#finished-projects">
+            Scroll down to view finished MCC projects
+          </a>
+          <Link className="button button-secondary" href="/masonry-staining">
+            More detail on what we do
           </Link>
         </div>
       </PageIntro>
 
-      <section className="gallery-grid shell" aria-label="MCC before-and-after projects">
+      <section className="gallery-grid shell" id="finished-projects" aria-label="MCC before-and-after projects">
         <article className={`gallery-feature ${styles.feature}`} id={featured.slug}>
           <div
             className={`gallery-feature-media ${styles.projectMedia} ${styles.landscapeMedia}`}

@@ -3,14 +3,14 @@
   border: 1px solid var(--joint);
   border-radius: var(--radius-main);
   display: grid;
-  grid-template-columns: minmax(340px, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin-top: clamp(56px, 6vw, 88px);
   overflow: hidden;
 }
 
 .definitionCopy {
   align-self: center;
-  padding: clamp(48px, 6vw, 92px);
+  padding: clamp(32px, 4vw, 64px);
 }
 
 .definitionCopy h2,
@@ -20,8 +20,8 @@
 .resource h2 {
   font-size: var(--section-heading-size);
   font-weight: 720;
-  letter-spacing: -0.06em;
-  line-height: 0.98;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
   margin: 0;
   text-wrap: balance;
 }
@@ -40,7 +40,7 @@
 .definitionVisual {
   border-left: 1px solid var(--joint);
   margin: 0;
-  min-height: 680px;
+  min-height: 520px;
   overflow: hidden;
   position: relative;
 }
@@ -85,10 +85,10 @@
   border-radius: var(--radius-main);
   color: var(--sample);
   display: grid;
-  gap: clamp(56px, 7vw, 128px);
-  grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1.24fr);
+  gap: clamp(32px, 4vw, 64px);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   margin-top: clamp(72px, 8vw, 116px);
-  padding: clamp(48px, 6vw, 88px);
+  padding: clamp(32px, 4vw, 64px);
 }
 
 .boundaryIntro p {
@@ -103,16 +103,14 @@
 
 .scopeCards article {
   border: 1px solid rgba(248, 245, 239, 0.16);
-  border-radius: var(--radius-media);
-  padding: clamp(28px, 3vw, 42px);
+  padding: 24px;
 }
 
 .scopeCards h3 {
   color: var(--clay-light);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
   margin: 0 0 24px;
-  text-transform: uppercase;
 }
 
 .scopeCards ul {
@@ -142,7 +140,9 @@
 }
 
 .processList {
-  border-bottom: 1px solid var(--joint);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 32px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -152,7 +152,7 @@
   border-top: 1px solid var(--joint);
   display: grid;
   gap: 24px;
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: 28px minmax(0, 1fr);
   padding: 28px 0;
 }
 
@@ -185,13 +185,13 @@
   border: 1px solid var(--joint);
   border-radius: var(--radius-main);
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   margin-top: clamp(88px, 10vw, 150px);
   overflow: hidden;
 }
 
 .applicationsImage {
-  min-height: 760px;
+  min-height: 600px;
   overflow: hidden;
   position: relative;
 }
@@ -199,7 +199,7 @@
 .applicationsCopy {
   align-self: center;
   border-left: 1px solid var(--joint);
-  padding: clamp(48px, 5vw, 84px);
+  padding: clamp(32px, 4vw, 64px);
 }
 
 .applicationList {
@@ -313,4 +313,7 @@
   .ctaActions :global(.button) {
     width: 100%;
   }
+
+  .processList { grid-template-columns: 1fr; }
+  .resource :global(.button) { white-space: normal; text-align: center; }
 }

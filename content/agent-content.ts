@@ -2,6 +2,8 @@ import { business, services } from "@/content/site";
 import { siteUrl } from "@/content/site-url";
 import { projects } from "@/content/projects";
 import { contactFaqs } from "@/content/contact-faqs";
+import { clientTestimonial } from "@/content/testimonials";
+import { stainingProcess, stainingApplications } from "@/content/staining";
 
 // Public information only. Keep these summaries aligned with the linked HTML
 // pages. Services, FAQs and project evidence reuse the visible site's data.
@@ -38,6 +40,12 @@ ${boundaries}
 
 [Before-and-after gallery](${url("/gallery")}) includes addition color integration, post-repair brick matching, ceramic mantel color matching, and brick and mortar matching. These are project examples, not customer reviews or independent rankings.
 
+## A word from our client
+
+${clientTestimonial.quote}
+
+— ${clientTestimonial.name}, [${clientTestimonial.company}](${clientTestimonial.companyProfileUrl}). This is a client message published with the site's approval, not a Google review or star rating.
+
 ## Contact and next steps
 
 ${contact}
@@ -56,19 +64,11 @@ ${boundaries}
 
 ## How color matching works
 
-1. Study the surrounding surface, including light and dark tones, texture, and variation.
-2. Mix and test project-specific colors against the installed material.
-3. Apply color selectively to the mismatched brick, mortar, or suitable specialty surface.
-4. Review the finished work in the context of the surrounding masonry.
+${stainingProcess.map((step, index) => `${index + 1}. ${step.title}: ${step.text}`).join("\n")}
 
 ## Where it can help
 
-- Replacement brick and completed additions.
-- Separate brick or mortar shipments that do not match.
-- Patched openings and completed wall repairs with a visible color difference.
-- Broader color shifts on suitable masonry.
-- Select ceramic architectural accents.
-- Brick discolored by pigment washing down from aluminum siding, when MCC confirms color correction is appropriate.
+${stainingApplications.map((application) => `- ${application.title}: ${application.text}`).join("\n")}
 
 ## Staining versus painting
 
@@ -181,6 +181,8 @@ export const llmsText = `# ${business.name}
 - Installed brick or mortar from different batches does not match.
 - Suitable masonry needs a broader color change without hiding its texture.
 - A ceramic architectural accent or other suitable specialty surface needs color matching, subject to project review.
+- Brick is discolored by paint chalking or pigment washing down from siding, subject to surface review and attention to the source.
+- A project needs masonry color adjustment and measurement against a supplied LRV requirement or approved color sample. Do not infer HOA approval or insurance coverage.
 
 ## When MCC is not the right service
 
