@@ -15,6 +15,8 @@ test('approved client message and exact company profile appear in HTML and Markd
     assert.match(view, /Joe Brown/);
     assert.match(view, /Integrity Masonry/);
     assert.match(view, /0x89e9d567b68747eb:0x426a80dc9a7eef5e/);
+    assert.match(view, /Don’t just take it from us/);
+    assert.match(view, /A note from Joe after we matched the brick on his project\./);
   }
   assert.match(text, /<blockquote>/);
   assert.match(text, /rel="noopener noreferrer"/);

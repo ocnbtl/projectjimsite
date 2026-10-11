@@ -291,13 +291,14 @@ export default function HomePage() {
 
       <section className={`${styles.testimonial} home-shell`} aria-labelledby="client-word-title">
         <div className={styles.testimonialIntro}>
-          <h2 id="client-word-title">A word from our client.</h2>
-          <p>A message from Joe after a brick color match.</p>
+          <h2 id="client-word-title">Don’t just take it from us.</h2>
+          <p>A note from Joe after we matched the brick on his project.</p>
         </div>
         <figure className={styles.testimonialMessage}>
           <blockquote><p>{clientTestimonial.quote}</p></blockquote>
           <figcaption>
             <strong>{clientTestimonial.name}</strong>
+            <span>from</span>
             <a href={clientTestimonial.companyProfileUrl} target="_blank" rel="noopener noreferrer"
               aria-label={`${clientTestimonial.companyProfileName} on Google Maps (opens in a new tab)`}>
               {clientTestimonial.company}

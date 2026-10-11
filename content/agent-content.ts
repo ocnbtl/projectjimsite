@@ -40,11 +40,13 @@ ${boundaries}
 
 [Before-and-after gallery](${url("/gallery")}) includes addition color integration, post-repair brick matching, ceramic mantel color matching, and brick and mortar matching. These are project examples, not customer reviews or independent rankings.
 
-## A word from our client
+## Don’t just take it from us
+
+A note from Joe after we matched the brick on his project.
 
 ${clientTestimonial.quote}
 
-— ${clientTestimonial.name}, [${clientTestimonial.company}](${clientTestimonial.companyProfileUrl}). This is a client message published with the site's approval, not a Google review or star rating.
+— ${clientTestimonial.name} from [${clientTestimonial.company}](${clientTestimonial.companyProfileUrl}). This is a client message published with the site's approval, not a Google review or star rating.
 
 ## Contact and next steps
 
