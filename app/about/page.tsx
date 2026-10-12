@@ -1,6 +1,6 @@
 import { pageMetadata } from "@/content/page-metadata";
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { PageIntro } from "@/components/page-intro";
 import { projects } from "@/content/projects";
 import styles from "./page.module.css";
@@ -16,7 +16,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <PageIntro title="A specialist’s eye for color, variation, and fit.">
+      <PageIntro route="/about" title="A specialist’s eye for color, variation, and fit.">
         <p>
           A repair can be well built and still stand out. Masonry Color Corrections helps
           new brick, mortar, and additions blend in with what’s already there. Your mason or builder

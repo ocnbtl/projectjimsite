@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/content/page-metadata";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
 import { projects, type Project } from "@/content/projects";
@@ -34,7 +34,7 @@ export default function GalleryPage() {
 
   return (
     <>
-      <PageIntro title="The result should read as part of the original work.">
+      <PageIntro route="/gallery" title="The result should read as part of the original work.">
         <div className={styles.introActions}>
           <a className="button" href="#finished-projects">
             Scroll down to view finished MCC projects

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { AnalyticsPreferencesButton } from "@/components/analytics-consent";
 import { Brand } from "@/components/brand";
 import { business, navigation } from "@/content/site";

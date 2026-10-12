@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/content/page-metadata";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { PageIntro } from "@/components/page-intro";
 import { ProjectPair } from "@/components/project-pair";
 import { projects } from "@/content/projects";
@@ -46,7 +46,7 @@ const faqs = [
 export default function ServicesPage() {
   return (
     <>
-      <PageIntro title="The structure is finished. The color still needs to belong.">
+      <PageIntro route="/services" title="The structure is finished. The color still needs to belong.">
         <p>
           MCC custom-mixes and applies color to installed brick, mortar, and other compatible
           materials. The work begins once a repair or addition is structurally complete and

@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { isLaunchReady, siteUrl } from "@/content/site-url";
 import { business } from "@/content/site";
+import { PageTransitions } from "@/components/page-transitions";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -51,9 +52,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main-content">{children}</main>
-        <SiteFooter />
+        <PageTransitions>
+          <SiteHeader />
+          <main id="main-content">{children}</main>
+          <SiteFooter />
+        </PageTransitions>
         <AnalyticsConsent />
       </body>
     </html>

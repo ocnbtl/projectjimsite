@@ -1,6 +1,6 @@
 import { pageMetadata } from "@/content/page-metadata";
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { PageIntro } from "@/components/page-intro";
 import { business } from "@/content/site";
 import { projects } from "@/content/projects";
@@ -19,7 +19,7 @@ export default function MasonryStainingPage() {
 
   return (
     <>
-      <PageIntro title="The masonry is built. MCC handles the color.">
+      <PageIntro route="/masonry-staining" title="The masonry is built. MCC handles the color.">
         <p>
           The repair is done, but the new brick still stands out. Or you’re ready for a different
           color across the whole wall. We mix and test stains for your masonry, then apply the

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Brand } from "@/components/brand";
@@ -61,7 +61,7 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <Link className="button button-small nav-estimate" href="/contact">
+          <Link className="button button-small nav-estimate" href="/contact" onClick={() => setIsOpen(false)}>
             Request a Free Estimate
           </Link>
         </nav>

@@ -10,7 +10,7 @@ export const metadata = pageMetadata("/privacy", {
 export default function PrivacyPage() {
   return (
     <>
-      <PageIntro title="Privacy">
+      <PageIntro route="/privacy" title="Privacy">
         <p>How MCC handles information provided through this website.</p>
       </PageIntro>
       <article className="legal-copy shell">

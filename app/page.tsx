@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink as Link } from "@/components/page-transitions";
 import { BeforeAfterSlider } from "@/components/before-after-slider";
 import { LocalBusinessSchema } from "@/components/local-business-schema";
 import { clientTestimonial } from "@/content/testimonials";
@@ -122,7 +122,7 @@ export default function HomePage() {
     <>
       <LocalBusinessSchema />
 
-      <section className={`hero home-shell ${styles.hero}`}>
+      <section className={`hero home-shell ${styles.hero}`} data-page-panel data-page-route="/">
         <div className={`hero-copy ${styles.heroCopy}`}>
           <h1>
             <span className={styles.heroHeadlineLine}>Make mismatched</span>
@@ -134,7 +134,7 @@ export default function HomePage() {
             New brick doesn’t always match the old. We mix and apply color to help repairs,
             additions, and mismatched mortar blend in, while keeping the texture you love.
           </p>
-          <p className={styles.heroExperience}>
+          <p className={styles.heroExperience} data-motion-part="experience">
             <svg className={styles.experienceBadge} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
               <path className={styles.experienceCheck} d="m16 9-5.5 5.5L8 12" />
@@ -149,7 +149,7 @@ export default function HomePage() {
               Call {business.phoneDisplay}
             </a>
           </div>
-          <p className={styles.heroUtility}>
+          <p className={styles.heroUtility} data-motion-part="coverage">
             <span className={styles.heroUtilityStates}>
               OH <span aria-hidden="true">·</span> KY <span aria-hidden="true">·</span> IN{" "}
               <span aria-hidden="true">·</span> WV <span aria-hidden="true">·</span> MI{" "}
@@ -174,7 +174,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <figure className={styles.heroVisual}>
+        <figure className={styles.heroVisual} data-motion-part="photos">
           <div className={styles.heroBefore}>
             <Image
               src={featuredProject.before}
@@ -201,7 +201,7 @@ export default function HomePage() {
           </figcaption>
         </figure>
 
-        <div className={styles.heroServices} aria-labelledby="home-services-title">
+        <div className={styles.heroServices} aria-labelledby="home-services-title" data-motion-part="services">
           <h2 className="sr-only" id="home-services-title">
             Masonry color services
           </h2>

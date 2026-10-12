@@ -5,6 +5,15 @@ const base = process.env.SEO_TEST_BASE_URL ?? 'http://localhost:3103';
 const canonicalOrigin = 'https://masonrycolorcorrections.com';
 const paths = ['/', '/services', '/masonry-staining', '/gallery', '/about', '/contact', '/privacy'];
 
+test('public page panels retain server-rendered content and only Contact uses the compact intro', async () => {
+  for (const path of paths) {
+    const html = await (await fetch(`${base}${path}`)).text();
+    assert.ok(html.includes(`data-page-route="${path}"`), path);
+    assert.match(html, /data-page-panel/);
+    assert.equal(html.includes('page-intro-compact'), path === '/contact');
+  }
+});
+
 test('public pages have distinct canonical and sharing URLs with indexable content', async () => {
   const titles = new Set();
   for (const path of paths) {
