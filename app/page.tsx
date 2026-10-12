@@ -295,7 +295,15 @@ export default function HomePage() {
           <p>A note from Joe after we matched the brick on his project.</p>
         </div>
         <figure className={styles.testimonialMessage}>
-          <blockquote><p>{clientTestimonial.quote}</p></blockquote>
+          <div className={styles.testimonialQuoteFrame}>
+            <svg className={`${styles.testimonialQuoteIcon} ${styles.testimonialQuoteOpen}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9 5H3v8h3c0 2-1 3-2 4l2 2c3-2 4-5 4-8V5Zm12 0h-6v8h3c0 2-1 3-2 4l2 2c3-2 4-5 4-8V5Z" />
+            </svg>
+            <blockquote><p>{clientTestimonial.quote}</p></blockquote>
+            <svg className={`${styles.testimonialQuoteIcon} ${styles.testimonialQuoteClose}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M9 5H3v8h3c0 2-1 3-2 4l2 2c3-2 4-5 4-8V5Zm12 0h-6v8h3c0 2-1 3-2 4l2 2c3-2 4-5 4-8V5Z" />
+            </svg>
+          </div>
           <figcaption>
             <strong>{clientTestimonial.name}</strong>
             <span>from</span>

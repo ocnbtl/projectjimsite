@@ -24,6 +24,25 @@ test('approved client message and exact company profile appear in HTML and Markd
   assert.ok(schemas(text).every((schema) => !schema.aggregateRating && !schema.review), 'message is not presented as a rated Google review');
 });
 
+test('testimonial decoration preserves the quotation and is hidden from assistive technology', async () => {
+  const text = await html('/');
+  const section = text.match(/<section[^>]+aria-labelledby="client-word-title"[^>]*>(.*?)<\/section>/s)?.[1];
+  assert.ok(section);
+  const icons = [...section.matchAll(/<svg[^>]+class="[^"]*testimonialQuoteIcon[^\"]*"[^>]*>/g)];
+  assert.equal(icons.length, 2);
+  for (const [icon] of icons) {
+    assert.match(icon, /aria-hidden="true"/);
+    assert.match(icon, /focusable="false"/);
+  }
+  assert.equal(section.match(/<blockquote>/g)?.length, 1);
+  assert.ok(section.includes(quote));
+  const css = readFileSync(new URL('../app/home.module.css', import.meta.url), 'utf8');
+  assert.match(css, /--message-gray: #e5e5ea;/);
+  assert.match(css, /\.testimonialMessage blockquote \{[^}]*background: var\(--message-gray\);[^}]*color: #000;/s);
+  assert.match(css, /\.testimonialMessage figcaption \{[^}]*justify-content: center;/s);
+  assert.match(css, /\.testimonialQuoteFrame \{[^}]*grid-template-columns: var\(--quote-size\) minmax\(0, 840px\) var\(--quote-size\);/s);
+});
+
 test('both new services have visible destinations and matching machine-readable offers', async () => {
   const text = await html('/services');
   const md = await markdown('/services');
