@@ -130,19 +130,27 @@
 
 .processSection {
   display: grid;
-  gap: clamp(54px, 8vw, 130px);
-  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(32px, 3vw, 48px);
+  grid-template-columns: minmax(0, 1fr);
   margin-top: clamp(88px, 10vw, 150px);
 }
 
 .processHeading {
-  align-self: start;
+  align-items: start;
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+}
+
+.processHeading p {
+  margin: 0;
+  max-width: 70ch;
 }
 
 .processList {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 32px;
+  gap: 0 clamp(28px, 3vw, 48px);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -151,9 +159,9 @@
 .processList li {
   border-top: 1px solid var(--joint);
   display: grid;
-  gap: 24px;
-  grid-template-columns: 28px minmax(0, 1fr);
-  padding: 28px 0;
+  gap: 16px;
+  grid-template-columns: 24px minmax(0, 1fr);
+  padding: 24px 0 28px;
 }
 
 .processList li > span {
@@ -292,8 +300,7 @@
 }
 
 @media (max-width: 1120px) {
-  .boundary,
-  .processSection {
+  .boundary {
     grid-template-columns: 1fr;
   }
 
@@ -316,6 +323,11 @@
 }
 
 @media (max-width: 900px) {
+  .processHeading {
+    gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .definition {
     grid-template-columns: 1fr;
   }
@@ -377,6 +389,13 @@
     width: 100%;
   }
 
-  .processList { grid-template-columns: 1fr; }
   .resource :global(.button) { white-space: normal; text-align: center; }
+}
+
+@media (max-width: 700px) {
+  .processList { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 1600px) {
+  .processList { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

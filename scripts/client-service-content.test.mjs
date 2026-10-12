@@ -66,12 +66,30 @@ test('staining explanations, FAQ, and gallery navigation remain consistent and u
 
 test('expanded staining process and consultation wording stay consistent in HTML and Markdown', async () => {
   for (const view of [await html('/masonry-staining'), await markdown('/masonry-staining')]) {
-    for (const phrase of ['A convincing match takes more than finding one similar shade.', 'lighter tones, darker accents, and weathering', 'We custom-mix stains', 'Small test samples', 'individual bricks and mortar joints', 'normal viewing distance', 'Let’s talk about your project.', 'which approach makes sense for your masonry']) {
+    for (const phrase of ['A convincing match takes more than finding one similar shade.', 'lighter tones, darker accents, and weathering', 'We custom mix stains', 'small test samples', 'individual bricks and mortar joints', 'normal viewing distance', 'Let’s talk about your project.', 'which approach makes sense for your masonry']) {
       assert.ok(view.includes(phrase), phrase);
     }
     assert.doesNotMatch(view, /with the surface checked before we recommend|Show us what you’d like to change|an HOA color or LRV requirement, include that too/);
     assert.doesNotMatch(view, /guaranteed match|guaranteed HOA approval|verify the finished LRV/i);
   }
+});
+
+test('the approved sample and application copy is exact in both public views', async () => {
+  const sample = 'We custom mix stains to work with the colors already in your wall, using small test samples to show how the color looks on your particular brick or mortar. We adjust the mix against the surrounding masonry or supplied standard before moving ahead with the work.';
+  for (const view of [await html('/masonry-staining'), await markdown('/masonry-staining')]) {
+    assert.ok(view.includes(sample));
+    assert.ok(view.includes('We carry that same attention across the entire wall.'));
+    assert.doesNotMatch(view, /custom-mix stains|not just one average shade|or an approved sample, before moving/);
+  }
+});
+
+test('process introduction sits above a full-width responsive step list rather than a tall sidebar', () => {
+  const css = readFileSync(new URL('../app/masonry-staining/page.module.css', import.meta.url), 'utf8');
+  const section = css.match(/\.processSection \{([^}]+)\}/)?.[1];
+  assert.match(section, /grid-template-columns: minmax\(0, 1fr\);/);
+  assert.match(css, /\.processHeading p \{\s*margin: 0;/);
+  assert.match(css, /@media \(min-width: 1600px\) \{\s*\.processList \{ grid-template-columns: repeat\(4, minmax\(0, 1fr\)\);/);
+  assert.match(css, /@media \(max-width: 700px\) \{\s*\.processList \{ grid-template-columns: minmax\(0, 1fr\);/);
 });
 
 test('staining consultation puts Call before Estimate and preserves the real destinations', async () => {
