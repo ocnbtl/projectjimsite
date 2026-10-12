@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { readFileSync } from 'node:fs';
 
 const base = process.env.SEO_TEST_BASE_URL ?? 'http://127.0.0.1:3103';
 const quote = 'Hey man, just wanted to say thanks for the brick color match. She was really happy with it and said it exceeded her expectations and blends in way better than she thought it would. Appreciate you!!!';
@@ -61,4 +62,41 @@ test('staining explanations, FAQ, and gallery navigation remain consistent and u
   assert.match(gallery, /id="finished-projects"/);
   assert.match(gallery, /Scroll down to view finished MCC projects/);
   assert.match(gallery, /More detail on what we do/);
+});
+
+test('expanded staining process and consultation wording stay consistent in HTML and Markdown', async () => {
+  for (const view of [await html('/masonry-staining'), await markdown('/masonry-staining')]) {
+    for (const phrase of ['A convincing match takes more than finding one similar shade.', 'lighter tones, darker accents, and weathering', 'We custom-mix stains', 'Small test samples', 'individual bricks and mortar joints', 'normal viewing distance', 'Let’s talk about your project.', 'which approach makes sense for your masonry']) {
+      assert.ok(view.includes(phrase), phrase);
+    }
+    assert.doesNotMatch(view, /with the surface checked before we recommend|Show us what you’d like to change|an HOA color or LRV requirement, include that too/);
+    assert.doesNotMatch(view, /guaranteed match|guaranteed HOA approval|verify the finished LRV/i);
+  }
+});
+
+test('staining consultation puts Call before Estimate and preserves the real destinations', async () => {
+  const view = await html('/masonry-staining');
+  const cta = view.match(/<section[^>]+aria-labelledby="consultation-title"[^>]*>(.*?)<\/section>/s)?.[1];
+  assert.ok(cta);
+  const links = [...cta.matchAll(/<a[^>]+href="([^"]+)"[^>]*>(.*?)<\/a>/gs)];
+  assert.deepEqual(links.map((match) => match[1]), ['tel:+15136128421', '/contact']);
+  for (const link of links) {
+    assert.match(link[2], /<span[^>]+aria-hidden="true"/);
+  }
+  assert.match(view, /class="[^"]*resourceButton[^\"]*"[^>]*href="https:\/\/www.gobrick.com/);
+});
+
+test('paired sweeps preserve readable text, opposite directions, keyboard states and reduced motion', () => {
+  const css = readFileSync(new URL('../app/masonry-staining/page.module.css', import.meta.url), 'utf8');
+  assert.match(css, /\.ctaActions \.pairedButton\s*\{[^}]*overflow: hidden;[^}]*transform: none;/s);
+  assert.match(css, /\.buttonFill\s*\{[^}]*background: var\(--clay\);[^}]*color: #fffaf5;[^}]*pointer-events: none;[^}]*transition: clip-path 260ms/s);
+  assert.match(css, /\.callButton \.buttonFill \{ clip-path: inset\(0 100% 0 0\); \}/);
+  assert.match(css, /\.callButton:hover \.buttonFill \{ clip-path: inset\(0 0 0 0\); \}/);
+  assert.match(css, /\.estimateButton \.buttonFill \{ clip-path: inset\(0 0 0 0\); \}/);
+  assert.match(css, /\.estimateButton:hover \.buttonFill \{ clip-path: inset\(0 0 0 100%\); \}/);
+  assert.match(css, /\.callButton:focus-visible/);
+  assert.match(css, /\.estimateButton:focus-visible/);
+  assert.match(css, /@media \(hover: hover\) and \(pointer: fine\)/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{\s*\.buttonFill \{ transition: none; \}/);
+  assert.match(css, /\.resource \.resourceButton \{[^}]*font-size: 1rem;[^}]*min-height: 58px;/s);
 });

@@ -226,10 +226,69 @@
   white-space: nowrap;
 }
 
+.resource .resourceButton {
+  font-size: 1rem;
+  min-height: 58px;
+  padding: 16px 24px;
+}
+
+.consultation {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
+.consultation > h2 {
+  align-self: center;
+  grid-row: span 2;
+}
+
 .ctaActions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  grid-column: 2;
+}
+
+.ctaActions .pairedButton {
+  background: var(--sample);
+  border-color: var(--clay);
+  color: var(--soot);
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  transform: none;
+  transition: none;
+}
+
+.actionLabel,
+.buttonFill {
+  align-items: center;
+  display: inline-flex;
+  gap: 18px;
+  justify-content: center;
+}
+
+.buttonFill {
+  background: var(--clay);
+  color: #fffaf5;
+  inset: 0;
+  padding: 13px 20px;
+  pointer-events: none;
+  position: absolute;
+  transition: clip-path 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.callButton .buttonFill { clip-path: inset(0 100% 0 0); }
+.estimateButton .buttonFill { clip-path: inset(0 0 0 0); }
+.callButton:focus-visible .buttonFill { clip-path: inset(0 0 0 0); }
+.estimateButton:focus-visible .buttonFill { clip-path: inset(0 0 0 100%); }
+
+@media (hover: hover) and (pointer: fine) {
+  .callButton:hover .buttonFill { clip-path: inset(0 0 0 0); }
+  .estimateButton:hover .buttonFill { clip-path: inset(0 0 0 100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .buttonFill { transition: none; }
 }
 
 @media (max-width: 1120px) {
@@ -241,6 +300,10 @@
   .applications {
     grid-template-columns: 1fr;
   }
+
+  .consultation { grid-template-columns: 1fr; }
+  .consultation > h2 { grid-row: auto; }
+  .ctaActions { grid-column: 1; }
 
   .applicationsImage {
     min-height: 560px;

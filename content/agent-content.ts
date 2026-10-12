@@ -3,7 +3,7 @@ import { siteUrl } from "@/content/site-url";
 import { projects } from "@/content/projects";
 import { contactFaqs } from "@/content/contact-faqs";
 import { clientTestimonial } from "@/content/testimonials";
-import { stainingProcess, stainingApplications } from "@/content/staining";
+import { stainingProcess, stainingProcessIntro, stainingApplications, stainingConsultation } from "@/content/staining";
 
 // Public information only. Keep these summaries aligned with the linked HTML
 // pages. Services, FAQs and project evidence reuse the visible site's data.
@@ -66,6 +66,8 @@ ${boundaries}
 
 ## How color matching works
 
+${stainingProcessIntro}
+
 ${stainingProcess.map((step, index) => `${index + 1}. ${step.title}: ${step.text}`).join("\n")}
 
 ## Where it can help
@@ -77,6 +79,10 @@ ${stainingApplications.map((application) => `- ${application.title}: ${applicati
 Paint covers a surface with one continuous layer. Color correction works more selectively, preserving texture and brick-to-brick variation. Not every surface can accept the same treatment.
 
 ## Next step
+
+${stainingConsultation.title}
+
+${stainingConsultation.text}
 
 ${contact}`,
   },

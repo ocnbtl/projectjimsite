@@ -4,7 +4,7 @@ import { TransitionLink as Link } from "@/components/page-transitions";
 import { PageIntro } from "@/components/page-intro";
 import { business } from "@/content/site";
 import { projects } from "@/content/projects";
-import { stainingProcess, stainingApplications } from "@/content/staining";
+import { stainingProcess, stainingProcessIntro, stainingApplications, stainingConsultation } from "@/content/staining";
 import styles from "./page.module.css";
 
 export const metadata = pageMetadata("/masonry-staining", {
@@ -90,10 +90,7 @@ export default function MasonryStainingPage() {
       <section className={`${styles.processSection} shell`} aria-labelledby="process-title">
         <div className={styles.processHeading}>
           <h2 id="process-title">How we get to a good match.</h2>
-          <p>
-            We start with the wall in front of us. The brick, mortar, old coatings, and color
-            you want all help us choose the next step.
-          </p>
+          <p>{stainingProcessIntro}</p>
         </div>
         <ol className={styles.processList}>
           {stainingProcess.map((step) => (
@@ -140,7 +137,7 @@ export default function MasonryStainingPage() {
           </p>
         </div>
         <a
-          className="button button-secondary"
+          className={`button button-secondary ${styles.resourceButton}`}
           href="https://www.gobrick.com/media/file/TN%206%20Changing%20the%20Appearance%20of%20Brick%20Masonry%20-%20POSTED%20AUG%202024.pdf"
           target="_blank"
           rel="noreferrer"
@@ -149,19 +146,18 @@ export default function MasonryStainingPage() {
         </a>
       </aside>
 
-      <section className="plain-cta shell">
-        <h2>Show us what you’d like to change.</h2>
-        <p>
-          Send a photo of the whole wall, a few close-ups, and the project location. If there’s
-          an HOA color or LRV requirement, include that too. We’ll take a look and talk you through the options.
-        </p>
+      <section className={`plain-cta shell ${styles.consultation}`} aria-labelledby="consultation-title">
+        <h2 id="consultation-title">{stainingConsultation.title}</h2>
+        <p>{stainingConsultation.text}</p>
         <div className={styles.ctaActions}>
-          <Link className="button" href="/contact">
-            Request a Free Estimate <span aria-hidden="true">→</span>
-          </Link>
-          <a className="button button-dark-secondary" href={business.phoneHref}>
-            Call {business.phoneDisplay}
+          <a className={`button ${styles.pairedButton} ${styles.callButton}`} href={business.phoneHref}>
+            <span className={styles.actionLabel}>Call {business.phoneDisplay}</span>
+            <span className={styles.buttonFill} aria-hidden="true">Call {business.phoneDisplay}</span>
           </a>
+          <Link className={`button ${styles.pairedButton} ${styles.estimateButton}`} href="/contact">
+            <span className={styles.actionLabel}>Request a Free Estimate <span aria-hidden="true">→</span></span>
+            <span className={styles.buttonFill} aria-hidden="true">Request a Free Estimate <span>→</span></span>
+          </Link>
         </div>
       </section>
     </>
