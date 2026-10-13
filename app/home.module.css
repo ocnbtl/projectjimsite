@@ -76,8 +76,8 @@
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: clamp(28px, 3vw, 44px);
-  margin-top: clamp(64px, 7vw, 112px);
-  padding: clamp(28px, 4vw, 64px);
+  margin-top: clamp(36px, 4vw, 64px);
+  padding: clamp(16px, 2vw, 32px) clamp(28px, 4vw, 64px);
 }
 
 .testimonialIntro h2 {
@@ -97,7 +97,7 @@
 }
 
 .testimonialMessage {
-  --message-gray: #e5e5ea;
+  --message-gray: #d1d1d6;
   margin: 0 auto;
   max-width: 1100px;
   min-width: 0;
@@ -170,7 +170,7 @@
   font-size: clamp(0.875rem, 1vw, 1rem);
   gap: 6px;
   justify-content: center;
-  margin: 20px 0 0;
+  margin: 16px 0 0;
   padding-inline: 8px;
 }
 
@@ -754,6 +754,20 @@
   max-width: 650px;
 }
 
+.closingHeadingLine {
+  display: block;
+}
+
+.testimonial + .closing {
+  margin-top: clamp(32px, 4vw, 64px);
+}
+
+@media (min-width: 901px) {
+  .closingLead h2 {
+    font-size: clamp(1.5rem, 1.8vw, 2.25rem);
+  }
+}
+
 .closingLead > p:not(.closingArea) {
   color: #bbb4aa;
   line-height: 1.68;
@@ -958,7 +972,9 @@
 
   .heroServices a,
   .heroServices a + a,
-  .heroServices a:not(:last-of-type) {
+  .heroServices a:first-of-type,
+  .heroServices a:nth-of-type(2),
+  .heroServices a:last-of-type {
     clip-path: none;
     width: auto;
     border-bottom: 1px solid var(--joint);
@@ -967,7 +983,7 @@
     padding: 24px;
   }
 
-  .heroServices a:last-child {
+  .heroServices a:last-of-type {
     border-bottom: 0;
   }
 
@@ -1085,11 +1101,22 @@
 
   .materialVisual {
     grid-template-columns: 1fr;
-    min-height: 720px;
+    min-height: 0;
+  }
+
+  .materialPanel {
+    grid-template-rows: auto auto;
   }
 
   .materialPhoto {
-    min-height: 260px;
+    height: clamp(140px, 44vw, 240px);
+    min-height: 0;
+  }
+
+  .materialLabel {
+    grid-template-rows: auto auto;
+    height: auto;
+    padding: 14px 16px;
   }
 
   .comparison {

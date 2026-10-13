@@ -17,7 +17,7 @@ test('approved client message and exact company profile appear in HTML and Markd
     assert.match(view, /Integrity Masonry/);
     assert.match(view, /0x89e9d567b68747eb:0x426a80dc9a7eef5e/);
     assert.match(view, /Don’t just take it from us/);
-    assert.match(view, /A note from Joe after we matched the brick on his project\./);
+    assert.match(view, /A note from our client Joe after he hired us to color match the brick on his project\./);
   }
   assert.match(text, /<blockquote>/);
   assert.match(text, /rel="noopener noreferrer"/);
@@ -37,10 +37,29 @@ test('testimonial decoration preserves the quotation and is hidden from assistiv
   assert.equal(section.match(/<blockquote>/g)?.length, 1);
   assert.ok(section.includes(quote));
   const css = readFileSync(new URL('../app/home.module.css', import.meta.url), 'utf8');
-  assert.match(css, /--message-gray: #e5e5ea;/);
+  assert.match(css, /--message-gray: #d1d1d6;/);
   assert.match(css, /\.testimonialMessage blockquote \{[^}]*background: var\(--message-gray\);[^}]*color: #000;/s);
   assert.match(css, /\.testimonialMessage figcaption \{[^}]*justify-content: center;/s);
   assert.match(css, /\.testimonialQuoteFrame \{[^}]*grid-template-columns: var\(--quote-size\) minmax\(0, 840px\) var\(--quote-size\);/s);
+});
+
+test('homepage comparison and closing prompts are concise and keep the material labels', async () => {
+  const text = await html('/');
+  assert.match(text, /Slide to compare this entry wall before and after MCC’s color matching\./);
+  assert.match(text, /Ready to start your project\?/);
+  assert.match(text, /Send a few clear photos\./);
+  assert.match(text, /Color-corrected brick/);
+  assert.doesNotMatch(text, /Start with a few clear photos\.|Drag across this repaired entry wall/);
+});
+
+test('mobile service shapes reset fully and material photos and captions use compact heights', () => {
+  const css = readFileSync(new URL('../app/home.module.css', import.meta.url), 'utf8');
+  const mobileCards = css.slice(css.indexOf('  .heroServices {', css.indexOf('@media (max-width: 900px)', css.indexOf('.closingSteps'))));
+  assert.match(mobileCards, /\.heroServices a:last-of-type \{\s*clip-path: none;/);
+  assert.match(mobileCards, /\.heroServices a:last-of-type \{\s*border-bottom: 0;/);
+  assert.match(css, /\.materialPhoto \{\s*height: clamp\(140px, 44vw, 240px\);\s*min-height: 0;/);
+  assert.match(css, /\.materialLabel \{\s*grid-template-rows: auto auto;\s*height: auto;/);
+  assert.match(css, /\.testimonial \+ \.closing \{\s*margin-top: clamp\(32px, 4vw, 64px\);/);
 });
 
 test('both new services have visible destinations and matching machine-readable offers', async () => {

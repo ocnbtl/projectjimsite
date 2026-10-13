@@ -262,8 +262,8 @@ export default function HomePage() {
         <div className={styles.workHeading}>
           <h2 id="work-title">See the match come together.</h2>
           <p>
-            Drag across this repaired entry wall to compare the masonry before and after color
-            matching, then explore more exterior, post-repair, and specialty material work.
+            Slide to compare this entry wall before and after MCC’s color matching.
+            See more of our work in the gallery.
           </p>
           <Link className="text-link" href="/gallery">
             View the full project gallery <span aria-hidden="true">→</span>
@@ -292,7 +292,7 @@ export default function HomePage() {
       <section className={`${styles.testimonial} home-shell`} aria-labelledby="client-word-title">
         <div className={styles.testimonialIntro}>
           <h2 id="client-word-title">Don’t just take it from us.</h2>
-          <p>A note from Joe after we matched the brick on his project.</p>
+          <p>{clientTestimonial.intro}</p>
         </div>
         <figure className={styles.testimonialMessage}>
           <div className={styles.testimonialQuoteFrame}>
@@ -320,7 +320,10 @@ export default function HomePage() {
 
       <section className={`${styles.closing} home-shell`} aria-labelledby="closing-title">
         <div className={styles.closingLead}>
-          <h2 id="closing-title">Start with a few clear photos.</h2>
+          <h2 id="closing-title">
+            <span className={styles.closingHeadingLine}>Ready to start your project?</span>{" "}
+            <span className={styles.closingHeadingLine}>Send a few clear photos.</span>
+          </h2>
           <p>
             Tell us where the project is and what you’d like to blend or change. One wide view and
             a few close-ups give us the context to understand the surface.

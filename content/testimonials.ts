@@ -1,6 +1,7 @@
 // Verbatim client message and attribution supplied and approved by Ocean.
 // This is a testimonial, not a Google review or a star rating.
 export const clientTestimonial = {
+  intro: "A note from our client Joe after he hired us to color match the brick on his project.",
   name: "Joe Brown",
   company: "Integrity Masonry",
   companyProfileName: "Integrity Masonry Concrete Associates, Inc. Steven Apicello",

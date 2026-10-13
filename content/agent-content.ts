@@ -42,7 +42,7 @@ ${boundaries}
 
 ## Don’t just take it from us
 
-A note from Joe after we matched the brick on his project.
+${clientTestimonial.intro}
 
 ${clientTestimonial.quote}
 
