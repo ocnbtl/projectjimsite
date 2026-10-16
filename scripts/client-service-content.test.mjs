@@ -88,6 +88,8 @@ test('gallery enlargements are limited to landscape projects above phone widths'
   assert.match(css, /grid-template-areas: "heading media details";/);
   assert.doesNotMatch(page, /landscapeSummary/);
   assert.match(css, /minmax\(0, 2.2fr\)/);
+  assert.match(css, /grid-template-columns: minmax\(180px, 1fr\) minmax\(0, 2.2fr\) minmax\(0, 2.3fr\);/);
+  assert.match(css, /grid-template-columns: minmax\(240px, 0.85fr\) minmax\(0, 2.15fr\);/);
   assert.doesNotMatch(css, /aspect-ratio:/);
 });
 

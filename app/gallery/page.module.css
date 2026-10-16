@@ -41,7 +41,7 @@
   color: var(--panel-text);
   display: grid;
   gap: clamp(24px, 2vw, 40px);
-  grid-template-columns: minmax(180px, 0.8fr) minmax(360px, 1.7fr) minmax(0, 3fr);
+  grid-template-columns: minmax(180px, 1fr) minmax(360px, 1.7fr) minmax(0, 2.8fr);
   min-width: 0;
   padding: clamp(24px, 2.5vw, 48px);
   scroll-margin-top: 24px;
@@ -198,7 +198,7 @@
   .landscapePanel {
     gap: 24px;
     grid-template-areas: "heading media details";
-    grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2.2fr) minmax(0, 2.5fr);
+    grid-template-columns: minmax(180px, 1fr) minmax(0, 2.2fr) minmax(0, 2.3fr);
     grid-template-rows: auto;
     padding-block: 32px;
   }
@@ -211,7 +211,7 @@
 @media (min-width: 1001px) and (max-width: 1599px) {
   .landscapePanel {
     grid-template-areas: "heading media" "details details";
-    grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2.25fr);
+    grid-template-columns: minmax(240px, 0.85fr) minmax(0, 2.15fr);
     grid-template-rows: auto auto;
   }
 }
