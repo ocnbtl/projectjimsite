@@ -767,23 +767,26 @@ html[data-route-motion="morph"] .hero-copy .hero-actions { view-transition-name:
   line-height: 1.68;
 }
 
-.gallery-number,
 .gallery-category {
-  color: var(--clay) !important;
-  font-size: 0.68rem !important;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
 }
 
-.gallery-number {
-  margin: 0 0 24px;
-}
-
-.gallery-category {
-  border-bottom: 1px solid var(--joint);
-  margin: 0 0 19px;
-  padding-bottom: 18px;
+.gallery-category li {
+  background: var(--sample);
+  border: 1px solid var(--joint);
+  border-radius: 999px;
+  color: var(--clay);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  padding: 6px 12px;
 }
 
 .gallery-secondary {

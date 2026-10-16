@@ -10,6 +10,16 @@ export const metadata = pageMetadata("/gallery", {
   description: "Before-and-after masonry color correction work from Masonry Color Corrections LLC.",
 });
 
+function ProjectTags({ category }: { category: Project["category"] }) {
+  return (
+    <ul className="gallery-category" aria-label="Project categories">
+      {category.split("·").map((tag) => (
+        <li key={tag.trim()}>{tag.trim()}</li>
+      ))}
+    </ul>
+  );
+}
+
 function CaseStudyDetails({ project }: { project: Project }) {
   const details = [
     ["What happened", project.story.situation],
@@ -53,9 +63,8 @@ export default function GalleryPage() {
             <ProjectPair {...featured} priority />
           </div>
           <div className="gallery-feature-copy">
-            <p className="gallery-number">Project {featured.number}</p>
             <h2>{featured.title}</h2>
-            <p className="gallery-category">{featured.category}</p>
+            <ProjectTags category={featured.category} />
             <p className={styles.projectSummary}>{featured.summary}</p>
             <CaseStudyDetails project={featured} />
           </div>
@@ -76,9 +85,8 @@ export default function GalleryPage() {
                 <ProjectPair {...project} />
               </div>
               <div className="gallery-card-copy">
-                <p className="gallery-number">Project {project.number}</p>
                 <h2>{project.title}</h2>
-                <p className="gallery-category">{project.category}</p>
+                <ProjectTags category={project.category} />
                 <p className={styles.projectSummary}>{project.summary}</p>
                 <CaseStudyDetails project={project} />
               </div>

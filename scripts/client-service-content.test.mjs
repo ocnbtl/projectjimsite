@@ -52,6 +52,20 @@ test('homepage comparison and closing prompts are concise and keep the material 
   assert.doesNotMatch(text, /Start with a few clear photos\.|Drag across this repaired entry wall/);
 });
 
+test('gallery titles lead each project and descriptive categories render as non-interactive tags', async () => {
+  const text = await html('/gallery');
+  const source = readFileSync(new URL('../content/projects.ts', import.meta.url), 'utf8');
+  const categories = [...source.matchAll(/category: "([^"]+)"/g)].map((match) => match[1]);
+  const tags = [...text.matchAll(/<ul class="gallery-category" aria-label="Project categories">(.*?)<\/ul>/gs)];
+  assert.equal(tags.length, categories.length);
+  assert.doesNotMatch(text, /class="gallery-number"|Project\s*(?:<!-- -->)?\s*0[1-5]/);
+  assert.equal([...text.matchAll(/class="gallery-(?:feature|card)-copy"><h2>/g)].length, categories.length);
+  for (const [index, [, list]] of tags.entries()) {
+    assert.deepEqual([...list.matchAll(/<li>(.*?)<\/li>/g)].map((match) => match[1]), categories[index].split('·').map((tag) => tag.trim()));
+    assert.doesNotMatch(list, /<(?:a|button)\b/);
+  }
+});
+
 test('mobile service shapes reset fully and material photos and captions use compact heights', () => {
   const css = readFileSync(new URL('../app/home.module.css', import.meta.url), 'utf8');
   const mobileCards = css.slice(css.indexOf('  .heroServices {', css.indexOf('@media (max-width: 900px)', css.indexOf('.closingSteps'))));
