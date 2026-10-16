@@ -8,6 +8,8 @@ export type Project = {
   after: string;
   beforeAlt: string;
   afterAlt: string;
+  beforeEdgeTrim?: "top" | "bottom";
+  afterEdgeTrim?: "top" | "bottom";
   story: {
     situation: string;
     colorWork: string;
@@ -26,6 +28,7 @@ export const projects: Project[] = [
       "A new addition began with gray brick that stood apart from the home’s original red masonry. MCC coordinated with the builder, then color-matched the new work after construction was complete.",
     before: "/images/projects/aligned/addition-before.webp",
     after: "/images/projects/aligned/addition-after.webp",
+    afterEdgeTrim: "top",
     beforeAlt:
       "Before color correction, a large brick addition appears cooler and grayer than the adjacent red brick home.",
     afterAlt:
@@ -47,6 +50,7 @@ export const projects: Project[] = [
     summary:
       "A car crashed through this exterior wall. A mason rebuilt the damaged area, then MCC was brought in to color-match the lighter replacement brick to the original wall.",
     before: "/images/projects/aligned/repair-before.webp",
+    beforeEdgeTrim: "bottom",
     after: "/images/projects/aligned/repair-after.webp",
     beforeAlt:
       "Before color correction, a pale orange rectangular brick repair stands out beside darker existing brick.",

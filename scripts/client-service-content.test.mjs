@@ -85,9 +85,32 @@ test('gallery enlargements are limited to landscape projects above phone widths'
   const page = readFileSync(new URL('../app/gallery/page.tsx', import.meta.url), 'utf8');
   assert.match(page, /project.orientation === "portrait" \? "" : styles.landscapePanel/);
   assert.match(css, /@media \(min-width: 601px\) \{[\s\S]*?\.caseStudy h3 \{ font-size: 1.125rem; \}/);
-  assert.match(css, /grid-template-areas: "heading media details" "summary summary details"/);
+  assert.match(css, /grid-template-areas: "heading media details";/);
+  assert.doesNotMatch(page, /landscapeSummary/);
   assert.match(css, /minmax\(0, 2.2fr\)/);
   assert.doesNotMatch(css, /aspect-ratio:/);
+});
+
+test('each gallery description stays inside its heading below the tags', async () => {
+  const text = await html('/gallery');
+  const headings = [...text.matchAll(/<header class="[^"]*projectHeading[^"]*">(.*?)<\/header>/gs)];
+  assert.equal(headings.length, 5);
+  for (const [, heading] of headings) {
+    assert.match(heading, /<\/ul><p class="[^"]*projectSummary[^"]*">[^<]+<\/p>$/);
+  }
+});
+
+test('only the two photos with baked-in white edges receive a proportional trim', async () => {
+  const text = await html('/gallery');
+  const images = [...text.matchAll(/<img\b[^>]+>/g)].map(([image]) => image);
+  const trimmed = images.filter((image) => image.includes('data-edge-trim='));
+  assert.equal(trimmed.length, 2);
+  assert.ok(trimmed.some((image) => image.includes('data-edge-trim="top"') && image.includes('addition-after.webp')));
+  assert.ok(trimmed.some((image) => image.includes('data-edge-trim="bottom"') && image.includes('repair-before.webp')));
+  const css = readFileSync(new URL('../components/project-pair.module.css', import.meta.url), 'utf8');
+  assert.match(css, /transform: scale\(1.0125\);/);
+  assert.match(css, /data-edge-trim="top"[^}]+transform-origin: center bottom;/s);
+  assert.match(css, /data-edge-trim="bottom"[^}]+transform-origin: center top;/s);
 });
 
 test('Contact leads with the form, removes the project photo and places one FAQ group within the contact layout', async () => {

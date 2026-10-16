@@ -67,9 +67,8 @@ export default function GalleryPage() {
             <header className={styles.projectHeading}>
               <h2 id={`${project.slug}-title`}>{project.title}</h2>
               <ProjectTags category={project.category} />
-              {project.orientation === "portrait" ? <p className={styles.projectSummary}>{project.summary}</p> : null}
+              <p className={styles.projectSummary}>{project.summary}</p>
             </header>
-            {project.orientation !== "portrait" ? <p className={`${styles.projectSummary} ${styles.landscapeSummary}`}>{project.summary}</p> : null}
             <div className={`${styles.projectMedia} ${project.orientation === "portrait" ? "" : styles.landscapeMedia}`}>
               <ProjectPair {...project} priority={index === 0} />
             </div>

@@ -85,6 +85,20 @@
   object-fit: contain;
 }
 
+/* Two supplied photos have a narrow white edge. Hide only that edge without
+   stretching the image or changing the original file or frame proportions. */
+.image[data-edge-trim] {
+  transform: scale(1.0125);
+}
+
+.image[data-edge-trim="top"] {
+  transform-origin: center bottom;
+}
+
+.image[data-edge-trim="bottom"] {
+  transform-origin: center top;
+}
+
 .compact .image {
   object-fit: cover;
 }

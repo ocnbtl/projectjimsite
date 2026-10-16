@@ -186,8 +186,6 @@
     grid-template-columns: 1fr;
   }
 
-  .landscapePanel .projectHeading :global(.gallery-category) { margin-bottom: 0; }
-  .landscapeSummary { margin-top: -4px; }
 }
 
 /* Keep the established phone layout; use the extra space for photos and type above it. */
@@ -199,29 +197,28 @@
 
   .landscapePanel {
     gap: 24px;
-    grid-template-areas: "heading media details" "summary summary details";
+    grid-template-areas: "heading media details";
     grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2.2fr) minmax(0, 2.5fr);
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: auto;
     padding-block: 32px;
   }
 
   .landscapePanel .projectHeading { grid-area: heading; }
   .landscapePanel .projectMedia { grid-area: media; }
-  .landscapePanel .landscapeSummary { grid-area: summary; }
   .landscapePanel .caseStudy { grid-area: details; }
 }
 
 @media (min-width: 1001px) and (max-width: 1599px) {
   .landscapePanel {
-    grid-template-areas: "heading media" "summary media" "details details";
+    grid-template-areas: "heading media" "details details";
     grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2.25fr);
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
   }
 }
 
 @media (min-width: 601px) and (max-width: 1000px) {
   .landscapePanel {
-    grid-template-areas: "heading" "summary" "media" "details";
+    grid-template-areas: "heading" "media" "details";
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto;
     padding: 24px;

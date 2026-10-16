@@ -4,7 +4,7 @@ import styles from "./project-pair.module.css";
 
 type ProjectPairProps = Pick<
   Project,
-  "title" | "before" | "after" | "beforeAlt" | "afterAlt" | "orientation"
+  "title" | "before" | "after" | "beforeAlt" | "afterAlt" | "orientation" | "beforeEdgeTrim" | "afterEdgeTrim"
 > & {
   variant?: "gallery" | "compact" | "service";
   priority?: boolean;
@@ -16,6 +16,8 @@ export function ProjectPair({
   after,
   beforeAlt,
   afterAlt,
+  beforeEdgeTrim,
+  afterEdgeTrim,
   orientation = "landscape",
   variant = "gallery",
   priority = false,
@@ -28,6 +30,7 @@ export function ProjectPair({
         <Image
           className={styles.image}
           src={before}
+          data-edge-trim={beforeEdgeTrim}
           alt={beforeAlt}
           fill
           priority={priority}
@@ -40,6 +43,7 @@ export function ProjectPair({
         <Image
           className={styles.image}
           src={after}
+          data-edge-trim={afterEdgeTrim}
           alt={afterAlt}
           fill
           priority={priority}
