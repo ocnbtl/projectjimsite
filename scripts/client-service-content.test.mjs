@@ -80,6 +80,27 @@ test('gallery uses one ordered full-width panel per project with alternating sur
   assert.doesNotMatch(css, /margin-top: clamp\(-180px|object-fit: cover/);
 });
 
+test('gallery enlargements are limited to landscape projects above phone widths', () => {
+  const css = readFileSync(new URL('../app/gallery/page.module.css', import.meta.url), 'utf8');
+  const page = readFileSync(new URL('../app/gallery/page.tsx', import.meta.url), 'utf8');
+  assert.match(page, /project.orientation === "portrait" \? "" : styles.landscapePanel/);
+  assert.match(css, /@media \(min-width: 601px\) \{[\s\S]*?\.caseStudy h3 \{ font-size: 1.125rem; \}/);
+  assert.match(css, /grid-template-areas: "heading media details" "summary summary details"/);
+  assert.match(css, /minmax\(0, 2.2fr\)/);
+  assert.doesNotMatch(css, /aspect-ratio:/);
+});
+
+test('Contact leads with the form, removes the project photo and places one FAQ group within the contact layout', async () => {
+  const text = await html('/contact');
+  assert.ok(text.indexOf('Request a project consultation') < text.indexOf('Prefer to call?'));
+  assert.doesNotMatch(text, /contact-direct-image|Completed MCC project|Photos from close up and normal viewing distance help MCC/);
+  assert.equal([...text.matchAll(/id="contact-faq-title"/g)].length, 1);
+  assert.equal([...text.matchAll(/<details class="contact-faq-item"/g)].length, 4);
+  const css = readFileSync(new URL('../app/contact/page.module.css', import.meta.url), 'utf8');
+  assert.match(css, /grid-template-areas: "direct form" "faq form"/);
+  assert.match(css, /@media \(max-width: 760px\)[\s\S]*grid-template-areas: "form" "direct" "faq"/);
+});
+
 test('mobile service shapes reset fully and material photos and captions use compact heights', () => {
   const css = readFileSync(new URL('../app/home.module.css', import.meta.url), 'utf8');
   const mobileCards = css.slice(css.indexOf('  .heroServices {', css.indexOf('@media (max-width: 900px)', css.indexOf('.closingSteps'))));

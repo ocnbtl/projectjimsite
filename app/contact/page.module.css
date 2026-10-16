@@ -1,0 +1,76 @@
+.layout:global(.contact-page-grid) {
+  align-items: start;
+  grid-template-areas: "direct form" "faq form";
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.layout .form {
+  border-left: 1px solid var(--joint);
+  grid-area: form;
+  min-width: 0;
+}
+
+.layout .direct {
+  border: 0;
+  grid-area: direct;
+  min-width: 0;
+}
+
+.layout .direct :global(.contact-direct-copy) {
+  padding-bottom: 32px;
+}
+
+.layout .faq:global(.contact-faq-section) {
+  grid-area: faq;
+  margin: 0;
+  min-width: 0;
+  padding: 0 clamp(38px, 4.5vw, 64px) 40px;
+}
+
+.layout .faq :global(#contact-faq-title) {
+  font-size: clamp(1.5rem, 1.8vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.layout .faq :global(.contact-faq-grid) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.layout .faq :global(.contact-faq-item summary) {
+  padding: 20px;
+}
+
+.layout .faq :global(.contact-faq-item h3) {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 761px) and (max-width: 1120px) {
+  .layout .direct :global(.contact-direct-copy),
+  .layout .form {
+    padding: 32px 24px;
+  }
+
+  .layout .faq:global(.contact-faq-section) {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 760px) {
+  .layout:global(.contact-page-grid) {
+    grid-template-areas: "form" "direct" "faq";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .layout .form {
+    border-bottom: 1px solid var(--joint);
+    border-left: 0;
+  }
+
+  .layout .faq:global(.contact-faq-section) {
+    padding-inline: 22px;
+  }
+}

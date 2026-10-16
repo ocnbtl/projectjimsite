@@ -1,11 +1,10 @@
 import { pageMetadata } from "@/content/page-metadata";
-import Image from "next/image";
 import { EstimateForm } from "@/components/estimate-form";
 import { PageIntro } from "@/components/page-intro";
-import { projects } from "@/content/projects";
 import { business } from "@/content/site";
 import { contactFaqs } from "@/content/contact-faqs";
 import { siteUrl } from "@/content/site-url";
+import styles from "./page.module.css";
 
 export const metadata = pageMetadata("/contact", {
   title: "Contact",
@@ -14,8 +13,6 @@ export const metadata = pageMetadata("/contact", {
 });
 
 export default function ContactPage() {
-  const entryProject = projects[4];
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -32,27 +29,21 @@ export default function ContactPage() {
       <PageIntro route="/contact" title="Start with the mismatch." align="top" compact>
         <p>
           If the material is already installed and the remaining problem is color, tell us where
-          the project is, what changed, and what you want to look more consistent. Photos from
-          close up and normal viewing distance help MCC understand the material and surrounding
-          color. Residential and commercial projects are welcome.
+          the project is, what changed, and what you want to look more consistent.
+          Residential and commercial projects are welcome.
         </p>
       </PageIntro>
 
-      <section className="contact-page-grid shell">
-        <aside className="contact-direct" aria-label="Direct contact information">
-          <div className="contact-direct-image">
-            <Image
-              src={entryProject.after}
-              alt={entryProject.afterAlt}
-              fill
-              priority
-              sizes="(max-width: 900px) 100vw, 42vw"
-            />
-            <p>
-              <span>Completed MCC project</span>
-              {entryProject.title}
-            </p>
-          </div>
+      <section className={`${styles.layout} contact-page-grid shell`}>
+        <div className={`${styles.form} contact-form-panel`}>
+          <h2>Request a project consultation</h2>
+          <p>
+            Share a short description, project location, and a few useful photos. That context
+            helps us respond quickly with a free estimate, usually within two business days.
+          </p>
+          <EstimateForm />
+        </div>
+        <aside className={`${styles.direct} contact-direct`} aria-label="Direct contact information">
           <div className="contact-direct-copy">
             <p className="contact-method-label">Email</p>
             <a href={business.emailHref}>{business.email}</a>
@@ -77,31 +68,23 @@ export default function ContactPage() {
           </div>
         </aside>
 
-        <div className="contact-form-panel">
-          <h2>Request a project consultation</h2>
-          <p>
-            Share a short description, project location, and a few useful photos. That context
-            helps us respond quickly with a free estimate, usually within two business days.
-          </p>
-          <EstimateForm />
-        </div>
-      </section>
-      <section className="faq-section contact-faq-section shell" aria-labelledby="contact-faq-title">
-        <div className="faq-heading">
-          <h2 id="contact-faq-title">Common questions</h2>
-          <p>A few answers to help you plan the next step.</p>
-        </div>
-        <div className="contact-faq-grid">
-          {contactFaqs.map((faq) => (
-            <details className="contact-faq-item" key={faq.question}>
-              <summary>
-                <h3>{faq.question}</h3>
-                <span className="contact-faq-toggle" aria-hidden="true" />
-              </summary>
-              <p>{faq.answer}</p>
-            </details>
-          ))}
-        </div>
+        <section className={`${styles.faq} faq-section contact-faq-section`} aria-labelledby="contact-faq-title">
+          <div className="faq-heading">
+            <h2 id="contact-faq-title">Common questions</h2>
+            <p>A few answers to help you plan the next step.</p>
+          </div>
+          <div className="contact-faq-grid">
+            {contactFaqs.map((faq) => (
+              <details className="contact-faq-item" key={faq.question}>
+                <summary>
+                  <h3>{faq.question}</h3>
+                  <span className="contact-faq-toggle" aria-hidden="true" />
+                </summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </section>
     </>
   );
