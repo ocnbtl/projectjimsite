@@ -14,7 +14,7 @@ function ProjectTags({ category }: { category: Project["category"] }) {
   return (
     <ul className="gallery-category" aria-label="Project categories">
       {category.split("·").map((tag) => (
-        <li key={tag.trim()}>{tag.trim()}</li>
+        <li key={tag.trim()}>{tag.trim().toLowerCase()}</li>
       ))}
     </ul>
   );
@@ -29,18 +29,18 @@ function CaseStudyDetails({ project }: { project: Project }) {
 
   return (
     <div className={styles.caseStudy} aria-label={`${project.title} project details`}>
-      {details.map(([label, text]) => (
-        <article key={label}>
-          <h3>{label}</h3>
+      {details.map(([label, text], index) => (
+        <section key={label} aria-labelledby={`${project.slug}-detail-${index}`}>
+          <h3 id={`${project.slug}-detail-${index}`}>{label}</h3>
           <p>{text}</p>
-        </article>
+        </section>
       ))}
     </div>
   );
 }
 
 export default function GalleryPage() {
-  const [featured, ...moreProjects] = projects;
+  const panelTones = ["charcoal", "clay", "ivory"] as const;
 
   return (
     <>
@@ -55,44 +55,26 @@ export default function GalleryPage() {
         </div>
       </PageIntro>
 
-      <section className="gallery-grid shell" id="finished-projects" aria-label="MCC before-and-after projects">
-        <article className={`gallery-feature ${styles.feature}`} id={featured.slug}>
-          <div
-            className={`gallery-feature-media ${styles.projectMedia} ${styles.landscapeMedia}`}
+      <section className={`${styles.gallery} home-shell`} id="finished-projects" aria-label="MCC before-and-after projects">
+        {projects.map((project, index) => (
+          <article
+            className={styles.projectPanel}
+            data-project-panel={panelTones[index % panelTones.length]}
+            id={project.slug}
+            aria-labelledby={`${project.slug}-title`}
+            key={project.slug}
           >
-            <ProjectPair {...featured} priority />
-          </div>
-          <div className="gallery-feature-copy">
-            <h2>{featured.title}</h2>
-            <ProjectTags category={featured.category} />
-            <p className={styles.projectSummary}>{featured.summary}</p>
-            <CaseStudyDetails project={featured} />
-          </div>
-        </article>
-
-        <div className={`gallery-secondary ${styles.secondary}`}>
-          {moreProjects.map((project) => (
-            <article
-              className="gallery-card"
-              id={project.slug}
-              key={project.slug}
-            >
-              <div
-                className={`gallery-card-media ${styles.projectMedia} ${
-                  project.orientation === "portrait" ? "" : styles.landscapeMedia
-                }`}
-              >
-                <ProjectPair {...project} />
-              </div>
-              <div className="gallery-card-copy">
-                <h2>{project.title}</h2>
-                <ProjectTags category={project.category} />
-                <p className={styles.projectSummary}>{project.summary}</p>
-                <CaseStudyDetails project={project} />
-              </div>
-            </article>
-          ))}
-        </div>
+            <header className={styles.projectHeading}>
+              <h2 id={`${project.slug}-title`}>{project.title}</h2>
+              <ProjectTags category={project.category} />
+              <p className={styles.projectSummary}>{project.summary}</p>
+            </header>
+            <div className={`${styles.projectMedia} ${project.orientation === "portrait" ? "" : styles.landscapeMedia}`}>
+              <ProjectPair {...project} priority={index === 0} />
+            </div>
+            <CaseStudyDetails project={project} />
+          </article>
+        ))}
       </section>
 
       <section className="plain-cta shell">

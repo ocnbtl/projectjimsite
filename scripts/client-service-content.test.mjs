@@ -59,11 +59,25 @@ test('gallery titles lead each project and descriptive categories render as non-
   const tags = [...text.matchAll(/<ul class="gallery-category" aria-label="Project categories">(.*?)<\/ul>/gs)];
   assert.equal(tags.length, categories.length);
   assert.doesNotMatch(text, /class="gallery-number"|Project\s*(?:<!-- -->)?\s*0[1-5]/);
-  assert.equal([...text.matchAll(/class="gallery-(?:feature|card)-copy"><h2>/g)].length, categories.length);
+  assert.equal([...text.matchAll(/<header class="[^"]*projectHeading[^"]*"><h2/g)].length, categories.length);
   for (const [index, [, list]] of tags.entries()) {
-    assert.deepEqual([...list.matchAll(/<li>(.*?)<\/li>/g)].map((match) => match[1]), categories[index].split('·').map((tag) => tag.trim()));
+    assert.deepEqual([...list.matchAll(/<li>(.*?)<\/li>/g)].map((match) => match[1]), categories[index].split('·').map((tag) => tag.trim().toLowerCase()));
     assert.doesNotMatch(list, /<(?:a|button)\b/);
   }
+});
+
+test('gallery uses one ordered full-width panel per project with alternating surfaces and labelled story sections', async () => {
+  const text = await html('/gallery');
+  assert.deepEqual([...text.matchAll(/data-project-panel="([^"]+)"/g)].map((match) => match[1]), ['charcoal', 'clay', 'ivory', 'charcoal', 'clay']);
+  for (const label of ['What happened', 'MCC’s color work', 'Finished result']) {
+    assert.equal([...text.matchAll(new RegExp(`<h3[^>]+>${label}</h3><p>`, 'g'))].length, 5);
+  }
+  assert.doesNotMatch(text, /class="gallery-secondary|class="gallery-card/);
+  const css = readFileSync(new URL('../app/gallery/page.module.css', import.meta.url), 'utf8');
+  assert.match(css, /\.gallery \{[^}]*display: grid;/s);
+  assert.match(css, /@media \(max-width: 1599px\)/);
+  assert.match(css, /@media \(max-width: 1000px\)/);
+  assert.doesNotMatch(css, /margin-top: clamp\(-180px|object-fit: cover/);
 });
 
 test('mobile service shapes reset fully and material photos and captions use compact heights', () => {
