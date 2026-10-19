@@ -119,3 +119,16 @@ test('analytics disclosure and security policy allow only the intended Cloudflar
   assert.match(html, /With your permission, Cloudflare Web Analytics/);
   assert.doesNotMatch(html, /<script[^>]*src="https:\/\/static\.cloudflareinsights\.com/);
 });
+
+test('GA privacy disclosure, testing controls and narrowly scoped Google endpoints are present without a pre-consent tag', async () => {
+  const response = await fetch(`${base}/privacy`);
+  const policy = response.headers.get('content-security-policy');
+  const html = await response.text();
+  assert.match(policy, /script-src[^;]*https:\/\/www\.googletagmanager\.com/);
+  assert.match(policy, /connect-src[^;]*https:\/\/www\.google-analytics\.com\/g\/collect/);
+  assert.match(html, /With your permission, Google Analytics/);
+  assert.match(html, /mcc_analytics=off/);
+  assert.match(html, /mcc_analytics=on/);
+  assert.match(html, /phone or email click does not mean a conversation or job took place/);
+  assert.doesNotMatch(html, /<script[^>]+src="https:\/\/www\.googletagmanager\.com/);
+});

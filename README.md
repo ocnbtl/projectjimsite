@@ -75,7 +75,49 @@ For a local UI preview, run `node scripts/preview-consultation.mjs` and open
 and intercepts email-provider requests. No email is sent. Enter `LOCAL_FAILURE`
 in the description to simulate rejection, then change it to test success.
 
-### Production delivery
+### Consent-based GA4
+
+The MCC public web stream is `G-31N6YVTJ32` (a public identifier, not a secret),
+in property `559559624`, account `412455052`. `lib/google-analytics.ts` owns
+explicit page views and allowlisted events. Do not add a second Google tag.
+
+- `form_start`: first estimate-form interaction, not a lead.
+- `generate_lead`: only after the consultation API returns accepted provider delivery.
+  Registered as a key event, counted once per event, with no fabricated monetary value.
+- `phone_click` / `email_click`: link actions, not confirmed calls, conversations, or jobs.
+- `scroll_depth`: 25/50/75 percent once per route view; Enhanced Measurement supplies
+  the separate near-bottom `scroll` event (90 percent).
+- `estimate_error`: fixed failure categories, never error text or customer entries.
+
+GA4 Enhanced Measurement: scrolls on; automatic history page views, forms, outbound
+clicks, search, downloads, and video events off. `send_page_view: false` prevents
+the initial automatic view. The site sends one clean view per actual public route.
+Custom dimensions: `property_type`, `source_section`, `failure_reason`, `percent_scrolled`.
+
+Only consenting visitors on the two public production hostnames can initialize
+analytics. Local/preview/automated browsers are excluded. Visit
+`https://masonrycolorcorrections.com/privacy?mcc_analytics=off` once in **each staff
+browser/profile/device** before testing; the exclusion persists. Use the corresponding
+`mcc_analytics=on` privacy-page link to remove it. This is browser-specific, not a
+global IP filter. Existing opt-ins must choose again under the v2 consent key;
+existing declines remain declined. Revocation disables GA immediately, clears only
+MCC-prefixed GA cookies, and blocks GA collection transports. No cookieless pre-consent
+Google pings, Ads linking, signals, remarketing, or ad personalization are enabled.
+
+All page queries/fragments are dropped; external referrers are origin-only. No form
+text, names, addresses, contact details, filenames, photos, or submission IDs enter
+GA events. The Google stream also redacts email and known sensitive query keys.
+Before a future Ads launch, separately approve and test campaign/UTM and click-ID
+handling, Ads conversions/deduplication, consent, budget, and any offline lead or
+revenue linkage. Current privacy-safe URL stripping intentionally does not preserve
+UTMs or GCLIDs. Do not infer ad campaign attribution or booked-job revenue from it.
+
+Run `node --test scripts/google-analytics.test.mjs` for isolated consent, transport,
+privacy, real-form, link-click, and scroll regressions. No real email or GA lead is
+sent by these tests. Normal Google reports can lag; unit tests are not proof that
+Google has processed production visitors.
+
+### Production delivery checklist
 
 1. Keep the Google Workspace inbox, Resend sending domain, and three server-only form-delivery values under the approved client/provider ownership model.
 2. Use an authorized, clearly labeled live request only when recipient delivery must be verified; do not submit a real lead as routine smoke testing.

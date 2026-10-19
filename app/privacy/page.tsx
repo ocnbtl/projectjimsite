@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/content/page-metadata";
-import { AnalyticsPreferencesButton } from "@/components/analytics-consent";
+import { AnalyticsPreferencesButton, AnalyticsTestingStatus } from "@/components/analytics-consent";
 import { PageIntro } from "@/components/page-intro";
 
 export const metadata = pageMetadata("/privacy", {
@@ -43,7 +43,19 @@ export default function PrivacyPage() {
         <p>
           You can accept or decline analytics and change your choice at any time.
         </p>
+        <p>
+          With your permission, Google Analytics measures page visits, scroll engagement, estimate
+          form starts, confirmed estimate requests, and clicks on our phone and email links. It uses
+          a browser cookie with a lifetime of up to 90 days. We do not send your form entries,
+          contact details, photos, or full URL query strings. Advertising personalization and Google
+          signals are disabled. A phone or email click does not mean a conversation or job took place.
+          See Google’s <a href="https://policies.google.com/privacy" rel="noreferrer" target="_blank">privacy policy</a>.
+        </p>
         <AnalyticsPreferencesButton className="privacy-choice-button" />
+        <h2>Staff and testing</h2>
+        <p>Staff and developers can exclude this browser from optional analytics. The setting remains on this browser until you change it.</p>
+        <AnalyticsTestingStatus />
+        <p><a href="/privacy?mcc_analytics=off">Exclude this browser from analytics</a>{" · "}<a href="/privacy?mcc_analytics=on">Remove this browser’s testing exclusion</a></p>
         <h2>Questions</h2>
         <p>
           Privacy questions can be sent to contact@masonrycolorcorrections.com. This notice may be

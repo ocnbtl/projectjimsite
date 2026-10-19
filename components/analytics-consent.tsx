@@ -12,6 +12,7 @@ import {
   type AnalyticsConsentStatus,
 } from "@/lib/analytics";
 import styles from "./analytics-consent.module.css";
+import { isAnalyticsBrowserExcluded } from "@/lib/analytics-runtime";
 
 type AnalyticsPreferencesButtonProps = {
   className?: string;
@@ -23,6 +24,17 @@ export function AnalyticsPreferencesButton({ className }: AnalyticsPreferencesBu
       Privacy choices
     </button>
   );
+}
+
+export function AnalyticsTestingStatus() {
+  const [excluded, setExcluded] = useState<boolean | null>(null);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setExcluded(isAnalyticsBrowserExcluded()), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+  return <p role="status">{excluded === null ? "Checking this browser’s testing preference…"
+    : excluded ? "This browser is excluded from optional analytics, even if analytics consent is on."
+    : "This browser is not excluded from analytics. Your consent choice still applies."}</p>;
 }
 
 export function AnalyticsConsent() {
@@ -97,7 +109,7 @@ export function AnalyticsConsent() {
           <div className={styles.copy}>
             <h2 id="analytics-consent-title">Help MCC improve this website</h2>
             <p id="analytics-consent-description">
-              Optional analytics and recordings of page activity help us improve the site. Form inputs are masked.
+              Optional analytics from Google, Cloudflare, and PostHog help us improve the site. PostHog records page activity with form inputs masked. Customer details and photos are excluded.
             </p>
             <p className={styles.status}>{statusMessage}</p>
             <Link href="/privacy">Privacy details</Link>
