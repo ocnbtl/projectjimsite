@@ -20,6 +20,20 @@ export default function PrivacyPage() {
           to your request. Submissions are relayed by email and are not stored in the website’s own
           database. Email providers may process and retain them.
         </p>
+        <h2>Hosting and aggregate traffic counts</h2>
+        <p>
+          Our hosting provider, Vercel, processes requests to deliver and protect this website.
+          We can view aggregate server/CDN request totals, including requests made when optional
+          analytics are declined. These counts do not add analytics cookies, session recordings,
+          or a browser tracking script. They include automated traffic and requests for images
+          and other files, so they are not counts of individual people or confirmed leads.
+        </p>
+        <p>
+          The hosting provider may process standard request information, including IP addresses,
+          for delivery, security, and operations. We do not add a separate visitor identifier or
+          customer-information database for these aggregate counts. See Vercel’s{" "}
+          <a href="https://vercel.com/legal/privacy-policy" rel="noreferrer" target="_blank">privacy policy</a>.
+        </p>
         <h2>Optional analytics</h2>
         <p>
           With your permission, MCC uses PostHog to collect limited website usage and performance

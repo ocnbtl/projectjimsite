@@ -132,3 +132,21 @@ test('GA privacy disclosure, testing controls and narrowly scoped Google endpoin
   assert.match(html, /phone or email click does not mean a conversation or job took place/);
   assert.doesNotMatch(html, /<script[^>]+src="https:\/\/www\.googletagmanager\.com/);
 });
+
+test('hosting request totals are clearly separated from consent-based browser tracking', async () => {
+  const response = await fetch(`${base}/privacy`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Hosting and aggregate traffic counts/);
+  assert.match(html, /including requests made when optional\s+analytics are declined/);
+  assert.match(html, /not counts of individual people or confirmed leads/);
+  assert.match(html, /including IP addresses/);
+  assert.match(html, /https:\/\/vercel.com\/legal\/privacy-policy/);
+  assert.doesNotMatch(html, /<script[^>]+src="https:\/\/(?:www\.googletagmanager\.com|static\.cloudflareinsights\.com)/);
+  assert.ok(!response.headers.get('set-cookie'), 'The privacy response must not add a tracking cookie');
+  const markdown = await (await fetch(`${base}/privacy`, { headers: { Accept: 'text/markdown' } })).text();
+  assert.match(markdown, /Hosting and aggregate traffic counts/);
+  assert.match(markdown, /including IP addresses/);
+  assert.match(markdown, /when optional analytics are declined/);
+  assert.match(markdown, /Google Analytics/);
+});

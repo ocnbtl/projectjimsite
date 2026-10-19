@@ -155,11 +155,17 @@ ${faqCopy}`,
 
 Information and photos submitted through the estimate form are used to review and respond to your request. Submissions are relayed by email and are not stored in the website's own database. Email providers may process and retain them.
 
+## Hosting and aggregate traffic counts
+
+Vercel processes website requests for delivery, security, and operations. Aggregate server/CDN request totals include requests made when optional analytics are declined. These counts add no analytics cookies, session recordings, browser tracking script, or separate MCC visitor identifier. They include bots and file requests, not just people, so they are not unique visitors or confirmed leads. Vercel may process standard request metadata, including IP addresses. See [Vercel's privacy policy](https://vercel.com/legal/privacy-policy).
+
 ## Optional analytics
 
 With permission, PostHog collects limited website usage and performance information, including recordings of page activity. Form inputs are masked. Estimate details, contact information, and uploaded photos are excluded. A choice and anonymous site identifier may be stored in the browser.
 
 With permission, Cloudflare Web Analytics measures page views, visits, referring websites, country-level location, device and browser types, and page performance. It does not use analytics cookies or record form entries.
+
+With permission, Google Analytics measures public page visits, scroll engagement, estimate-form starts, confirmed estimate requests, and phone/email link clicks. Its browser cookie lasts up to 90 days. Form entries, customer contact details, photos, and full URL query strings are not sent. Advertising personalization and Google signals are disabled. Link clicks are not confirmed conversations or jobs. See [Google's privacy policy](https://policies.google.com/privacy).
 
 Visitors can accept or decline analytics and change their choice on the [Privacy page](${url("/privacy")}).
 

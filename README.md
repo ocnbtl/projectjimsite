@@ -136,6 +136,38 @@ proof of processed GA4 data. An Active filter badge is not proof of propagation.
 
 Reference: https://support.google.com/analytics/answer/13296662
 
+### Aggregate server-side traffic totals — no new collector
+
+Use the existing hosting counter at
+https://vercel.com/unigentamos/project-jimsite/observability/cdn-requests
+(project access required). Select **Production** and **Last 12 hours**. The live
+MCC project was verified on 2026-10-19 with non-zero CDN request totals. Collection
+already happens at the hosting infrastructure, so no additional counter, storage,
+script, token, paid plan, or paid Observability Plus was enabled. The legacy
+Observability schema API returned 404; the supported dashboard is the verified
+access path. Do not add credentials to the public site to fetch its private metrics.
+
+This is a request count, **not unique visitors, visits, form leads, or GA4 page
+views**. Images, scripts, bots, previews/prefetches, monitoring, and staff/QA requests
+may contribute. The production selector removes preview deployments, not staff
+visits to the production site. Browser consent and `mcc_analytics=off` do not stop
+hosting request counts; they continue to stop optional browser measurement. No
+consent choice, form values, photos, IP address, or visitor identifier is sent to
+a new MCC counter because no new collection endpoint/database was added. Vercel
+still processes ordinary request metadata for hosting, as disclosed on `/privacy`.
+
+The free Hobby Observability view currently retains only **12 hours**. It is not
+a durable daily/monthly reporting archive; Query/Notebooks and extended retention
+require paid features. No upgrade, export service, background poller, or paid API
+has been enabled. Official documentation: https://vercel.com/docs/observability
+and https://vercel.com/docs/observability/observability-plus#limitations.
+
+**Separate hosting eligibility issue:** the current team is on Hobby. Vercel's
+published Hobby rules restrict it to personal, non-commercial use, so do not
+treat this as approval for MCC's long-term commercial hosting arrangement. Resolve
+an appropriate host/plan with the owner separately; do not purchase or migrate as
+part of this counter/popup update. Source: https://vercel.com/docs/plans/hobby.
+
 ### Production delivery checklist
 
 1. Keep the Google Workspace inbox, Resend sending domain, and three server-only form-delivery values under the approved client/provider ownership model.

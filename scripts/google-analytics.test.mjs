@@ -14,9 +14,9 @@ test('concise consent UI preserves clear recording disclosure, neutral edges and
   const description = component.match(/<p id="analytics-consent-description">\s*([\s\S]*?)\s*<\/p>/)?.[1];
   assert.ok(description);
   assert.match(description, /optional analytics and page recordings/);
-  assert.match(description, /Form entries and photos are excluded/);
   assert.doesNotMatch(description, /Google|Cloudflare|PostHog/i);
-  assert.ok(description.trim().split(/\s+/).length <= 25);
+  assert.equal(description.trim(), 'Allow optional analytics and page recordings?');
+  assert.ok(description.trim().split(/\s+/).length <= 8);
   assert.match(component, /onClick=\{acceptAnalytics\}>\s*Accept\s*<\/button>/);
   assert.match(component, /onClick=\{declineAnalytics\}>\s*Decline\s*<\/button>/);
   assert.match(component, /href="\/privacy">Privacy details/);

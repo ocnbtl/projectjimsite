@@ -109,7 +109,7 @@ export function AnalyticsConsent() {
           <div className={styles.copy}>
             <h2 id="analytics-consent-title">Help MCC improve this website</h2>
             <p id="analytics-consent-description">
-              Allow optional analytics and page recordings to help us improve the site? Form entries and photos are excluded.
+              Allow optional analytics and page recordings?
             </p>
             <p className={styles.status}>{statusMessage}</p>
             <Link href="/privacy">Privacy details</Link>
