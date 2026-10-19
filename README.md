@@ -117,6 +117,25 @@ privacy, real-form, link-click, and scroll regressions. No real email or GA lead
 sent by these tests. Normal Google reports can lag; unit tests are not proof that
 Google has processed production visitors.
 
+#### Report-clean receipt verification
+
+On 2026-10-19 at approximately 15:36 UTC, the GA4 property gained an **Active**
+developer-traffic exclusion named `MCC developer debug exclusion`. It excludes
+events with `debug_mode` or `debug_event` populated; the existing Internal Traffic
+filter remains in Testing and was not changed. This does not replace the staff
+browser exclusion, and the website does not enable debug mode automatically.
+
+Google documents a 24–36 hour filter propagation window. Do not send a diagnostic
+event before that window has elapsed (conservatively, after 2026-10-21 03:40 UTC).
+Then verify a deliberately debug-marked, consented, non-lead event in DebugView
+without enabling PostHog/Cloudflare or removing the persistent staff exclusion.
+Any diagnostic path must be explicitly scoped and tested before use; none is
+currently exposed in the public website. Never use `generate_lead` or submit the
+real form for routine verification. Seeing a tag load or an HTTP 204 alone is not
+proof of processed GA4 data. An Active filter badge is not proof of propagation.
+
+Reference: https://support.google.com/analytics/answer/13296662
+
 ### Production delivery checklist
 
 1. Keep the Google Workspace inbox, Resend sending domain, and three server-only form-delivery values under the approved client/provider ownership model.

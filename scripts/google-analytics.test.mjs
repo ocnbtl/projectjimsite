@@ -7,6 +7,24 @@ import ts from 'typescript';
 const id = 'G-31N6YVTJ32';
 const endpoint = 'https://www.google-analytics.com/g/collect';
 const source = (name) => readFileSync(new URL(`../lib/${name}.ts`, import.meta.url), 'utf8');
+
+test('concise consent UI preserves clear recording disclosure, neutral edges and equal mobile choices', () => {
+  const component = readFileSync(new URL('../components/analytics-consent.tsx', import.meta.url), 'utf8');
+  const css = readFileSync(new URL('../components/analytics-consent.module.css', import.meta.url), 'utf8');
+  const description = component.match(/<p id="analytics-consent-description">\s*([\s\S]*?)\s*<\/p>/)?.[1];
+  assert.ok(description);
+  assert.match(description, /optional analytics and page recordings/);
+  assert.match(description, /Form entries and photos are excluded/);
+  assert.doesNotMatch(description, /Google|Cloudflare|PostHog/i);
+  assert.ok(description.trim().split(/\s+/).length <= 25);
+  assert.match(component, /onClick=\{acceptAnalytics\}>\s*Accept\s*<\/button>/);
+  assert.match(component, /onClick=\{declineAnalytics\}>\s*Decline\s*<\/button>/);
+  assert.match(component, /href="\/privacy">Privacy details/);
+  assert.match(css, /\.copy h2\s*\{[^}]*font-size: 1\.125rem/s);
+  assert.doesNotMatch(css, /border-top:|linear-gradient/);
+  assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+});
+
 function fixture({ host = 'masonrycolorcorrections.com', consent = 'granted', search = '', env = 'production', webdriver = false, posthogEnabled = true } = {}) {
   const scripts = new Map(), sent = [], cookies = [], storage = new Map(), cache = new Map();
   if (consent) storage.set('mcc_analytics_consent_v2', consent);
