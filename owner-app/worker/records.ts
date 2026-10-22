@@ -71,7 +71,12 @@ export async function saveRecord(request: Request, env: Env, actor: Member, kind
   }
   // All SQL identifiers above are fixed by the server; values are bound parameters.
   const columns=Object.keys(fields), values=Object.values(fields);
-  const statement=updating ? env.DB.prepare(`UPDATE ${table} SET ${columns.map(c=>`${c}=?`).join(',')},version=version+1 WHERE id=? AND version=?`).bind(...values,key,version) : env.DB.prepare(`INSERT INTO ${table}(id,${columns.join(',')}) VALUES(?,${columns.map(()=>'?').join(',')})`).bind(key,...values);
+  // Repeat mutable authorization in the write itself: an owner may review the
+  // expense after the earlier read, even if a caller predicts its next version.
+  const crewExpense=table==='expenses' && actor.role!=='owner';
+  const writeGuard=crewExpense ? " AND user_id=? AND status='submitted'" : '';
+  const writeArgs=crewExpense ? [actor.id] : [];
+  const statement=updating ? env.DB.prepare(`UPDATE ${table} SET ${columns.map(c=>`${c}=?`).join(',')},version=version+1 WHERE id=? AND version=?${writeGuard}`).bind(...values,key,version,...writeArgs) : env.DB.prepare(`INSERT INTO ${table}(id,${columns.join(',')}) VALUES(?,${columns.map(()=>'?').join(',')})`).bind(key,...values);
   const changeAudit=env.DB.prepare('INSERT INTO activity(id,actor_id,action,entity_id,job_id) SELECT ?,?,?,?,? WHERE changes()>0').bind(crypto.randomUUID(),actor.id,`${updating?'Updated':'Added'} ${kind==='mileage'?'mileage':kind.slice(0,-1)}`,key,jobId);
   const result=await env.DB.batch([statement,changeAudit]);
   if(result[0].meta.changes!==1) throw new HttpError(409,'This record changed. Refresh and try again.');

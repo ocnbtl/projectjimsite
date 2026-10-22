@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
+import sharp from "sharp";
 
 export const runtime = "nodejs";
 // Allow both bounded upstream calls (5s security + 8s email) to finish.
@@ -9,6 +10,21 @@ const allowedPhotoTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 const maxPhotoCount = 5;
 const maxPhotoBytes = 2_500_000;
 const maxTotalPhotoBytes = 3_600_000;
+
+async function photoAttachment(photo: File, index: number) {
+  const bytes = Buffer.from(await photo.arrayBuffer());
+  // Do not let attacker-supplied MIME/filename select arbitrary image decoders.
+  const jpeg = bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
+  const png = bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  const webp = bytes.toString("ascii", 0, 4) === "RIFF" && bytes.toString("ascii", 8, 12) === "WEBP";
+  if (!jpeg && !png && !webp) throw new Error("Invalid photo");
+  // Decode then re-encode: strip metadata/appended payloads, bound dimensions,
+  // process only the first frame, and never forward a caller-controlled extension.
+  const content = await sharp(bytes, { limitInputPixels: 24_000_000, failOn: "warning", animated: false })
+    .timeout({ seconds: 2 }).rotate().resize({ width: 1800, height: 1800, fit: "inside", withoutEnlargement: true })
+    .flatten({ background: "#ffffff" }).jpeg({ quality: 85 }).toBuffer();
+  return { filename: `project-photo-${index + 1}.jpg`, content: content.toString("base64") };
+}
 
 type TurnstileResponse = {
   success: boolean;
@@ -185,12 +201,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const attachments = await Promise.all(
-      photos.map(async (photo) => ({
-        filename: photo.name.replace(/[^a-zA-Z0-9._-]/g, "-"),
-        content: Buffer.from(await photo.arrayBuffer()).toString("base64"),
-      })),
-    );
+    const attachments = [];
+    try {
+      // Sequential processing keeps peak memory bounded for multiple uploads.
+      for (const [index, photo] of photos.entries()) attachments.push(await photoAttachment(photo, index));
+    } catch {
+      return NextResponse.json(
+        { message: "One of those photos could not be read. Please choose a different JPG, PNG, or WebP image." },
+        { status: 415 },
+      );
+    }
 
     const safe = {
       name: escapeHtml(name),
@@ -236,7 +256,6 @@ export async function POST(request: Request) {
     if (!resendResponse.ok) {
       console.error("Consultation email delivery failed", {
         status: resendResponse.status,
-        response: await resendResponse.text(),
       });
       return NextResponse.json(
         { message: "We could not send the request. Please call (513) 612-8421 instead." },
@@ -248,8 +267,8 @@ export async function POST(request: Request) {
       accepted: true,
       message: "Your project request has been sent. We’ll be in touch.",
     });
-  } catch (error) {
-    console.error("Consultation request failed", error);
+  } catch {
+    console.error("Consultation request failed");
     return NextResponse.json(
       { message: "We could not confirm whether your request was sent. Please call (513) 612-8421 before trying again." },
       { status: 500 },

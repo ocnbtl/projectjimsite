@@ -4,10 +4,11 @@ import path from 'node:path';
 import Module from 'node:module';
 import { test } from 'node:test';
 import ts from 'typescript';
+import sharp from 'sharp';
 
 const filename = path.resolve(import.meta.dirname, '../app/api/consultation/route.ts');
 const compiled = ts.transpileModule(readFileSync(filename, 'utf8'), {
-  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
 });
 const route = new Module(filename);
 route.filename = filename;
@@ -159,7 +160,8 @@ test('consultation API acknowledges only provider-accepted requests', async (t) 
     }
   });
   await t.test('valid photo and escaped text are included in the mocked email', async () => {
-    const photo = new File(['local photo bytes'], '../test photo.png', { type: 'image/png' });
+    const image = await sharp({ create: { width: 4, height: 3, channels: 3, background: '#aabbcc' } }).png().toBuffer();
+    const photo = new File([image], '../test photo.html', { type: 'image/png' });
     const response = await route.exports.POST(request({ name: '<MCC & test>', description: '<script>test</script>\nNext line' }, undefined, [photo]));
     assert.equal((await response.json()).accepted, true);
     const payload = JSON.parse(calls.at(-1).options.body);
@@ -167,8 +169,36 @@ test('consultation API acknowledges only provider-accepted requests', async (t) 
     assert.doesNotMatch(payload.html, /<script>/);
     assert.match(payload.html, /<br \/>Next line/);
     assert.equal(payload.attachments.length, 1);
-    assert.equal(payload.attachments[0].filename, '..-test-photo.png');
-    assert.equal(payload.attachments[0].content, Buffer.from('local photo bytes').toString('base64'));
+    assert.equal(payload.attachments[0].filename, 'project-photo-1.jpg');
+    const metadata = await sharp(Buffer.from(payload.attachments[0].content, 'base64')).metadata();
+    assert.equal(metadata.format, 'jpeg');
+    assert.equal(metadata.width, 4);
+    assert.equal(metadata.height, 3);
+    assert.equal(metadata.exif, undefined);
+  });
+  await t.test('forged image MIME cannot forward an HTML attachment', async () => {
+    calls = [];
+    const photo = new File(['<html>Not a photo</html>'], 'project.html', { type: 'image/png' });
+    assert.equal((await route.exports.POST(request({}, undefined, [photo]))).status, 415);
+    assert.equal(calls.length, 0);
+  });
+  await t.test('JPEG, PNG and WebP decode to safe photos without appended content', async () => {
+    for (const format of ['jpeg', 'png', 'webp']) {
+      const image = await sharp({ create: { width: 20, height: 10, channels: 3, background: '#abcdef' } }).toFormat(format).toBuffer();
+      const photo = new File([image, 'UNTRUSTED-TRAILER'], 'test.exe', { type: `image/${format}` });
+      assert.equal((await route.exports.POST(request({}, undefined, [photo]))).status, 200);
+      const output = Buffer.from(JSON.parse(calls.at(-1).options.body).attachments[0].content, 'base64');
+      assert.equal(output.includes(Buffer.from('UNTRUSTED-TRAILER')), false);
+      assert.equal((await sharp(output).metadata()).format, 'jpeg');
+    }
+  });
+  await t.test('truncated and excessive-dimension images are rejected before email delivery', async () => {
+    const huge = await sharp({ create: { width: 5000, height: 5000, channels: 3, background: '#ffffff' } }).png().toBuffer();
+    for (const bytes of [Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), huge]) {
+      calls = [];
+      assert.equal((await route.exports.POST(request({}, undefined, [new File([bytes], 'test.png', { type: 'image/png' })]))).status, 415);
+      assert.equal(calls.length, 0);
+    }
   });
   fetchMock.mock.restore();
 });
