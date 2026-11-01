@@ -39,7 +39,7 @@ export default function AboutPage() {
             expanding into Texas and the Southwest.
           </p>
           <div className="about-actions">
-            <Link className="button" href="/contact">
+            <Link className="button" href="/contact" data-analytics-cta="page_intro">
               Start a conversation <span aria-hidden="true">→</span>
             </Link>
             <Link className="text-link" href="/masonry-staining">

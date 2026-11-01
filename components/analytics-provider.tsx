@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { captureAnalyticsEvent, captureAnalyticsPageview, getAnalyticsConsentStatus } from "@/lib/analytics";
+import { captureAnalyticsEvent, captureAnalyticsException, captureAnalyticsPageview, getAnalyticsConsentStatus } from "@/lib/analytics";
 import { isAnalyticsRuntimeAllowed } from "@/lib/analytics-runtime";
 
 export function AnalyticsProvider() {
@@ -19,9 +19,48 @@ export function AnalyticsProvider() {
       const source_section = element?.closest("header") ? "header" : element?.closest("footer") ? "footer" : "content";
       if (/^tel:/i.test(href)) captureAnalyticsEvent("phone_link_clicked", { source_section });
       else if (/^mailto:/i.test(href)) captureAnalyticsEvent("email_link_clicked", { source_section });
+      else if (element?.getAttribute("data-analytics-cta")) captureAnalyticsEvent("estimate_cta_clicked", {
+        source_section, placement: element.getAttribute("data-analytics-cta") ?? "",
+        service_id: element.getAttribute("data-analytics-service") ?? "",
+      });
+      else if (element?.getAttribute("data-analytics-service")) captureAnalyticsEvent("service_link_clicked", {
+        source_section, service_id: element.getAttribute("data-analytics-service") ?? "",
+      });
     }
     document.addEventListener("click", trackContactClick, { capture: true });
     return () => document.removeEventListener("click", trackContactClick, { capture: true });
+  }, []);
+
+  useEffect(() => {
+    const opened = new Set<string>();
+    function trackQuestion(event: Event) {
+      if (!(event.target instanceof HTMLDetailsElement) || !event.target.open) return;
+      const id = event.target.getAttribute("data-analytics-question");
+      if (!id || opened.has(id)) return;
+      if (captureAnalyticsEvent("faq_opened", { question_id: id })) opened.add(id);
+    }
+    document.addEventListener("toggle", trackQuestion, true);
+    return () => document.removeEventListener("toggle", trackQuestion, true);
+  }, [pathname]);
+
+  useEffect(() => {
+    function reportWebsiteError(error: unknown) {
+      // Extension and unrelated third-party failures are not MCC application bugs.
+      if (error instanceof Error && /https:\/\/(?:www\.)?masonrycolorcorrections\.com\/_next\/static\//.test(error.stack ?? "")) {
+        captureAnalyticsException(error);
+      }
+    }
+    function onError(event: ErrorEvent) {
+      // Ignore resource-load events; only report a sanitized JS error category.
+      if (event.error) reportWebsiteError(event.error);
+    }
+    function onRejection(event: PromiseRejectionEvent) { reportWebsiteError(event.reason); }
+    window.addEventListener("error", onError);
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => {
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    };
   }, []);
 
   useEffect(() => {

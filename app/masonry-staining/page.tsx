@@ -25,7 +25,7 @@ export default function MasonryStainingPage() {
           color across the whole wall. We mix and test stains for your masonry, then apply the
           color where it’s needed. Your mason handles any construction or structural repairs first.
         </p>
-        <Link className="button" href="/contact">
+        <Link className="button" href="/contact" data-analytics-cta="page_intro">
           Request a Free Estimate <span aria-hidden="true">→</span>
         </Link>
       </PageIntro>
@@ -154,7 +154,7 @@ export default function MasonryStainingPage() {
             <span className={styles.actionLabel}>Call {business.phoneDisplay}</span>
             <span className={styles.buttonFill} aria-hidden="true">Call {business.phoneDisplay}</span>
           </a>
-          <Link className={`button ${styles.pairedButton} ${styles.estimateButton}`} href="/contact">
+          <Link className={`button ${styles.pairedButton} ${styles.estimateButton}`} href="/contact" data-analytics-cta="closing">
             <span className={styles.actionLabel}>Request a Free Estimate <span aria-hidden="true">→</span></span>
             <span className={styles.buttonFill} aria-hidden="true">Request a Free Estimate <span>→</span></span>
           </Link>

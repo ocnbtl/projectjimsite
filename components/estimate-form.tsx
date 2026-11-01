@@ -70,8 +70,7 @@ export function EstimateForm() {
 
   function handleFormStart() {
     if (formStarted.current) return;
-    formStarted.current = true;
-    captureAnalyticsEvent("consultation_form_started");
+    formStarted.current = captureAnalyticsEvent("consultation_form_started");
   }
 
   function handleFormChange() {
@@ -146,6 +145,10 @@ export function EstimateForm() {
       payload.set("submissionId", submissionId.current);
 
       requestAttempted = true;
+      captureAnalyticsEvent("consultation_submit_attempted", {
+        photo_count: preparedPhotos.length,
+        property_type: String(source.get("propertyType") ?? ""),
+      });
       const response = await fetch("/api/consultation", { method: "POST", body: payload });
       const result = (await response.json().catch(() => null)) as {
         accepted?: boolean;

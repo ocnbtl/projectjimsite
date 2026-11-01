@@ -1,9 +1,12 @@
 import posthog from "posthog-js";
+import { cleanAnalyticsUrl, safeActivityProperties, safeCampaignProperties, sanitizeAnalyticsProperties, sanitizedBrowserError } from "./analytics-privacy";
 import { initializeCloudflareAnalytics } from "./cloudflare-analytics";
 import { isAnalyticsRuntimeAllowed } from "./analytics-runtime";
 import { captureGoogleEvent, captureGooglePageview, initializeGoogleAnalytics, stopGoogleAnalytics } from "./google-analytics";
 
 let initialized = false;
+let lastPage = "";
+const reportedErrors = new Set<string>();
 
 export type AnalyticsConsentStatus = "granted" | "denied" | "pending";
 
@@ -12,27 +15,6 @@ export const analyticsPreferencesEvent = "mcc:open-analytics-preferences";
 // Ask previous opt-ins again when adding Google as a new analytics provider.
 const analyticsConsentKey = "mcc_analytics_consent_v2";
 let sessionConsent: AnalyticsConsentStatus = "pending";
-
-function stripUrlDetails(value: unknown) {
-  if (typeof value !== "string") return value;
-
-  try {
-    const url = new URL(value, window.location.origin);
-    return `${url.origin}${url.pathname}`;
-  } catch {
-    return value.split(/[?#]/, 1)[0];
-  }
-}
-
-function sanitizeAnalyticsProperties(properties: Record<string, unknown>) {
-  const sanitized = { ...properties };
-
-  for (const key of ["$current_url", "$referrer"]) {
-    if (key in sanitized) sanitized[key] = stripUrlDetails(sanitized[key]);
-  }
-
-  return sanitized;
-}
 
 export function getAnalyticsConsentStatus(): AnalyticsConsentStatus {
   if (typeof window === "undefined") return "pending";
@@ -90,6 +72,8 @@ export function initializeAnalytics() {
     defaults: "2026-01-30",
     autocapture: false,
     capture_pageview: false,
+    disable_capture_url_hashes: true,
+    save_campaign_params: false,
     capture_pageleave: true,
     capture_dead_clicks: true,
     capture_exceptions: false,
@@ -109,7 +93,12 @@ export function initializeAnalytics() {
     mask_personal_data_properties: true,
     persistence: "localStorage",
     person_profiles: "identified_only",
-    sanitize_properties: sanitizeAnalyticsProperties,
+    sanitize_properties: (properties) => sanitizeAnalyticsProperties(properties),
+    before_send: (event) => {
+      if (!mayCollect()) return null;
+      event.properties = sanitizeAnalyticsProperties(event.properties);
+      return event;
+    },
     session_recording: {
       blockClass: "ph-no-capture",
       blockSelector: ".ph-no-capture, [data-ph-no-capture]",
@@ -120,12 +109,13 @@ export function initializeAnalytics() {
       recordBody: false,
       recordCrossOriginIframes: false,
       recordHeaders: false,
+      maskCapturedNetworkRequestFn: (request) => ({ ...request, name: cleanAnalyticsUrl(request.name) }),
     },
   });
 
   initialized = true;
   posthog.opt_in_capturing({ captureEventName: false });
-  posthog.startSessionRecording(true);
+  posthog.startSessionRecording();
   return posthog;
 }
 
@@ -135,7 +125,7 @@ export function grantAnalyticsConsent() {
   saveAnalyticsConsent("granted");
   const analytics = initializeAnalytics();
   analytics?.opt_in_capturing({ captureEventName: false });
-  analytics?.startSessionRecording(true);
+  analytics?.startSessionRecording();
   captureAnalyticsPageview(window.location.pathname);
   return analytics;
 }
@@ -144,6 +134,8 @@ export function denyAnalyticsConsent() {
   if (typeof window === "undefined") return;
 
   saveAnalyticsConsent("denied");
+  lastPage = "";
+  reportedErrors.clear();
   stopGoogleAnalytics();
   if (!initialized) return;
 
@@ -157,24 +149,39 @@ export function openAnalyticsPreferences() {
 }
 
 export function captureAnalyticsPageview(pathname: string) {
-  initializeAnalytics()?.capture("$pageview", {
-    $current_url: `${window.location.origin}${pathname}`,
-  });
-  captureGooglePageview(pathname);
+  try {
+    const analytics = initializeAnalytics();
+    if (analytics && pathname === window.location.pathname && lastPage !== pathname) {
+      analytics.capture("$pageview", { $current_url: cleanAnalyticsUrl(window.location.href), ...safeCampaignProperties(window.location.search) });
+      lastPage = pathname;
+    }
+  } catch { /* Measurement must not break navigation. */ }
+  try { captureGooglePageview(pathname); } catch { /* Providers remain independent. */ }
 }
 
 export function captureAnalyticsEvent(
   eventName: string,
   properties?: Record<string, string | number | boolean>,
 ) {
+  const safeProperties = safeActivityProperties(eventName, properties);
+  if (!safeProperties || typeof window === "undefined" || getAnalyticsConsentStatus() !== "granted" || !isAnalyticsRuntimeAllowed()) return false;
   try {
-    initializeAnalytics()?.capture(eventName, properties);
+    initializeAnalytics()?.capture(eventName, safeProperties);
   } catch {
     // Optional analytics must never interrupt an estimate request or its confirmation.
   }
-  try { captureGoogleEvent(eventName, properties); } catch { /* Never interrupt a consultation. */ }
+  try { captureGoogleEvent(eventName, safeProperties); } catch { /* Never interrupt a consultation. */ }
+  return true;
 }
 
-export function captureAnalyticsException(error: Error) {
-  initializeAnalytics()?.captureException(error);
+export function captureAnalyticsException(error: unknown) {
+  try {
+    const analytics = initializeAnalytics();
+    if (!analytics) return;
+    const safe = sanitizedBrowserError(error);
+    const signature = safe.stack ?? safe.name;
+    if (reportedErrors.has(signature) || reportedErrors.size >= 10) return;
+    analytics.captureException(safe);
+    reportedErrors.add(signature);
+  } catch { /* Never recursively report a measurement failure. */ }
 }

@@ -1,18 +1,22 @@
 // Shared by the visible Contact page, its structured data, and Markdown representation.
 export const contactFaqs = [
   {
+    id: "brick-match",
     question: "Can you match new brick to an older wall?",
     answer: "Yes—we can help new brick blend in with an older wall. Once the repairs or addition are finished, we mix and test colors against what’s already there. We’ll take a look at the surface and the change you have in mind, then talk you through the best approach.",
   },
   {
+    id: "request-details",
     question: "What should I include in my request?",
     answer: "Include the project location and a short description of the mismatch. If you have photos, send a wide view and a few close-ups showing the brick, mortar, and surrounding material.",
   },
   {
+    id: "structural-repairs",
     question: "Do you repair or rebuild the masonry?",
     answer: "No. A mason or builder handles structural repairs and construction first. MCC handles the color matching and staining of the installed material afterward.",
   },
   {
+    id: "next-steps",
     question: "What happens after I request an estimate?",
     answer: "MCC reviews your project details and gets in touch by phone or email, usually within two business days, to discuss fit and next steps. Estimates are free.",
   },

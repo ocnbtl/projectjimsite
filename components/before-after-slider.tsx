@@ -9,13 +9,14 @@ import styles from "./before-after-slider.module.css";
 
 type BeforeAfterSliderProps = Pick<
   Project,
-  "title" | "before" | "after" | "beforeAlt" | "afterAlt"
+  "title" | "before" | "after" | "beforeAlt" | "afterAlt" | "number"
 > & {
   priority?: boolean;
 };
 
 export function BeforeAfterSlider({
   title,
+  number,
   before,
   after,
   beforeAlt,
@@ -34,7 +35,7 @@ export function BeforeAfterSlider({
 
   function captureComparisonAdjustment() {
     captureAnalyticsEvent("project_comparison_adjusted", {
-      project_title: title,
+      project_id: number,
       before_visibility_percent: positionRef.current,
     });
   }

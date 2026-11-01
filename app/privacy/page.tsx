@@ -37,7 +37,7 @@ export default function PrivacyPage() {
         <h2>Optional analytics</h2>
         <p>
           With your permission, MCC uses PostHog to collect limited website usage and performance
-          information, including recordings of how pages are used. Form inputs are masked in
+            information, including button and FAQ interactions, limited error diagnostics, and recordings of how pages are used. Form inputs are masked in
           recordings. Estimate details, contact information, and uploaded photos are excluded.
           Your choice and an anonymous site identifier may be stored in your browser. See PostHog’s{" "}
           <a href="https://posthog.com/privacy" rel="noreferrer" target="_blank">

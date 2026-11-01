@@ -75,7 +75,7 @@ export default function ContactPage() {
           </div>
           <div className="contact-faq-grid">
             {contactFaqs.map((faq) => (
-              <details className="contact-faq-item" key={faq.question}>
+              <details className="contact-faq-item" key={faq.question} data-analytics-question={faq.id}>
                 <summary>
                   <h3>{faq.question}</h3>
                   <span className="contact-faq-toggle" aria-hidden="true" />

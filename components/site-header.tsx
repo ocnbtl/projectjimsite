@@ -61,7 +61,7 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <Link className="button button-small nav-estimate" href="/contact" onClick={() => setIsOpen(false)}>
+          <Link className="button button-small nav-estimate" href="/contact" data-analytics-cta="navigation" onClick={() => setIsOpen(false)}>
             Request a Free Estimate
           </Link>
         </nav>

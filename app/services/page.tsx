@@ -53,10 +53,10 @@ export default function ServicesPage() {
           focuses on making the new material look at home beside the original.
         </p>
         <div className={styles.introActions}>
-          <Link className="button" href="/contact">
+          <Link className="button" href="/contact" data-analytics-cta="page_intro">
             Request an estimate
           </Link>
-          <Link className="text-link" href="/masonry-staining">
+          <Link className="text-link" href="/masonry-staining" data-analytics-service="staining">
             See exactly what MCC does <span aria-hidden="true">→</span>
           </Link>
         </div>
@@ -77,7 +77,7 @@ export default function ServicesPage() {
                   <li key={situation}>{situation}</li>
                 ))}
               </ul>
-              <Link className="text-link" href="/contact">
+              <Link className="text-link" href="/contact" data-analytics-cta="service" data-analytics-service={service.number}>
                 Ask about this service <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -103,7 +103,7 @@ export default function ServicesPage() {
               <p className={styles.additionalLead}>{service.short}</p>
               <p>{service.detail}</p>
               <div className={styles.additionalActions}>
-                <Link className="button button-secondary" href="/contact">Ask about this service</Link>
+                <Link className="button button-secondary" href="/contact" data-analytics-cta="service" data-analytics-service={service.number}>Ask about this service</Link>
                 {service.number === "04" ? <Link className="text-link" href="/gallery#paint-chalking-color-correction">See a finished project</Link> : null}
               </div>
             </article>
@@ -139,7 +139,7 @@ export default function ServicesPage() {
           <span className={styles.ctaLine}>service fits?</span>
         </h2>
         <p>Send photos of the full area and the mismatch. MCC can help identify the next step.</p>
-        <Link className="button" href="/contact">
+        <Link className="button" href="/contact" data-analytics-cta="closing">
           Start with photos <span aria-hidden="true">→</span>
         </Link>
       </section>

@@ -49,8 +49,8 @@ function fixture({ host = 'masonrycolorcorrections.com', consent = 'granted', se
     set cookie(value) { cookies.push(value); },
   };
   const phCalls = [];
-  const posthog = Object.fromEntries(['init', 'capture', 'opt_in_capturing', 'startSessionRecording', 'stopSessionRecording', 'opt_out_capturing'].map(name => [name, (...args) => phCalls.push([name, ...args])]));
-  const context = vm.createContext({ window, navigator, document, XMLHttpRequest: XHR, URL, URLSearchParams, Request, Response, console,
+  const posthog = Object.fromEntries(['init', 'capture', 'captureException', 'opt_in_capturing', 'startSessionRecording', 'stopSessionRecording', 'opt_out_capturing'].map(name => [name, (...args) => phCalls.push([name, ...args])]));
+  const context = vm.createContext({ window, navigator, document, XMLHttpRequest: XHR, URL, URLSearchParams, Request, Response, Error, console,
     process: { env: { NODE_ENV: env, ...(posthogEnabled ? { NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: 'mock-public', NEXT_PUBLIC_POSTHOG_HOST: 'https://us.i.posthog.com' } : {}) } },
   });
   function load(name) {
@@ -231,6 +231,65 @@ test('Google analytics module is inert during server rendering', () => {
   assert.doesNotThrow(() => context.exports.stopGoogleAnalytics());
 });
 
+test('PostHog sanitizes URLs, nested attribution, replay metadata and queued events at the consent boundary', () => {
+  const f = fixture({ search: '?email=PRIVATE&utm_source=chatgpt.com&utm_campaign=PRIVATE#PRIVATE' });
+  f.api.grantAnalyticsConsent();
+  f.api.captureAnalyticsPageview('/contact');
+  assert.equal(f.phCalls.filter(c => c[0] === 'capture' && c[1] === '$pageview').length, 1);
+  const config = f.phCalls.find(c => c[0] === 'init')[2];
+  assert.equal(config.autocapture, false);
+  assert.equal(config.session_recording.maskAllInputs, true);
+  assert.equal(config.session_recording.recordBody, false);
+  assert.equal(config.capture_exceptions, false);
+  assert.ok(f.phCalls.filter(c => c[0] === 'startSessionRecording').every(c => c.length === 1));
+  const props = config.sanitize_properties({
+    $current_url: 'https://masonrycolorcorrections.com/contact?email=PRIVATE#PRIVATE',
+    $referrer: 'https://google.com/search?q=PRIVATE', utm_source: 'PRIVATE', utm_term: 'PRIVATE', gclid: 'PRIVATE',
+    $set_once: { $initial_current_url: 'https://masonrycolorcorrections.com/private/PRIVATE', $initial_utm_campaign: 'PRIVATE', $initial_utm_source: 'google' },
+  }, '$pageview');
+  assert.doesNotMatch(JSON.stringify(props), /PRIVATE|gclid|utm_term|utm_campaign/);
+  assert.equal(props.$set_once.$initial_utm_source, 'google');
+  assert.equal(props.$referrer, 'https://google.com/');
+  assert.equal(config.session_recording.maskCapturedNetworkRequestFn({ name: 'https://masonrycolorcorrections.com/contact?email=PRIVATE' }).name, 'https://masonrycolorcorrections.com/contact');
+  const page = f.phCalls.find(c => c[0] === 'capture' && c[1] === '$pageview');
+  assert.equal(page[2].utm_source, 'chatgpt.com');
+  assert.doesNotMatch(JSON.stringify(page), /PRIVATE|utm_campaign/);
+  f.api.denyAnalyticsConsent();
+  assert.equal(config.before_send({ event: '$pageview', properties: {} }), null);
+});
+
+test('PostHog accepts only documented activity properties and never treats intent as an accepted lead', () => {
+  const f = fixture();
+  f.api.grantAnalyticsConsent();
+  const start = f.phCalls.length;
+  f.api.captureAnalyticsEvent('unknown_event', { email: 'PRIVATE' });
+  f.api.captureAnalyticsEvent('consultation_request_submitted', { confirmation: 'not_accepted' });
+  f.api.captureAnalyticsEvent('faq_opened', { question_id: 'PRIVATE' });
+  assert.equal(f.phCalls.length, start);
+  f.api.captureAnalyticsEvent('estimate_cta_clicked', { placement: 'hero', email: 'PRIVATE', href: 'PRIVATE' });
+  f.api.captureAnalyticsEvent('project_comparison_adjusted', { project_id: '02', project_title: 'PRIVATE', before_visibility_percent: 57 });
+  assert.doesNotMatch(JSON.stringify(f.phCalls.slice(start)), /PRIVATE|project_title|email|href/);
+  assert.equal(f.phCalls.at(-1)[2].project_id, '02');
+});
+
+test('error diagnostics remove private messages and foreign frames, deduplicate and stop after consent is revoked', () => {
+  const f = fixture();
+  f.api.grantAnalyticsConsent();
+  const error = new Error('PRIVATE FORM CONTENT');
+  error.name = 'TypeError';
+  error.stack = 'TypeError: PRIVATE\n at namePRIVATE (https://masonrycolorcorrections.com/_next/static/chunks/example.js:12:9)\n at https://thirdparty.test/PRIVATE.js:1:2';
+  f.api.captureAnalyticsException(error);
+  f.api.captureAnalyticsException(error);
+  const errors = f.phCalls.filter(c => c[0] === 'captureException');
+  assert.equal(errors.length, 1);
+  assert.equal(errors[0][1].name, 'TypeError');
+  assert.match(errors[0][1].stack, /example.js:12:9/);
+  assert.doesNotMatch(errors[0][1].stack, /PRIVATE|thirdparty/);
+  f.api.denyAnalyticsConsent();
+  f.api.captureAnalyticsException(new Error('PRIVATE'));
+  assert.equal(f.phCalls.filter(c => c[0] === 'captureException').length, 1);
+});
+
 test('the actual estimate form emits a lead only after accepted success, never for rejection or a network failure', async () => {
   for (const outcome of ['accepted', 'rejected', 'network_error']) {
     const f = fixture();
@@ -263,6 +322,7 @@ test('the actual estimate form emits a lead only after accepted success, never f
     form.props.onChangeCapture();
     await form.props.onSubmit({ preventDefault() {}, currentTarget: { reset() {} } });
     assert.equal(f.events().filter(e => e[1] === 'form_start').length, 1, outcome);
+    assert.equal(f.phCalls.filter(e => e[0] === 'capture' && e[1] === 'consultation_submit_attempted').length, 1, outcome);
     assert.equal(f.events().filter(e => e[1] === 'generate_lead').length, outcome === 'accepted' ? 1 : 0, outcome);
     assert.doesNotMatch(JSON.stringify(f.events()), /PRIVATE|private@example|5135550100|local-test-submission/);
   }
@@ -273,11 +333,12 @@ test('the actual provider tracks contact links without interfering with navigati
   const effects = [], listeners = new Map(), frames = new Map();
   let nextFrame = 0;
   class ElementMock {
-    constructor(href = '', area = 'content') { this.href = href; this.area = area; }
+    constructor(href = '', area = 'content', attrs = {}) { this.href = href; this.area = area; this.attrs = attrs; }
     closest(selector) { if (selector === 'a[href]') return this; return selector === this.area ? this : null; }
-    getAttribute() { return this.href; }
+    getAttribute(name) { return name === 'href' ? this.href : this.attrs[name] ?? null; }
   }
-  Object.assign(f.context, { Element: ElementMock });
+  class DetailsMock extends ElementMock { open = true; }
+  Object.assign(f.context, { Element: ElementMock, HTMLDetailsElement: DetailsMock });
   Object.assign(f.window, { innerHeight: 1000, scrollY: 0,
     addEventListener: (name, handler, options) => listeners.set(name, { handler, options }),
     removeEventListener: name => listeners.delete(name),
@@ -301,6 +362,12 @@ test('the actual provider tracks contact links without interfering with navigati
   listeners.get('click').handler({ target: new ElementMock('mailto:private@example.com', 'footer') });
   assert.equal(f.events().find(e => e[1] === 'phone_click')[2].source_section, 'header');
   assert.equal(f.events().find(e => e[1] === 'email_click')[2].source_section, 'footer');
+  listeners.get('click').handler({ target: new ElementMock('/contact', 'content', { 'data-analytics-cta': 'service', 'data-analytics-service': '01' }) });
+  const question = new DetailsMock('', 'content', { 'data-analytics-question': 'brick-match' });
+  listeners.get('toggle').handler({ target: question });
+  listeners.get('toggle').handler({ target: question });
+  assert.equal(f.phCalls.filter(e => e[1] === 'faq_opened').length, 1);
+  assert.equal(f.phCalls.find(e => e[1] === 'estimate_cta_clicked')[2].service_id, '01');
   assert.equal(listeners.get('scroll').options.passive, true);
   function scroll(y) {
     f.window.scrollY = y;

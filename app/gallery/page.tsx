@@ -83,7 +83,7 @@ export default function GalleryPage() {
           <span className={styles.ctaTail}>like this?</span>
         </h2>
         <p>Share one wide view and a few close-ups so MCC can understand the full color relationship.</p>
-        <Link className="button" href="/contact">
+        <Link className="button" href="/contact" data-analytics-cta="closing">
           Request an estimate <span aria-hidden="true">→</span>
         </Link>
       </section>

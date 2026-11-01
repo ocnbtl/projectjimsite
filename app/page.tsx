@@ -142,7 +142,7 @@ export default function HomePage() {
             <span>10+ years of professional color matching. Based in Cincinnati, serving the Midwest and Southwest.</span>
           </p>
           <div className="hero-actions">
-            <Link className="button" href="/contact">
+            <Link className="button" href="/contact" data-analytics-cta="hero">
               Request a Free Estimate <span aria-hidden="true">→</span>
             </Link>
             <a className="button button-secondary" href={business.phoneHref}>
@@ -206,7 +206,7 @@ export default function HomePage() {
             Masonry color services
           </h2>
           {homeServices.map((service) => (
-            <Link href="/services" key={service.number}>
+            <Link href="/services" key={service.number} data-analytics-service={service.number}>
               <span className={styles.serviceIcon} aria-hidden="true">
                 <ServiceIcon name={service.icon} />
               </span>
@@ -329,7 +329,7 @@ export default function HomePage() {
             a few close-ups give us the context to understand the surface.
           </p>
           <div className={styles.closingActions}>
-            <Link className="button" href="/contact">
+            <Link className="button" href="/contact" data-analytics-cta="closing">
               Request an estimate <span aria-hidden="true">→</span>
             </Link>
             <a className="button button-dark-secondary" href={business.phoneHref}>
