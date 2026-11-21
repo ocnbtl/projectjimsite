@@ -3,26 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  analyticsPreferencesEvent,
-  denyAnalyticsConsent,
-  getAnalyticsConsentStatus,
-  grantAnalyticsConsent,
-  openAnalyticsPreferences,
-  type AnalyticsConsentStatus,
-} from "@/lib/analytics";
+import { getPrivacyPreferences, setPrivacyPreference, resolvePrivacyEligibility, privacyChangedEvent, type PrivacyPreferences } from "@/lib/analytics-preferences";
 import styles from "./analytics-consent.module.css";
-import { isAnalyticsBrowserExcluded } from "@/lib/analytics-runtime";
+import { hasBrowserPrivacySignal, isAnalyticsBrowserExcluded } from "@/lib/analytics-runtime";
 
-type AnalyticsPreferencesButtonProps = {
-  className?: string;
-};
-
-export function AnalyticsPreferencesButton({ className }: AnalyticsPreferencesButtonProps) {
+export function AnalyticsPreferencesLink({ className }: { className?: string }) {
   return (
-    <button className={className} type="button" onClick={openAnalyticsPreferences}>
-      Privacy choices
-    </button>
+    <Link className={className} href="/privacy#privacy-choices">
+      <Image src="/california-privacy-choices.svg" alt="" aria-hidden="true" width={30} height={14} />
+      <span>Your Privacy Choices</span>
+    </Link>
   );
 }
 
@@ -32,98 +22,36 @@ export function AnalyticsTestingStatus() {
     const timer = window.setTimeout(() => setExcluded(isAnalyticsBrowserExcluded()), 0);
     return () => window.clearTimeout(timer);
   }, []);
-  return <p role="status">{excluded === null ? "Checking this browser’s testing preference…"
+  return <p role="status">{excluded === null ? "Checking this browser's testing preference."
     : excluded ? "This browser is excluded from optional analytics, even if analytics consent is on."
     : "This browser is not excluded from analytics. Your consent choice still applies."}</p>;
 }
 
-export function AnalyticsConsent() {
-  const [status, setStatus] = useState<AnalyticsConsentStatus>("pending");
-  const [isOpen, setIsOpen] = useState(false);
-  const [announcement, setAnnouncement] = useState("");
-
+export function AnalyticsConsentSettings() {
+  const [choices, setChoices] = useState<PrivacyPreferences | null>(null);
+  const [signal, setSignal] = useState(false);
   useEffect(() => {
-    const initialSync = window.setTimeout(() => {
-      const currentStatus = getAnalyticsConsentStatus();
-      setStatus(currentStatus);
-      setIsOpen(currentStatus === "pending");
-    }, 0);
-
-    function showPreferences() {
-      setStatus(getAnalyticsConsentStatus());
-      setIsOpen(true);
-    }
-
-    window.addEventListener(analyticsPreferencesEvent, showPreferences);
+    const sync = () => { setChoices(getPrivacyPreferences()); setSignal(hasBrowserPrivacySignal()); };
+    const timer = window.setTimeout(sync, 0);
+    void resolvePrivacyEligibility();
+    window.addEventListener("storage", sync);
+    window.addEventListener("focus", sync);
+    window.addEventListener(privacyChangedEvent, sync);
     return () => {
-      window.clearTimeout(initialSync);
-      window.removeEventListener(analyticsPreferencesEvent, showPreferences);
+      window.clearTimeout(timer);
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("focus", sync);
+      window.removeEventListener(privacyChangedEvent, sync);
     };
   }, []);
-
-  function acceptAnalytics() {
-    grantAnalyticsConsent();
-    setStatus("granted");
-    setAnnouncement("Optional analytics are now on. You can change this in Privacy choices.");
-    setIsOpen(false);
-  }
-
-  function declineAnalytics() {
-    denyAnalyticsConsent();
-    setStatus("denied");
-    setAnnouncement("Optional analytics are now off. You can change this in Privacy choices.");
-    setIsOpen(false);
-  }
-
-  const statusMessage =
-    status === "granted"
-      ? "Optional analytics are currently on."
-      : status === "denied"
-        ? "Optional analytics are currently off."
-        : "Analytics are off until you choose.";
-
-  return (
-    <>
-      <p className="sr-only" aria-live="polite">
-        {announcement}
-      </p>
-      {isOpen ? (
-        <section
-          data-nosnippet
-          className={`${styles.panel} ph-no-capture`}
-          data-ph-no-capture="true"
-          aria-labelledby="analytics-consent-title"
-          aria-describedby="analytics-consent-description"
-        >
-          <div className={styles.brandColumn}>
-            <Image
-              className={styles.logo}
-              src="/images/brand/mcc-logo-transparent.png"
-              alt="MCC Masonry Color Corrections"
-              width={1609}
-              height={737}
-              sizes="148px"
-            />
-            <span>(513) 612-8421</span>
-          </div>
-          <div className={styles.copy}>
-            <h2 id="analytics-consent-title">Help MCC improve this website</h2>
-            <p id="analytics-consent-description">
-              Allow optional analytics and page recordings?
-            </p>
-            <p className={styles.status}>{statusMessage}</p>
-            <Link href="/privacy">Privacy details</Link>
-          </div>
-          <div className={styles.actions}>
-            <button className={styles.decline} type="button" onClick={declineAnalytics}>
-              Decline
-            </button>
-            <button className={styles.accept} type="button" onClick={acceptAnalytics}>
-              Accept
-            </button>
-          </div>
-        </section>
-      ) : null}
-    </>
-  );
+  return <section id="privacy-choices" tabIndex={-1} data-nosnippet className={styles.panel + " ph-no-capture"} data-ph-no-capture="true" aria-labelledby="privacy-choices-title">
+    <h2 id="privacy-choices-title">Your Privacy Choices</h2>
+    <p>Choose how we measure use of our public pages. Changes apply immediately to this browser and its other open tabs.</p>
+    {signal && <p role="status">Your browser’s GPC or Do Not Track signal keeps optional collection off.</p>}
+    {([ ["analytics", "Website analytics", "Page visits and selected public-page interactions."], ["heatmaps", "Heatmaps", "Where visitors click and scroll on public pages."], ["replay", "Masked page recordings", "A replay of public-page browsing with private content masked."] ] as const).map(([category, label, description]) => <div className={styles.preference} key={category}>
+      <div><h3>{label}</h3><p>{description}</p></div>
+      <button type="button" role="switch" aria-checked={choices?.[category] ?? false} aria-label={label} disabled={!choices || signal} onClick={() => setPrivacyPreference(category, !choices?.[category])}>{choices?.[category] ? "On" : "Off"}</button>
+    </div>)}
+    <p className={styles.status} aria-live="polite">{choices ? "Your current choices are shown above." : "Loading your choices…"}</p>
+  </section>;
 }

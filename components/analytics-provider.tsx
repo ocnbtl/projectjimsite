@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { captureAnalyticsEvent, captureAnalyticsException, captureAnalyticsPageview, getAnalyticsConsentStatus } from "@/lib/analytics";
+import { captureAnalyticsEvent, captureAnalyticsPageview, getAnalyticsConsentStatus, syncAnalyticsPreferences } from "@/lib/analytics";
+import { privacyChangedEvent, resolvePrivacyEligibility } from "@/lib/analytics-preferences";
 import { isAnalyticsRuntimeAllowed } from "@/lib/analytics-runtime";
 
 export function AnalyticsProvider() {
@@ -11,6 +12,21 @@ export function AnalyticsProvider() {
   useEffect(() => {
     captureAnalyticsPageview(pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    const sync = () => { syncAnalyticsPreferences(); captureAnalyticsPageview(window.location.pathname); };
+    window.addEventListener("storage", sync);
+    window.addEventListener("focus", sync);
+    window.addEventListener(privacyChangedEvent, sync);
+    window.addEventListener("popstate", sync);
+    void resolvePrivacyEligibility();
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("focus", sync);
+      window.removeEventListener(privacyChangedEvent, sync);
+      window.removeEventListener("popstate", sync);
+    };
+  }, []);
 
   useEffect(() => {
     function trackContactClick(event: MouseEvent) {
@@ -42,26 +58,6 @@ export function AnalyticsProvider() {
     document.addEventListener("toggle", trackQuestion, true);
     return () => document.removeEventListener("toggle", trackQuestion, true);
   }, [pathname]);
-
-  useEffect(() => {
-    function reportWebsiteError(error: unknown) {
-      // Extension and unrelated third-party failures are not MCC application bugs.
-      if (error instanceof Error && /https:\/\/(?:www\.)?masonrycolorcorrections\.com\/_next\/static\//.test(error.stack ?? "")) {
-        captureAnalyticsException(error);
-      }
-    }
-    function onError(event: ErrorEvent) {
-      // Ignore resource-load events; only report a sanitized JS error category.
-      if (event.error) reportWebsiteError(event.error);
-    }
-    function onRejection(event: PromiseRejectionEvent) { reportWebsiteError(event.reason); }
-    window.addEventListener("error", onError);
-    window.addEventListener("unhandledrejection", onRejection);
-    return () => {
-      window.removeEventListener("error", onError);
-      window.removeEventListener("unhandledrejection", onRejection);
-    };
-  }, []);
 
   useEffect(() => {
     const reached = new Set<number>();

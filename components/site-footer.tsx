@@ -1,5 +1,5 @@
 import { TransitionLink as Link } from "@/components/page-transitions";
-import { AnalyticsPreferencesButton } from "@/components/analytics-consent";
+import { AnalyticsPreferencesLink } from "@/components/analytics-consent";
 import { Brand } from "@/components/brand";
 import { business, navigation } from "@/content/site";
 
@@ -55,8 +55,8 @@ export function SiteFooter() {
         <div className="footer-legal" data-nosnippet>
           <span>© {new Date().getFullYear()} {business.name}</span>
           <div className="footer-legal-links">
-            <Link href="/privacy">Privacy</Link>
-            <AnalyticsPreferencesButton className="footer-privacy-button" />
+            <Link href="/privacy">Privacy Policy</Link>
+            <AnalyticsPreferencesLink className="footer-privacy-link" />
             <span>Website by Madagin</span>
             <a className="footer-office-link" href="https://office.masonrycolorcorrections.com" aria-label="MCC team sign in" title="Team sign in" rel="nofollow">
               <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

@@ -1356,6 +1356,8 @@ html[data-route-motion="morph"] .hero-copy .hero-actions { view-transition-name:
   border-top: 1px solid rgba(255, 255, 255, 0.13);
   color: #938d84;
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
   font-size: 0.75rem;
   grid-column: 1 / -1;
   justify-content: space-between;
@@ -1365,21 +1367,23 @@ html[data-route-motion="morph"] .hero-copy .hero-actions { view-transition-name:
 .footer-legal-links {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 22px;
 }
 
-.footer-privacy-button,
-.privacy-choice-button {
-  appearance: none;
-  background: transparent;
-  border: 0;
+.footer-privacy-link {
+  align-items: center;
   color: inherit;
-  cursor: pointer;
-  font: inherit;
-  padding: 0;
+  display: inline-flex;
+  gap: 8px;
+  min-height: 44px;
 }
 
-.footer-privacy-button:hover {
+.footer-privacy-link img {
+  flex-shrink: 0;
+}
+
+.footer-privacy-link:hover {
   color: white;
 }
 
@@ -1403,14 +1407,6 @@ html[data-route-motion="morph"] .hero-copy .hero-actions { view-transition-name:
 .footer-office-link:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
-}
-
-.privacy-choice-button {
-  border-bottom: 1px solid currentColor;
-  color: var(--clay);
-  font-weight: 750;
-  margin-top: 4px;
-  padding-bottom: 2px;
 }
 
 @media (max-width: 1120px) {
