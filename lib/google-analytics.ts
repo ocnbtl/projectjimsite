@@ -1,4 +1,5 @@
 import { isAnalyticsRuntimeAllowed } from "./analytics-runtime";
+import { cleanAnalyticsUrl } from "./analytics-privacy";
 
 // Public web-stream identifier, not an API credential. MCC public website only.
 export const googleMeasurementId = "G-31N6YVTJ32";
@@ -31,18 +32,55 @@ function isGoogleCollection(value: string | URL) {
   } catch { return false; }
 }
 
+function approvedGoogleHit(value: string | URL, body?: unknown) {
+  if (!mayCollect()) return false;
+  try {
+    const url = new URL(value, window.location.origin);
+    if (body != null && typeof body !== "string") return false;
+    const rows = typeof body === "string" && body ? body.split("\n") : [""];
+    return rows.every(row => {
+      const params = new URLSearchParams(url.search);
+      new URLSearchParams(row).forEach((v, k) => params.set(k, v));
+      // Only MCC's explicit, sanitized events may leave. Vendor automatic
+      // history/outbound/form events do not inherit this per-event marker.
+      if (params.get("ep.mcc_scope") !== "public_v2"
+        || !["page_view", "scroll_depth", "phone_click", "email_click"].includes(params.get("en") ?? "")) return false;
+      if (params.has("dt") && !Object.values(publicPages).some(title => params.get("dt") === `${title} | MCC`)) return false;
+      if (params.has("ep.source_section") && !["header", "footer", "content"].includes(params.get("ep.source_section")!)) return false;
+      if (params.has("epn.percent_scrolled") && !["25", "50", "75"].includes(params.get("epn.percent_scrolled")!)) return false;
+      for (const key of params.keys()) {
+        if (key.startsWith("up.") || key.startsWith("upn.")) return false;
+        if (/^epn?\./.test(key) && !["ep.mcc_scope", "ep.source_section", "epn.percent_scrolled"].includes(key)) return false;
+      }
+      for (const key of ["dl", "dr"]) {
+        const entry = params.get(key);
+        if (!entry) continue;
+        const address = new URL(entry);
+        if (address.search || address.hash || address.username || address.password) return false;
+        if (key === "dr" && address.pathname !== "/" && address.origin !== origin) return false;
+        if (key === "dl" && (address.origin !== origin || !Object.hasOwn(publicPages, address.pathname))) return false;
+      }
+      return true;
+    });
+  } catch { return false; }
+}
+
 function installCollectionGuard() {
   if (guardInstalled) return;
   guardInstalled = true;
   const beacon = navigator.sendBeacon;
   if (beacon) navigator.sendBeacon = function (url, data) {
-    if (isGoogleCollection(url) && !mayCollect()) return false;
+    if (isGoogleCollection(url) && !approvedGoogleHit(url, data)) return false;
     return beacon.call(this, url, data);
   };
   const fetchRequest = window.fetch;
   window.fetch = function (input, init) {
     const url = input instanceof Request ? input.url : input;
-    if (isGoogleCollection(url) && !mayCollect()) return Promise.resolve(new Response(null, { status: 204 }));
+    if (isGoogleCollection(url) && input instanceof Request && init?.body == null && !["GET", "HEAD"].includes(init?.method ?? input.method)) {
+      return input.clone().text().then(body => approvedGoogleHit(url, body)
+        ? fetchRequest.call(this, input, init) : new Response(null, { status: 204 }));
+    }
+    if (isGoogleCollection(url) && !approvedGoogleHit(url, init?.body)) return Promise.resolve(new Response(null, { status: 204 }));
     return fetchRequest.call(this, input, init);
   };
   const destinations = new WeakMap<XMLHttpRequest, string>();
@@ -53,16 +91,13 @@ function installCollectionGuard() {
     return open.call(this, method, url, async, username, password);
   };
   XMLHttpRequest.prototype.send = function (body) {
-    if (isGoogleCollection(destinations.get(this) ?? "") && !mayCollect()) { this.abort(); return; }
+    if (isGoogleCollection(destinations.get(this) ?? "") && !approvedGoogleHit(destinations.get(this)!, body)) { this.abort(); return; }
     return send.call(this, body);
   };
 }
 
 function cleanReferrer() {
-  try {
-    const url = new URL(document.referrer);
-    return ["http:", "https:"].includes(url.protocol) ? `${url.origin}/` : "";
-  } catch { return ""; }
+  return cleanAnalyticsUrl(document.referrer, true);
 }
 
 export function initializeGoogleAnalytics(consent: () => boolean) {
@@ -146,14 +181,14 @@ export function captureGooglePageview(pathname: string) {
     page_referrer: lastPage ? `${origin}${lastPage}` : cleanReferrer(),
   };
   win.gtag?.("set", context);
-  win.gtag?.("event", "page_view", { ...context, send_to: googleMeasurementId });
+  win.gtag?.("event", "page_view", { ...context, send_to: googleMeasurementId, mcc_scope: "public_v2" });
   lastPage = pathname;
 }
 
 // Never forward arbitrary properties, form text, link destinations, or identifiers.
 export function captureGoogleEvent(name: string, properties?: Record<string, string | number | boolean>) {
   if (!active || !mayCollect()) return;
-  const params: Record<string, string | number> = { send_to: googleMeasurementId };
+  const params: Record<string, string | number> = { send_to: googleMeasurementId, mcc_scope: "public_v2" };
   let event: string;
   switch (name) {
     case "consultation_form_started": event = "form_start"; params.form_id = "estimate_request"; break;

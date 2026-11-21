@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getPrivacyPreferences, setPrivacyPreference, resolvePrivacyEligibility, privacyChangedEvent, type PrivacyPreferences } from "@/lib/analytics-preferences";
+import { getPrivacyPreferences, setPrivacyPreference, resolvePrivacyEligibility, privacyChangedEvent, hasEffectivePrivacySignal, isPrivacyEligibilityReady, canSavePrivacyChoices, type PrivacyPreferences } from "@/lib/analytics-preferences";
 import styles from "./analytics-consent.module.css";
-import { hasBrowserPrivacySignal, isAnalyticsBrowserExcluded } from "@/lib/analytics-runtime";
+import { isAnalyticsBrowserExcluded } from "@/lib/analytics-runtime";
 
 export function AnalyticsPreferencesLink({ className }: { className?: string }) {
   return (
@@ -30,8 +30,10 @@ export function AnalyticsTestingStatus() {
 export function AnalyticsConsentSettings() {
   const [choices, setChoices] = useState<PrivacyPreferences | null>(null);
   const [signal, setSignal] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [storageReady, setStorageReady] = useState(false);
   useEffect(() => {
-    const sync = () => { setChoices(getPrivacyPreferences()); setSignal(hasBrowserPrivacySignal()); };
+    const sync = () => { setChoices(getPrivacyPreferences()); setSignal(hasEffectivePrivacySignal()); setReady(isPrivacyEligibilityReady()); setStorageReady(canSavePrivacyChoices()); };
     const timer = window.setTimeout(sync, 0);
     void resolvePrivacyEligibility();
     window.addEventListener("storage", sync);
@@ -50,8 +52,8 @@ export function AnalyticsConsentSettings() {
     {signal && <p role="status">Your browser’s GPC or Do Not Track signal keeps optional collection off.</p>}
     {([ ["analytics", "Website analytics", "Page visits and selected public-page interactions."], ["heatmaps", "Heatmaps", "Where visitors click and scroll on public pages."], ["replay", "Masked page recordings", "A replay of public-page browsing with private content masked."] ] as const).map(([category, label, description]) => <div className={styles.preference} key={category}>
       <div><h3>{label}</h3><p>{description}</p></div>
-      <button type="button" role="switch" aria-checked={choices?.[category] ?? false} aria-label={label} disabled={!choices || signal} onClick={() => setPrivacyPreference(category, !choices?.[category])}>{choices?.[category] ? "On" : "Off"}</button>
+      <button type="button" role="switch" aria-checked={choices?.[category] ?? false} aria-label={label} disabled={!ready || !storageReady || signal} onClick={() => setPrivacyPreference(category, !choices?.[category])}>{choices?.[category] ? "On" : "Off"}</button>
     </div>)}
-    <p className={styles.status} aria-live="polite">{choices ? "Your current choices are shown above." : "Loading your choices…"}</p>
+    <p className={styles.status} aria-live="polite">{signal ? "Your browser’s privacy signal is being honored." : ready && !storageReady ? "Your browser cannot save these choices, so optional collection stays off. Allow site storage to use these controls." : ready ? "Your current choices are shown above." : "Optional collection is off while we check availability. If these controls remain unavailable, please reload this page."}</p>
   </section>;
 }

@@ -47,8 +47,11 @@ export default function PrivacyPage() {
           .
         </p>
         <p>
-          Optional collection stays off when your location is unknown or a reviewed regional policy
-          does not allow it by default. You can turn each category on or off below. A previous decline,
+          Optional collection starts on for eligible public browsing in the United States.
+          Recordings require an opt-in in states covered by our stricter recording policy.
+          Outside the United States, or when your location is unknown, collection stays off until
+          you choose to enable it. You can turn each
+          category on or off below. A previous decline,
           Global Privacy Control, Do Not Track, and staff testing exclusions take precedence over defaults.
         </p>
         <p>

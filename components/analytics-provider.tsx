@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { captureAnalyticsEvent, captureAnalyticsPageview, getAnalyticsConsentStatus, syncAnalyticsPreferences } from "@/lib/analytics";
 import { privacyChangedEvent, resolvePrivacyEligibility } from "@/lib/analytics-preferences";
+import { analyticsNavigationEvent } from "@/lib/analytics-navigation";
 import { isAnalyticsRuntimeAllowed } from "@/lib/analytics-runtime";
 
 export function AnalyticsProvider() {
@@ -19,12 +20,14 @@ export function AnalyticsProvider() {
     window.addEventListener("focus", sync);
     window.addEventListener(privacyChangedEvent, sync);
     window.addEventListener("popstate", sync);
+    window.addEventListener(analyticsNavigationEvent, sync);
     void resolvePrivacyEligibility();
     return () => {
       window.removeEventListener("storage", sync);
       window.removeEventListener("focus", sync);
       window.removeEventListener(privacyChangedEvent, sync);
       window.removeEventListener("popstate", sync);
+      window.removeEventListener(analyticsNavigationEvent, sync);
     };
   }, []);
 

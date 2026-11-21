@@ -1,12 +1,15 @@
-import posthog from "posthog-js";
+import type { PostHog } from "posthog-js";
 import { cleanAnalyticsUrl, safeActivityProperties, safeCampaignProperties, sanitizeAnalyticsProperties } from "./analytics-privacy";
 import { getPrivacyPreferences, setPrivacyPreference } from "./analytics-preferences";
 import { maskReplayText, maskReplayAttribute } from "./replay-privacy";
 import { installAnalyticsTransportGuard } from "./analytics-transport";
+import { installAnalyticsNavigationGuard } from "./analytics-navigation";
 import { hasBrowserPrivacySignal, isAnalyticsRuntimeAllowed } from "./analytics-runtime";
 import { captureGoogleEvent, captureGooglePageview, initializeGoogleAnalytics, stopGoogleAnalytics } from "./google-analytics";
 
 let initialized = false;
+let posthog: PostHog | null = null;
+let sdkLoading: Promise<void> | undefined;
 let lastPage = "";
 
 export type AnalyticsConsentStatus = "granted" | "denied" | "pending";
@@ -33,9 +36,25 @@ export function initializeAnalytics() {
   const choices = getPrivacyPreferences();
   if (!Object.values(choices).some(Boolean)) return null;
   installAnalyticsTransportGuard();
+  installAnalyticsNavigationGuard(() => {
+    if (!initialized || !posthog) return;
+    posthog.stopSessionRecording();
+    posthog.set_config({ capture_heatmaps: false, disable_session_recording: true });
+  });
   const mayCollect = () => getPrivacyPreferences().analytics && isAnalyticsRuntimeAllowed();
   if (choices.analytics) {
     try { initializeGoogleAnalytics(mayCollect); } catch { /* Optional measurement must not break the website. */ }
+  }
+  // The SDK caches transport references at import time. Install the live
+  // permission guards first so delayed requests/retries cannot retain an
+  // unguarded fetch or beacon reference.
+  if (!posthog) {
+    sdkLoading ??= import("posthog-js").then(module => {
+      posthog = module.default;
+      syncAnalyticsPreferences();
+      captureAnalyticsPageview(window.location.pathname);
+    }).catch(() => { sdkLoading = undefined; });
+    return null;
   }
   if (initialized) return posthog;
 
@@ -54,8 +73,11 @@ export function initializeAnalytics() {
     ui_host: getPostHogUiHost(host),
     defaults: "2026-01-30",
     autocapture: false,
+    advanced_disable_feature_flags_on_first_load: true,
     request_batching: false,
     disable_compression: true,
+    disable_beacon: true,
+    logs: { captureConsoleLogs: false },
     capture_pageview: false,
     disable_capture_url_hashes: true,
     save_campaign_params: false,
@@ -80,7 +102,7 @@ export function initializeAnalytics() {
       if (!isAnalyticsRuntimeAllowed()) return null;
       const permission = getPrivacyPreferences();
       if (event.event === "$snapshot" ? !permission.replay
-        : event.event === "$heatmaps" ? !permission.heatmaps : !permission.analytics) return null;
+        : ["$heatmaps", "$$heatmap"].includes(event.event) ? !permission.heatmaps : !permission.analytics) return null;
       event.properties = sanitizeAnalyticsProperties(event.properties);
       return event;
     },
@@ -114,7 +136,7 @@ export function syncAnalyticsPreferences() {
   const choices = getPrivacyPreferences();
   const allowed = isAnalyticsRuntimeAllowed();
   if (!choices.analytics || !allowed) { stopGoogleAnalytics(); lastPage = ""; }
-  if (initialized) {
+  if (initialized && posthog) {
     if (!choices.replay || !allowed) posthog.stopSessionRecording();
     posthog.set_config({ capture_heatmaps: allowed && choices.heatmaps, disable_session_recording: !allowed || !choices.replay });
     if (!allowed || !Object.values(choices).some(Boolean)) {

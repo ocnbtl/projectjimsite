@@ -2,6 +2,7 @@
 // filenames, submission IDs, arbitrary link text, or error messages through here.
 const publicPaths = new Set(["/", "/services", "/gallery", "/about", "/contact", "/masonry-staining", "/privacy"]);
 const publicHosts = new Set(["masonrycolorcorrections.com", "www.masonrycolorcorrections.com"]);
+const acquisitionHosts = new Set(["google.com", "www.google.com", "bing.com", "www.bing.com", "facebook.com", "www.facebook.com", "l.facebook.com", "instagram.com", "www.instagram.com", "chatgpt.com", "perplexity.ai", "www.perplexity.ai", "duckduckgo.com", "www.duckduckgo.com"]);
 const failureReasons = ["validation_error", "security_check_missing", "security_check_failed", "photos_too_large", "invalid_photo_type", "too_many_photos", "delivery_unavailable", "delivery_error", "invalid_response", "network_or_preparation_error"];
 
 export function cleanAnalyticsUrl(value: unknown, referrer = false): string {
@@ -9,7 +10,8 @@ export function cleanAnalyticsUrl(value: unknown, referrer = false): string {
   try {
     const url = new URL(value, "https://masonrycolorcorrections.com");
     if (!["https:", "http:"].includes(url.protocol)) return "";
-    if (referrer || !publicHosts.has(url.hostname)) return `${url.origin}/`;
+    if (referrer) return publicHosts.has(url.hostname) || acquisitionHosts.has(url.hostname) ? `${url.origin}/` : "";
+    if (!publicHosts.has(url.hostname)) return "";
     return `${url.origin}${publicPaths.has(url.pathname) ? url.pathname : "/"}`;
   } catch { return ""; }
 }
@@ -17,6 +19,15 @@ export function cleanAnalyticsUrl(value: unknown, referrer = false): string {
 export function sanitizeAnalyticsProperties(properties: Record<string, unknown>, depth = 0): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(properties)) {
+    if (/search_?(?:keyword|term|query)/i.test(key)) continue;
+    if (/^(?:\$initial_)?(?:\$?title|page_title)$/.test(key)) {
+      result[key] = "MCC public page";
+      continue;
+    }
+    if (/referring_domain$/i.test(key)) {
+      result[key] = typeof value === "string" && (acquisitionHosts.has(value) || publicHosts.has(value)) ? value : "";
+      continue;
+    }
     // Ad click identifiers and arbitrary campaign values can contain customer data.
     const campaignKey = key.replace(/^\$initial_/, "");
     if (campaignKey === "utm_source" || campaignKey === "utm_medium") {
