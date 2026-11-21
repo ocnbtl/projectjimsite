@@ -9,6 +9,7 @@
 - Prepared branch: `codex/mcc-privacy-live-20261120`.
 - First hosted preview: `7e0780954e85143fb31d7ccd02a0a771010bb27a`, Ready at https://project-jimsite-mokmp8lor-unigentamos.vercel.app/ . This first preview is superseded by the subsequent fixes on the branch; do not promote it.
 - Linx owns final push, current-preview verification, and production promotion. No production promotion is claimed by this document.
+- Linx reports that the initial `641818e842b2118a2d6688bda973ef32c362f5a5` release passed 30 production checks. This geographic follow-up needs its own hosted verification and promotion; that earlier result does not sign off this follow-up.
 
 ## Changes
 
@@ -25,13 +26,17 @@
 
 ## Geographic scope and reasons
 
-The launch policy is `us-public-v2`, without a new environment variable. It uses Vercel's country/state headers only on Vercel, with private/no-store responses varying on location and privacy-signal headers. A missing or invalid state is not treated as an unrestricted US location. The response exposes the coarse policy jurisdiction, never an IP address.
+The follow-up policy is `public-geography-v3`, without a new environment variable. It replaces the initial US-only scope in commit `641818e842b2118a2d6688bda973ef32c362f5a5`. It uses Vercel's country/state headers only on Vercel, with private/no-store responses varying on location and privacy-signal headers. A missing US state holds replay while allowing ordinary analytics and heatmaps. The response exposes the coarse policy jurisdiction, never an IP address.
+
+The recognized location set contains 249 assigned ISO alpha-2 country/area codes. It was checked against the [UN Statistics Division M49 ISO-alpha2 table](https://unstats.un.org/unsd/methodology/m49/overview/) (248 entries) plus ISO-assigned `TW`; see [ISO's code system](https://www.iso.org/iso-3166-country-codes.html). Reserved/unknown strings and aliases such as `ZZ`, `XX`, `UK`, and `USA` are not accepted as country locations.
 
 | Visitor location | Analytics / heatmaps | Replay |
 |---|---|---|
-| Recognized US state or DC | On by default, subject to saved choices, signals, storage and path checks | On by default except the states below |
+| Known country/area, except the named prior-choice locations below | On by default, subject to saved choices, signals, storage and path checks | On by default, with the US state exceptions below |
+| US, missing or invalid state | On by default, subject to all privacy checks | Prior explicit choice |
 | CA, FL, IL, MD, MT, NH, NV, PA, WA | Same public analytics / heatmap policy | Prior explicit choice |
-| Non-US or unknown | Prior explicit choice | Prior explicit choice |
+| Named country-level prior-choice location below | Prior explicit choice | Prior explicit choice |
+| Unknown / invalid country | Prior explicit choice | Prior explicit choice |
 
 The recording exceptions are a conservative engineering policy for third-party recording/interception risk, **not** a statement that every masked public-page replay is illegal in these states. They apply to replay, rather than disabling all public analytics. Specific sources:
 
@@ -45,11 +50,23 @@ The recording exceptions are a conservative engineering policy for third-party r
 - **Pennsylvania:** [18 Pa.C.S. §5704(4)](https://www.legis.state.pa.us/WU01/LI/LI/CT/HTM/18/00.057.004.000..HTM), prior consent of all parties for covered wire/electronic/oral interception.
 - **Washington:** [RCW 9.73.030](https://app.leg.wa.gov/RCW/default.aspx?cite=9.73.030), consent for recording/transmission of covered private communications and conversations.
 
-All non-US traffic follows an explicit-choice policy. This is an intentional conservative rollout scope, not a claim that every non-US jurisdiction legally requires it. EEA/UK rules concerning nonessential storage and [Google's EU user consent policy](https://www.google.com/about/company/user-consent-policy/) are concrete reasons to retain a prior-consent path internationally. No location is inferred from language, time zone, proximity to Cincinnati, or the absence of a known restriction. Broadening the non-US default would require a distinct, documented policy decision.
+Country-level holds apply to the current persistent third-party optional measurement tools, not to necessary hosting/security or the storage of privacy choices:
+
+| Location codes | Concrete basis for prior choice in this implementation |
+|---|---|
+| EEA: `AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO` | Nonessential storage/reading under the [ePrivacy framework](https://eur-lex.europa.eu/eli/dir/2002/58/oj/eng) and the EEA scope of [Google's EU user consent policy](https://www.google.com/about/company/user-consent-policy/). The present third-party identifiers and individual recordings are not treated as a purely aggregate audience-measurement exemption. |
+| EU areas with separate codes: `AX GF GP MF MQ RE YT` | The same EU-country policy is applied to Åland/Finland and the relevant French outermost areas, rather than treating a separate ISO code as a non-EU exemption. The [European Commission identifies the French outermost areas as EU territories](https://regions-and-cities.ec.europa.eu/policy/themes/outermost-regions_en). |
+| UK `GB` | [ICO guidance on cookies and similar technologies](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/cookies-and-similar-technologies/) and Google's named UK scope. This release does not assert that these persistent third-party tools qualify for a statistical/necessary-storage exemption. |
+| Switzerland `CH` | Google's consent policy explicitly includes Switzerland. MCC retains prior choice for its current optional tools in that named vendor-policy region; this is not a statement that Swiss law demands prior consent for every cookie. The policy's storage duties are conditional on legal requirements and its ads duties on ads use; personalized advertising remains disabled here. |
+| Türkiye `TR` | [KVKK decision 2022/1358](https://www.kvkk.gov.tr/Icerik/7595/2022-1358), concerning cookie transparency, explicit consent, and overseas processing. MCC does not start its nonessential third-party tools before an affirmative choice. |
+| Mainland China `CN` | [PIPL Article 39](https://en.spp.gov.cn/2021-12/29/c_948419_2.htm) addresses information and separate consent when personal information is provided abroad. MCC's Google/PostHog processing is overseas. The privacy page identifies the providers, data categories, purposes, international processing, and rights/contact links before the independent on/off choices. This hold is not imposed on `HK`, `MO`, or `TW` by analogy. |
+| Brazil `BR` | The [ANPD cookie guide](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-cookies-e-protecao-de-dados-pessoais.pdf/@@display-file/file) distinguishes consent from legitimate interest and permits certain audience measurement under legitimate interest in suitable contexts. It does **not** establish that all analytics require consent. For MCC's optional identifiers, individual browsing heatmaps and replay, this release retains the consent basis and requires affirmative choice; it does not silently rebase those operations onto legitimate interest or claim an aggregate-only exemption. The privacy page states this disposition. |
+
+Other recognized countries follow the requested default-on operational policy, with all masking, exclusions, signals and immediate withdrawal intact. No location is inferred from language, time zone, or proximity. This implementation and source list are not a certification of every country's data-protection obligations; additional identified restrictions must be added by their actual scope rather than turning every unreviewed country off.
 
 ## Verification and limits
 
-- TypeScript and ESLint pass on the reviewed source; focused privacy tests cover headers, deferred eligibility, previous choices, unavailable storage, sensitive routes, batch envelopes, heatmap-only mode, queued transport, Google hit validation, and pre-History pause order.
+- All 58 regression tests, TypeScript, ESLint and diff checks pass on the geographic follow-up. Focused privacy tests cover headers, deferred eligibility, previous choices, unavailable storage, sensitive routes, batch envelopes, heatmap-only mode, queued transport, Google hit validation, pre-History pause order, eligible/restricted countries, missing US states and invalid location codes.
 - Consultation regression tests use a mocked email provider and synthetic photos. No real estimate/email was submitted. Navigation and property-selection regressions pass.
 - Actual PostHog 1.444.0 and Google's script were exercised in an isolated local SDK fixture. Public markup came from the production public homepage; source modules were transpiled directly, with only local host/HTTPS gates adjusted. Vendor configuration and geographic eligibility were synthetic. Collection was diverted to localhost, with CSP independently preventing direct external collection.
 - Recursively decoded desktop and mobile replay payloads retained public copy and omitted body-text, attribute, form, hidden-field, upload, console, and network canaries. Heatmaps and analytics emitted genuine SDK packets. Independent choices, cross-tab updates, reload persistence, GPC and DNT were observed. Recordings require a visible page; the mobile test was repeated after showing the browser.

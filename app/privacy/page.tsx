@@ -47,10 +47,11 @@ export default function PrivacyPage() {
           .
         </p>
         <p>
-          Optional collection starts on for eligible public browsing in the United States.
-          Recordings require an opt-in in states covered by our stricter recording policy.
-          Outside the United States, or when your location is unknown, collection stays off until
-          you choose to enable it. You can turn each
+          Optional collection starts on for eligible public browsing. In locations covered by
+          our prior-choice policy, it stays off until you enable it. Recordings also require an
+          opt-in in states covered by our stricter recording policy, or when a US state is unknown.
+          If your country is unknown, all optional collection stays off until you choose to enable it.
+          You can turn each
           category on or off below. A previous decline,
           Global Privacy Control, Do Not Track, and staff testing exclusions take precedence over defaults.
         </p>
@@ -66,6 +67,19 @@ export default function PrivacyPage() {
           contact details, photos, or full URL query strings. Advertising personalization and Google
           signals are disabled. A phone or email click does not mean a conversation or job took place.
           See Google’s <a href="https://policies.google.com/privacy" rel="noreferrer" target="_blank">privacy policy</a>.
+        </p>
+        <h2>Where optional information is processed</h2>
+        <p>
+          Google Analytics and PostHog may process the selected public-page usage information outside
+          your country, including in the United States. Website analytics can include an anonymous
+          browser identifier, device information, page visits, and selected clicks. Heatmaps and masked
+          recordings are processed by PostHog. The provider privacy links above explain how to contact
+          each provider and exercise your rights; you can also contact MCC using the address below.
+        </p>
+        <p>
+          Turning a category on is a separate choice to send that category’s information to its providers,
+          including for processing abroad. You can use this website without enabling any category and
+          withdraw each choice below. For Brazil, MCC uses your consent for these optional tools.
         </p>
         <AnalyticsConsentSettings />
         <h2>Staff and testing</h2>

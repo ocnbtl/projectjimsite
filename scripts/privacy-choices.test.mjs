@@ -42,12 +42,20 @@ test('stored consent cannot start collection before header eligibility resolves'
   assert.equal(f.load('analytics-preferences').getPrivacyPreferences().analytics, false);
 });
 
-test('edge policy is feature-specific and honors header signals and missing location', async () => {
+function edgePolicyFixture() {
   const exp = {};
   const source = readFileSync(new URL('../app/api/analytics-eligibility/route.ts', import.meta.url), 'utf8');
   const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
-  vm.runInNewContext('(function(exports){' + js + '})', { Request, Response, process: { env: { VERCEL: '1' } } })(exp);
-  const policy = async headers => (await exp.GET(new Request('https://masonrycolorcorrections.com/api/analytics-eligibility', { headers }))).json();
+  const require = name => {
+    assert.equal(name, '@/content/iso-country-codes.json');
+    return { __esModule: true, default: JSON.parse(readFileSync(new URL('../content/iso-country-codes.json', import.meta.url), 'utf8')) };
+  };
+  vm.runInNewContext('(function(exports,require){' + js + '})', { Request, Response, process: { env: { VERCEL: '1' } } })(exp, require);
+  return async headers => (await exp.GET(new Request('https://masonrycolorcorrections.com/api/analytics-eligibility', { headers }))).json();
+}
+
+test('edge policy is feature-specific and honors header signals and missing location', async () => {
+  const policy = edgePolicyFixture();
   for (const state of ['OH', 'KY', 'IN', 'WV', 'MI', 'TX', 'AZ', 'NM']) {
     const p = await policy({ 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': state });
     assert.equal(p.defaults.replay, true, state);
@@ -58,9 +66,47 @@ test('edge policy is feature-specific and honors header signals and missing loca
     assert.equal(p.defaults.heatmaps, true, state);
     assert.equal(p.defaults.replay, false, state);
   }
-  for (const headers of [{}, { 'x-vercel-ip-country': 'US' }, { 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': 'ZZ' }, { 'x-vercel-ip-country': 'GB', 'x-vercel-ip-country-region': 'ENG' }, { 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': 'OH', 'sec-gpc': '1' }, { 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': 'OH', dnt: '1' }]) {
+  for (const headers of [{}, { 'x-vercel-ip-country': 'ZZ' }, { 'x-vercel-ip-country': 'GB', 'x-vercel-ip-country-region': 'ENG' }, { 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': 'OH', 'sec-gpc': '1' }, { 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': 'OH', dnt: '1' }]) {
     const p = await policy(headers);
     assert.equal(Object.values(p.defaults).some(Boolean), false);
+  }
+});
+
+test('eligible known non-US locations default to all supported categories', async () => {
+  const policy = edgePolicyFixture();
+  for (const country of ['JP', 'AU', 'CA', 'NZ']) {
+    const p = await policy({ 'x-vercel-ip-country': country });
+    assert.equal(p.defaults.analytics, true, country);
+    assert.equal(p.defaults.heatmaps, true, country);
+    assert.equal(p.defaults.replay, true, country);
+  }
+});
+
+test('named prior-choice and vendor locations stay off by default', async () => {
+  const policy = edgePolicyFixture();
+  for (const country of ['DE', 'GB', 'CH', 'TR', 'CN', 'BR', 'AX', 'GF', 'GP', 'MF', 'MQ', 'RE', 'YT']) {
+    const p = await policy({ 'x-vercel-ip-country': country });
+    assert.equal(Object.values(p.defaults).some(Boolean), false, country);
+  }
+});
+
+test('known US with an unknown state allows ordinary measurement and holds replay', async () => {
+  const policy = edgePolicyFixture();
+  for (const region of ['', 'ZZ', 'California']) {
+    const p = await policy({ 'x-vercel-ip-country': 'US', 'x-vercel-ip-country-region': region });
+    assert.equal(p.defaults.analytics, true);
+    assert.equal(p.defaults.heatmaps, true);
+    assert.equal(p.defaults.replay, false);
+    assert.equal(p.jurisdiction, 'US-unknown');
+  }
+});
+
+test('invalid and unavailable country values never activate a default', async () => {
+  const policy = edgePolicyFixture();
+  for (const country of ['', 'ZZ', 'XX', 'UK', 'USA', 'jp', '1A']) {
+    const p = await policy({ 'x-vercel-ip-country': country });
+    assert.equal(Object.values(p.defaults).some(Boolean), false, country);
+    assert.equal(p.jurisdiction, 'unknown');
   }
 });
 
